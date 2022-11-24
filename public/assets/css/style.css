@@ -1,0 +1,379 @@
+@font-face {
+	font-family: 'yekan';
+	src: url('fonts/yekan.eot');
+	src: url('fonts/yekan.eot?#iefix') format('embedded-opentype'),
+		url('fonts/yekan.woff2') format('woff2'),
+		url('fonts/yekan.woff') format('woff'),
+		url('fonts/yekan.ttf') format('truetype');
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: 'sans';
+	src: url('fonts/Sans.eot');
+	src: url('fonts/Sans.eot?#iefix') format('embedded-opentype'),
+		url('fonts/Sans.woff') format('woff'),
+		url('fonts/Sans.ttf') format('truetype');
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: 'Lalezar';
+	src: url('fonts/Lalezar.eot');
+	src: url('fonts/Lalezar.eot?#iefix') format('embedded-opentype'),
+		url('fonts/Lalezar.woff2') format('woff2'),
+		url('fonts/Lalezar.woff') format('woff'),
+		url('fonts/Lalezar.ttf') format('truetype');
+	font-weight: normal;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	overflow-x: hidden;
+}
+
+#numcardkesavarzi-card {
+	cursor: pointer;
+}
+
+#header-image {
+	width: 100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+
+}
+
+#madadjoo {
+	margin-top: 10px;
+}
+
+#khanevar {
+	margin-top: 10px;
+}
+
+#project-omrani {
+	margin-top: 26px;
+}
+
+.header-image-res {
+	background-image: linear-gradient(-45deg, #457b9d13, #1d3557), url('../images/bg-header-res.jpg');
+	background-position-y: bottom;
+}
+
+.header-image {
+	background-image: linear-gradient(45deg, #457b9d13, #1d3557), url('../images/bg-header.jpg');
+}
+
+.my-h1 {
+	font-size: 20px;
+}
+
+p {
+	font-family: Sans;
+}
+
+.font-sans {
+	font-family: Sans;
+}
+
+.font-Lalezar {
+	font-family: Lalezar;
+}
+
+.font-yekan {
+	font-family: yekan;
+}
+
+.My-nav a:hover {
+	color: #d0e3ff;
+}
+
+.map {
+	width: 100%;
+	height: 350px;
+	background-image: url('../images/map.PNG');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.my-nav-link {
+	font-family: Sans;
+	color: #ebf3ff;
+	flex-basis: 0;
+	flex-grow: 1;
+	text-align: center;
+	width: 100%;
+	display: block;
+	padding: .5rem 1rem;
+	text-decoration: none;
+}
+
+.My-nav a:hover {
+	border-bottom: 5px solid #457b9d;
+	border-radius: 5px;
+}
+
+#hadis {
+	margin-top: auto;
+	margin-bottom: auto;
+	font-family: Sans;
+}
+
+#hadis h4 {
+	color: #c2dbff;
+}
+
+#hadis p {
+	color: #fafcff;
+}
+
+#Amar {
+	margin-top: -50px;
+}
+
+#about {
+	margin-top: -40px;
+}
+
+#download-app {
+	background-image: linear-gradient(45deg, #457b9d13, #1d3557), url('../images/bg-kheirieh.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+
+}
+
+#donite {
+	background-image: linear-gradient(45deg, #457b9d13, #1d3557), url('../images/bg-kheirieh.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.title-color {
+	color: #457b9d;
+}
+
+.ThemeStyle {
+	background-image: linear-gradient(45deg, #457b9d, #1d3557);
+	border-radius: 40px;
+}
+
+.ThemeStyle-gradient {
+	background-image: linear-gradient(45deg, #457b9d, #1d3557);
+}
+
+.ThemeStyle-90 {
+	background-image: linear-gradient(90deg, #457b9d, #1d3557);
+	border-radius: 40px;
+}
+
+.ThemeStyle-border {
+	border-radius: 40px;
+}
+
+.ThemeStyle-button {
+	border-radius: 18px;
+
+	border: 10px solid #457b9d;
+
+
+}
+
+.ThemeStyleShadow {
+	box-shadow: 0px 0px 30px #1d355780;
+}
+
+.ThemeStyleShadow-Hover:hover {
+	box-shadow: 0px 0px 30px #1d355780;
+}
+
+.mynawmenu {
+	margin-top: -30px;
+}
+
+.Amar-Card {
+	font-family: Lalezar;
+	padding: 30px;
+	color: white;
+}
+
+.card-img-top-index {
+	border-top-right-radius: 40px;
+	border-top-left-radius: 40px;
+}
+
+.right-elm {
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+	height: 200px;
+}
+
+.left-elm {
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+	background-image: linear-gradient(-45deg, #457b9d, #1d3557);
+	height: 200px;
+}
+
+.tozihat {
+	/* margin-top: -50px; */
+	font-family: sans;
+}
+
+.tozihat h5 {
+
+	line-height: 50px;
+}
+
+#akhbar .content {
+	height: 100px;
+	overflow: hidden;
+}
+
+#akhbar img {
+	object-fit: cover;
+	height: 200px;
+
+}
+
+#akhbar a {
+	color: inherit;
+	text-decoration: inherit;
+}
+
+#akhbar a:hover {
+	color: inherit;
+}
+
+#akhbar .card-title {
+	font-weight: bold;
+}
+
+
+/* pwa styls */
+
+.sco {
+	overflow-x: scroll;
+	overflow-y: hidden;
+	white-space: nowrap;
+	padding: 10px;
+}
+
+.scrollystyle::-webkit-scrollbar {
+	width: 5px;
+	height: 8px;
+	background-color: #3498db11;
+	border-radius: 20px;
+	visibility: hidden;
+}
+
+.scrollystyle::-webkit-scrollbar-thumb {
+	background-color: #1d3557a2;
+	border-radius: 20px;
+	visibility: hidden;
+}
+
+.scrollystyle::-webkit-scrollbar:hover,
+.scrollystyle::-webkit-scrollbar-thumb:hover {
+	visibility: inherit;
+}
+
+.cw {
+	/* height: 300px; */
+	/* width: 200px; */
+	display: inline-block;
+	cursor: pointer;
+	color: white;
+}
+
+.cw h5 {
+	font-size: 15px;
+}
+
+.cw a {
+	color: white;
+	text-decoration: inherit;
+	display: block;
+	white-space: initial;
+}
+
+.cw a:hover {
+	color: rgb(230, 230, 230);
+	text-decoration: inherit;
+	display: block;
+	white-space: initial;
+}
+
+#loader {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: 5;
+	width: 120px;
+	height: 120px;
+	margin: -76px 0 0 -76px;
+	border: 16px solid #f3f3f3;
+	border-radius: 50%;
+	border-top: 16px solid #3498db;
+	-webkit-animation: spin 2s linear infinite;
+	animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+	0% {
+		-webkit-transform: rotate(0deg);
+	}
+
+	100% {
+		-webkit-transform: rotate(360deg);
+	}
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+#loaderbg {
+	position: absolute;
+	z-index: 4;
+	width: 100%;
+	height: 100%;
+	background-color: white;
+}
+
+.btn-back {
+	background: none !important;
+	background-image: none !important;
+	border: none !important;
+}
+
+.pooyesh-card {
+	min-width: unset !important;
+	max-width: unset !important;
+	min-height: unset !important;
+	max-height: unset !important;
+	width: 400px !important;
+	margin-right: 10px;
+	box-shadow: none !important;
+	padding: 0 !important;
+}
+
+.pooyesh-card-sub {
+	width: 400px;
+}
+
+.pwa-nav {
+	/* border-top-left-radius: 0px;
+	border-top-right-radius: 0px; */
+	border-radius: 0px 0px 40px 40px;
+	padding: 15px;
+	box-shadow: 0 2px 3px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+}
