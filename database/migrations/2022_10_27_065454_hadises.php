@@ -18,7 +18,7 @@ return new class extends Migration
             $t->string('gala',100);
             $t->string('arabi');
             $t->string('farsi');
-            $t->string('manba',150);
+            $t->string('manba',150)->nullable();
             $t->smallInteger('group')->unsigned();
         });
     }
