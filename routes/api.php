@@ -17,3 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::prefix('hadis')->group(function (){
+    Route::get("random",[\App\Http\Controllers\api\v1\Hadis::class,'random']);
+    //Route::get("get",[\App\Http\Controllers\api\v1\Hadis::class,'getById']);
+});
+
+Route::prefix('slider')->group(function (){
+    Route::get('all',[\App\Http\Controllers\api\v1\Slider::class,'all']);
+});
