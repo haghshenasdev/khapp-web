@@ -20,6 +20,7 @@ return new class extends Migration
             $t->string('image')->nullable();
             $t->string('url')->nullable();
             $t->unsignedBigInteger('user')->nullable();
+            $t->unsignedBigInteger('charity')->unsigned();
         });
     }
 

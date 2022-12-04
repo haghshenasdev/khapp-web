@@ -20,6 +20,7 @@ return new class extends Migration
             $t->string('farsi');
             $t->string('manba',150)->nullable();
             $t->smallInteger('group')->unsigned();
+            $t->unsignedBigInteger('charity')->unsigned();
         });
     }
 

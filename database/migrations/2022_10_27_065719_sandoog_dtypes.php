@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('sandooghDtypes',function (Blueprint $t){
             $t->smallIncrements('id');
             $t->string('title',100);
+            $t->unsignedBigInteger('charity')->unsigned();
         });
     }
 

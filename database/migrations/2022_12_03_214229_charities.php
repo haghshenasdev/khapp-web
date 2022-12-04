@@ -15,7 +15,10 @@ return new class extends Migration
     {
         Schema::create('Charities',function (Blueprint $t){
             $t->id();
-            $t->string('name',100);
+            $t->string('fullname',100);
+            $t->string('shortname',100);
+            $t->text('about');
+            $t->integer('authority')->unsigned()->nullable();
         });
     }
 
@@ -26,6 +29,7 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('Charities');
     }
 };

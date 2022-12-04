@@ -20,6 +20,7 @@ return new class extends Migration
             $t->string('description');
             $t->boolean('is_active');
             $t->smallInteger('sub')->unsigned();
+            $t->unsignedBigInteger('charity')->unsigned();
         });
     }
 

@@ -17,6 +17,7 @@ return new class extends Migration
             $t->smallIncrements('id');
             $t->string('key',100);
             $t->string('value');
+            $t->unsignedBigInteger('charity')->unsigned();
         });
     }
 

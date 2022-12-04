@@ -21,6 +21,7 @@ return new class extends Migration
             $t->timestamps();
             $t->string('sabtid',150);
             $t->boolean('is_pardakht');
+            $t->unsignedBigInteger('charity')->unsigned();
         });
     }
 

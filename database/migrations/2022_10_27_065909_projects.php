@@ -21,6 +21,7 @@ return new class extends Migration
             $t->string('image_head');
             $t->integer('pishraft');
             $t->string('tags')->nullable();
+            $t->unsignedBigInteger('charity')->unsigned();
         });
     }
 

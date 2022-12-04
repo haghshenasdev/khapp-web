@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('hadis_groups',function (Blueprint $t){
             $t->smallIncrements('id');
             $t->string("title",100);
+            $t->unsignedBigInteger('charity')->unsigned();
         });
     }
 
@@ -26,6 +27,7 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('hadis_groups');
     }
 };

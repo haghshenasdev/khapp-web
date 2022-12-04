@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('url');
             $table->boolean('is_active');
+            $table->integer('charity')->unsigned();
         });
     }
 

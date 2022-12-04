@@ -14,43 +14,33 @@ return new class extends Migration
     public function up()
     {
         Schema::table('faktoors',function (Blueprint $t){
-            $t->foreign('userid')
+            $t->foreign('charity')
                 ->references('id')
-                ->on('users');
-            $t->foreign('type')
-                ->references('id')
-                ->on('types');
+                ->on('charities');
         });
 
         Schema::table('hadises',function (Blueprint $t){
-            $t->foreign('group')
+            $t->foreign('charity')
                 ->references('id')
-                ->on('hadis_groups');
+                ->on('charities');
         });
 
         Schema::table('pooyeshes',function (Blueprint $t){
-            $t->foreign('type_pay')
+            $t->foreign('charity')
                 ->references('id')
-                ->on('types');
-        });
-
-        Schema::table('sandooghD',function (Blueprint $t){
-            $t->foreign('type')
-                ->references('id')
-                ->on('sandooghDtypes');
-            $t->foreign('user')
-                ->references('id')
-                ->on('users');
+                ->on('charities');
         });
 
         Schema::table('notifications',function (Blueprint $t){
-            $t->foreign('user')->references('id')->on('users');
+            $t->foreign('charity')
+                ->references('id')
+                ->on('charities');
         });
 
         Schema::table('types',function (Blueprint $t){
-            $t->foreign('sub')
+            $t->foreign('charity')
                 ->references('id')
-                ->on('types');
+                ->on('charities');
         });
     }
 
@@ -61,6 +51,6 @@ return new class extends Migration
      */
     public function down()
     {
-
+        //
     }
 };
