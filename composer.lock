@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9fa5e7b5d527d90ddcf6ef051503422e",
+    "content-hash": "c1e7beb0730bb4d3360a60e6a9499a85",
     "packages": [
         {
             "name": "brick/math",
@@ -2103,6 +2103,91 @@
                 }
             ],
             "time": "2022-10-17T15:20:29+00:00"
+        },
+        {
+            "name": "omalizadeh/laravel-multi-payment",
+            "version": "v2.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/omalizadeh/laravel-multi-payment.git",
+                "reference": "631971bf610bbf20b602cdef6b0fd1c83f54f8ec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/omalizadeh/laravel-multi-payment/zipball/631971bf610bbf20b602cdef6b0fd1c83f54f8ec",
+                "reference": "631971bf610bbf20b602cdef6b0fd1c83f54f8ec",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^6.5.5|^7.0.1",
+                "illuminate/contracts": "^7.0|^8.0|^9.0",
+                "illuminate/http": "^7.0|^8.0|^9.0",
+                "illuminate/support": "^7.0|^8.0|^9.0",
+                "php": "^7.4|^8.0",
+                "ramsey/uuid": "^4.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.24|^7.0"
+            },
+            "suggest": {
+                "ext-bcmath": "Needed to use pasargad gateway",
+                "ext-openssl": "Needed to use eghtesad novin gateway",
+                "ext-simplexml": "Needed to use pasargad gateway",
+                "ext-soap": "Needed to use SOAP drivers: mellat, saman"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Omalizadeh\\MultiPayment\\Providers\\MultiPaymentServiceProvider"
+                    ],
+                    "aliases": {
+                        "PaymentGateway": "Omalizadeh\\MultiPayment\\Facades\\PaymentGateway"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Omalizadeh\\MultiPayment\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Omid Alizadeh",
+                    "email": "om.alizadeh1@gmail.com"
+                }
+            ],
+            "description": "A driver-based laravel package for online payments via multiple gateways",
+            "homepage": "https://github.com/omalizadeh/laravel-multi-payment",
+            "keywords": [
+                "Bank",
+                "BehPardakht",
+                "eghtesad novin",
+                "gateway",
+                "idpay",
+                "invoice",
+                "laravel",
+                "mellat",
+                "pasargad",
+                "payir",
+                "payment",
+                "php",
+                "saman",
+                "sep",
+                "shetab",
+                "zarinpal",
+                "zibal"
+            ],
+            "support": {
+                "issues": "https://github.com/omalizadeh/laravel-multi-payment/issues",
+                "source": "https://github.com/omalizadeh/laravel-multi-payment/tree/v2.5.0"
+            },
+            "time": "2022-03-11T17:51:17+00:00"
         },
         {
             "name": "phpoption/phpoption",

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Home;
 use Illuminate\Support\Facades\Route;
+use Omalizadeh\MultiPayment\Facades\PaymentGateway;
+use Omalizadeh\MultiPayment\Invoice;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,3 +17,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',[Home::class,'show']);
+Route::get('/pay',function (){
+    $invoice = new Invoice(10000);
+    $invoice->setPhoneNumber("989123456789");
+
+    return PaymentGateway::purchase($invoice, function (string $transactionId) {
+        // Save transaction_id and do stuff...
+    })->view();
+});
