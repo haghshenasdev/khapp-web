@@ -19,4 +19,5 @@ class hadis extends Model
         'group',
         'is_active',
     ];
+
 }

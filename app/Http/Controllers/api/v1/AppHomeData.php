@@ -9,6 +9,13 @@ class AppHomeData extends Controller
 {
     public function index($charity)
     {
-        return AppHomeDataResource::collection();
+        return response()->json([
+            'data' => [
+                'homeItems' => null,
+                'lastPosts' => null,
+                'pooyeshes' => null,
+                'hadis' => \App\Models\hadis::where('charity',$charity)->inRandomOrder()->first(),
+            ]
+        ]);
     }
 }
