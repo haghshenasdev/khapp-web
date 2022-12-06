@@ -10,4 +10,6 @@ class Slider extends Model
     use HasFactory;
 
     protected $table = 'slide_show';
+
+    protected $hidden = ['is_active','charity','id'];
 }

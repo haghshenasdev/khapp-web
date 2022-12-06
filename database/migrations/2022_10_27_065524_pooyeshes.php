@@ -21,7 +21,7 @@ return new class extends Migration
             $t->integer('amount')->nullable();
             $t->timestamp('start')->nullable();
             $t->timestamp('end')->nullable();
-            $t->smallInteger('type_pay')->unsigned();
+            $t->unsignedBigInteger('type_pay')->unsigned();
             $t->boolean("is_active")->default(1);
             $t->unsignedBigInteger('charity')->unsigned();
         });

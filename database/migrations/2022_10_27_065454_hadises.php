@@ -19,8 +19,9 @@ return new class extends Migration
             $t->string('arabi');
             $t->string('farsi');
             $t->string('manba',150)->nullable();
-            $t->smallInteger('group')->unsigned();
+            $t->unsignedBigInteger('group')->unsigned()->nullable();
             $t->unsignedBigInteger('charity')->unsigned();
+            $t->boolean("is_active")->default(1);
         });
     }
 

@@ -17,7 +17,7 @@ return new class extends Migration
             $t->id();
             $t->unsignedBigInteger('userid');
             $t->integer('amount');
-            $t->smallInteger('type')->unsigned();
+            $t->unsignedBigInteger('type')->unsigned();
             $t->timestamps();
             $t->string('sabtid',150);
             $t->boolean('is_pardakht');

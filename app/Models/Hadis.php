@@ -20,4 +20,7 @@ class hadis extends Model
         'is_active',
     ];
 
+    protected $hidden = ['is_active','charity','id'];
+
+
 }

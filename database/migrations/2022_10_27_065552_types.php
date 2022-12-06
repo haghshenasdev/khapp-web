@@ -14,12 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('types',function (Blueprint $t){
-            $t->smallIncrements('id');
+            $t->id();
             $t->string('type_name',150);
             $t->string('title',150);
-            $t->string('description');
-            $t->boolean('is_active');
-            $t->smallInteger('sub')->unsigned();
+            $t->string('description')->nullable();
+            $t->boolean('is_active')->default(1);
+            $t->unsignedBigInteger('sub')->unsigned()->nullable();
             $t->unsignedBigInteger('charity')->unsigned();
         });
     }

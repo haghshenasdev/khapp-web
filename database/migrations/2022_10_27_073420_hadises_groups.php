@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('hadis_groups',function (Blueprint $t){
-            $t->smallIncrements('id');
+            $t->id();
             $t->string("title",100);
             $t->unsignedBigInteger('charity')->unsigned();
         });
