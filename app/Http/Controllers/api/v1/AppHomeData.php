@@ -16,7 +16,7 @@ class AppHomeData extends Controller
             'data' => [
                 'homeItems' => (new HomeItem)->AllByCharity($charity),
                 'pooyeshes' => (new \App\Models\Pooyesh)->AllByCharity($charity),
-                'projects' => (new \App\Models\Pooyesh)->AllByCharity($charity),
+                'projects' => (new \App\Models\Project)->AllByCharity($charity),
                 'slider' => (new \App\Models\Slider)->AllByCharity($charity),
                 'hadis' => \App\Models\Hadis::where('charity',$charity)->inRandomOrder()->first(),
             ]
