@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\charity;
-use App\Models\hadis;
+use App\Models\Hadis;
 use App\Models\HomeItem;
 use App\Models\Pooyesh;
 use App\Models\Project;
@@ -98,7 +98,7 @@ class DatabaseSeeder extends Seeder
           'charity' => 1,
       ]);
 
-      hadis::insert([
+      Hadis::insert([
           'gala' => 'امام باقر علیه السلام',
           'arabi' => 'اَلبِرُّ وَ الصَّدَقَةُ يَنفيانِ الفَقرَ وَ يَزيدانِ فِى العُمرِ وَ يَدفَعانِ عَن صاحِبِهِما سَبعينَ ميتَةَ سوءٍ',
           'farsi' => 'كار خير و صدقه، فقر را می بَرند، بر عمر می افزايند و هفتاد مرگ بد را از صاحب خود دور مى كنند.',

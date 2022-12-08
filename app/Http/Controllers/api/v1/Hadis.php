@@ -12,15 +12,15 @@ class Hadis extends Controller
     {
         $data = [];
         if ($id == null){
-            $data = \App\Models\hadis::all();
+            $data = \App\Models\Hadis::all();
         }else{
-            $data = \App\Models\hadis::where('id',$id)->first();
+            $data = \App\Models\Hadis::where('id',$id)->first();
         }
         return new hadisresource($data);
     }
 
     public function random()
     {
-        return new hadisresource(\App\Models\hadis::inRandomOrder()->first());
+        return new hadisresource(\App\Models\Hadis::inRandomOrder()->first());
     }
 }

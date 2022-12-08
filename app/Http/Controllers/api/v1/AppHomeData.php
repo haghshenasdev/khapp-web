@@ -17,7 +17,7 @@ class AppHomeData extends Controller
                 'homeItems' => HomeItem::all()->where('charity',$charity)->where('is_active',1),
                 'pooyeshes' => Pooyesh::all()->where('charity',$charity)->where('is_active',1),
                 'slider' => \App\Models\Slider::all()->where('charity',$charity)->where('is_active',1),
-                'hadis' => \App\Models\hadis::where('charity',$charity)->inRandomOrder()->first(),
+                'hadis' => \App\Models\Hadis::where('charity',$charity)->inRandomOrder()->first(),
             ]
         ]);
     }
