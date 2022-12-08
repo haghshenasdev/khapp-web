@@ -21,4 +21,8 @@ Route::prefix('v1/{charity}')->group(function (){
     Route::get("hadis",[\App\Http\Controllers\api\v1\Hadis::class,'get']);
 
     Route::get('slider',[\App\Http\Controllers\api\v1\Slider::class,'all']);
+
+    Route::get('project',[\App\Http\Controllers\api\v1\Project::class,'index']);
+
+    Route::get('pooyesh',[\App\Http\Controllers\api\v1\Pooyesh::class,'index']);
 });

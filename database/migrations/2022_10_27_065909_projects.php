@@ -22,6 +22,7 @@ return new class extends Migration
             $t->integer('pishraft');
             $t->string('tags')->nullable();
             $t->unsignedBigInteger('charity')->unsigned();
+            $t->boolean("is_active")->default(1);
         });
     }
 

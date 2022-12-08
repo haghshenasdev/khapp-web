@@ -23,5 +23,5 @@ Route::get('/pay',function (){
 
     return PaymentGateway::purchase($invoice, function (string $transactionId) {
         // Save transaction_id and do stuff...
-    })->view();
+    })->view('home');
 });
