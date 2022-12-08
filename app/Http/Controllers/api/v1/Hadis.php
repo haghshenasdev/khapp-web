@@ -8,19 +8,17 @@ use Illuminate\Http\Request;
 
 class Hadis extends Controller
 {
-    public function getById($id = null)
+    public function get(Request $request,$charity)
     {
-        $data = [];
-        if ($id == null){
-            $data = \App\Models\Hadis::all();
-        }else{
-            $data = \App\Models\Hadis::where('id',$id)->first();
+        if ($request->has('all')){
+            return  response()->json(
+                ['data' => \App\Models\Hadis::all()->where('charity',$charity)]
+            );
         }
-        return new hadisresource($data);
-    }
+        if ($id = $request->input('id')){
+            return \App\Models\Hadis::where('id',$id)->where('charity',$charity)->first();
+        }
 
-    public function random()
-    {
-        return new hadisresource(\App\Models\Hadis::inRandomOrder()->first());
+        return  \App\Models\Hadis::where('charity',$charity)->inRandomOrder()->first();
     }
 }

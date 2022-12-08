@@ -14,17 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{charity}',[\App\Http\Controllers\api\v1\AppHomeData::class,'index']);
+Route::prefix('v1/{charity}')->group(function (){
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+    Route::get('/',[\App\Http\Controllers\api\v1\AppHomeData::class,'index']);
 
-Route::prefix('hadis')->group(function (){
-    Route::get("random",[\App\Http\Controllers\api\v1\Hadis::class,'random']);
-    //Route::get("get",[\App\Http\Controllers\api\v1\Hadis::class,'getById']);
-});
+    Route::get("hadis",[\App\Http\Controllers\api\v1\Hadis::class,'get']);
 
-Route::prefix('slider')->group(function (){
-    Route::get('all',[\App\Http\Controllers\api\v1\Slider::class,'all']);
+    Route::get('slider',[\App\Http\Controllers\api\v1\Slider::class,'all']);
 });
