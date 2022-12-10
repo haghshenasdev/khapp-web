@@ -14,9 +14,4 @@ class Pooyesh extends Model
 
     protected $hidden = ['is_active','charity','id'];
 
-    public function AllByCharity($charity): \Illuminate\Database\Eloquent\Collection
-    {
-        return $this->all()->where('charity',$charity)->where('is_active',1);
-    }
-
 }
