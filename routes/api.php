@@ -25,4 +25,8 @@ Route::prefix('v1/{charity}')->group(function (){
     Route::get('project',[\App\Http\Controllers\api\v1\Project::class,'index']);
 
     Route::get('pooyesh',[\App\Http\Controllers\api\v1\Pooyesh::class,'index']);
+
+    Route::get('type',[\App\Http\Controllers\api\v1\Type::class,'index']);
+
+    Route::get('pay',[\App\Http\Controllers\api\v1\Pay::class,'index'])->middleware('auth');
 });
