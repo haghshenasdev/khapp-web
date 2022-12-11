@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
           'charity' => 1,
       ], [
           'title' => 'دکمه دوم',
-          'icon' => 'http://localhost:8000/charities/1/icons/charity.png',
+          'icon' => public_path('charities/1/icons/charity.png'),
           'action' => 'page:donaite',
           'charity' => 1,
       ]]);
