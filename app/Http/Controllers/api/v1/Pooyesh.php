@@ -15,7 +15,7 @@ class Pooyesh extends Controller
             ];
 
         return  response()->json(
-        ['data' => (new \App\Models\Pooyesh)->AllByCharity($charity)]
+        ['data' => \App\Models\Pooyesh::all()->where('is_active',1)->where('charity',$charity)]
     );
     }
 }

@@ -14,10 +14,21 @@ class AppHomeData extends Controller
     {
         return response()->json([
             'data' => [
-                'homeItems' => (new HomeItem)->AllByCharity($charity),
-                'pooyeshes' => (new \App\Models\Pooyesh)->AllByCharity($charity),
-                'projects' => (new \App\Models\Project)->AllByCharity($charity),
-                'slider' => (new \App\Models\Slider)->AllByCharity($charity),
+                'homeItems' => HomeItem::all()
+                    ->where('charity',$charity)
+                    ->where('is_active',1)
+                ,
+                'pooyeshes' => \App\Models\Pooyesh::where('charity',$charity)
+                    ->where('is_active',1)
+                    ->get(['id','title','image'])
+                ,
+                'projects' => \App\Models\Project::where('charity',$charity)
+                    ->where('is_active',1)
+                    ->get(['id','title','image_head','pishraft'])
+                ,
+                'slider' => \App\Models\Slider::where('charity',$charity)
+                    ->where('is_active',1)
+                ,
                 'hadis' => \App\Models\Hadis::where('charity',$charity)->inRandomOrder()->first(),
             ]
         ]);

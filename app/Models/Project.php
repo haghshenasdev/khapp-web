@@ -9,6 +9,6 @@ class Project extends Model
 {
     use HasFactory;
 
-    protected $hidden = ['is_active','charity','id'];
+    protected $hidden = ['is_active','charity'];
 
 }

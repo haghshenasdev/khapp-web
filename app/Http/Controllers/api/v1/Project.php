@@ -15,7 +15,7 @@ class Project extends Controller
         ];
 
         return  response()->json(
-            ['data' => (new \App\Models\Project)->AllByCharity($charity)]
+            ['data' => \App\Models\Project::all()->where('is_active',1)->where('charity',$charity)]
         );
     }
 }
