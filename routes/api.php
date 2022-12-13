@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('v1/{charity}')->group(function (){
+Route::group(['prefix' => 'v1/{charity}','middleware' => ['charitycheck']],function (){
 
     Route::get('/',[\App\Http\Controllers\api\v1\AppHomeData::class,'index']);
 
