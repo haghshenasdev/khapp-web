@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api\v1;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Type
 {

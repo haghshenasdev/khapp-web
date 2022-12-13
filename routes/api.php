@@ -28,5 +28,12 @@ Route::prefix('v1/{charity}')->group(function (){
 
     Route::get('type',[\App\Http\Controllers\api\v1\Type::class,'index']);
 
-    Route::get('pay',[\App\Http\Controllers\api\v1\Pay::class,'index'])->middleware('auth');
+    //login routs by api
+    Route::post('register',[\App\Http\Controllers\api\v1\auth\AuthController::class,'register']);
+    Route::post('login',[\App\Http\Controllers\api\v1\auth\AuthController::class,'login']);
+
+    // auth required routs
+    Route::group(['middleware' => ['auth:sanctum']],function (){
+        Route::get('pay',[\App\Http\Controllers\api\v1\Pay::class,'index']);
+    });
 });
