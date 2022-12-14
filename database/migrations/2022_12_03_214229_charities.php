@@ -19,6 +19,7 @@ return new class extends Migration
             $t->string('shortname',100);
             $t->text('about');
             $t->integer('authority')->unsigned()->nullable();
+            $t->boolean("is_active")->default(0);
         });
     }
 
