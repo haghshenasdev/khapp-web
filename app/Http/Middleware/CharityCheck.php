@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Resources\CharityCheckResource;
 use App\Models\charity;
 use Closure;
 use Illuminate\Http\Request;
@@ -12,17 +13,14 @@ class CharityCheck
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @param Closure(Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse) $next
+     * @return CharityCheckResource
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!charity::query()->find($request->route('charity'))){
-            return response()->json([
-                'data' => 'خیریه مورد نظر در دسترس نیست',
-                'status' => 'error'
-            ]);
+        if (! $charity = charity::query()->find($request->route('charity')) or $charity->is_active == 0){
+            return new CharityCheckResource([]);
         }
         return $next($request);
     }

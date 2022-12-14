@@ -18,19 +18,20 @@ class AppHomeData extends Controller
                     ->where('charity',$charity)
                     ->where('is_active',1)
                 ,
-                'pooyeshes' => \App\Models\Pooyesh::where('charity',$charity)
+                'pooyeshes' => \App\Models\Pooyesh::query()->where('charity',$charity)
                     ->where('is_active',1)
                     ->get(['id','title','image'])
                 ,
-                'projects' => \App\Models\Project::where('charity',$charity)
+                'projects' => \App\Models\Project::query()->where('charity',$charity)
                     ->where('is_active',1)
                     ->get(['id','title','image_head','pishraft'])
                 ,
-                'slider' => \App\Models\Slider::where('charity',$charity)
-                    ->where('is_active',1)
+                'slider' => \App\Models\Slider::query()->where('charity',$charity)
+                    ->where('is_active',1)->get()
                 ,
-                'hadis' => \App\Models\Hadis::where('charity',$charity)->inRandomOrder()->first(),
-            ]
+                'hadis' => \App\Models\Hadis::query()->where('charity',$charity)->inRandomOrder()->first(),
+            ],
+            'status' => 'success'
         ]);
     }
 }
