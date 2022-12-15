@@ -20,6 +20,8 @@ return new class extends Migration
             $t->string('description')->nullable();
             $t->boolean('is_active')->default(1);
             $t->unsignedBigInteger('sub')->unsigned()->nullable();
+            $t->boolean('default')->nullable();
+            $t->boolean('optional_sub_select')->nullable();
             $t->unsignedBigInteger('charity')->unsigned();
         });
     }

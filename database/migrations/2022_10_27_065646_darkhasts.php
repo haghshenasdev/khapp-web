@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sandooghD',function (Blueprint $t){
+        Schema::create('darkhasts',function (Blueprint $t){
             $t->id();
-            $t->smallInteger('type')->unsigned();
+            $t->unsignedBigInteger('type')->unsigned();
             $t->unsignedBigInteger('user');
             $t->text('description')->nullable();
             $t->timestamp('date')->useCurrent();
+            $t->string('status',100);
         });
     }
 
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sandooghD');
+        Schema::dropIfExists('darkhasts');
     }
 };

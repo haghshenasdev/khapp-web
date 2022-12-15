@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sandooghDtypes',function (Blueprint $t){
-            $t->smallIncrements('id');
+        Schema::create('darkhast_types',function (Blueprint $t){
+            $t->id();
             $t->string('title',100);
+            $t->text('description')->nullable();
             $t->unsignedBigInteger('charity')->unsigned();
+            $t->unsignedBigInteger('sub')->unsigned()->nullable();
         });
     }
 
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sandooghDtypes');
+        Schema::dropIfExists('darkhast_types');
     }
 };

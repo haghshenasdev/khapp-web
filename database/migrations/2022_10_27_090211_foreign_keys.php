@@ -34,10 +34,10 @@ return new class extends Migration
                 ->on('types');
         });
 
-        Schema::table('sandooghD',function (Blueprint $t){
+        Schema::table('darkhasts',function (Blueprint $t){
             $t->foreign('type')
                 ->references('id')
-                ->on('sandooghDtypes');
+                ->on('darkhast_types');
             $t->foreign('user')
                 ->references('id')
                 ->on('users');

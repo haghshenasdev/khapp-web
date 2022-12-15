@@ -4,14 +4,19 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\charity;
+use App\Models\Darkhast;
+use App\Models\DarkhastTypes;
+use App\Models\Faktoor;
 use App\Models\Hadis;
 use App\Models\HomeItem;
 use App\Models\Pooyesh;
 use App\Models\Project;
 use App\Models\Slider;
 use App\Models\Type;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -111,6 +116,64 @@ class DatabaseSeeder extends Seeder
           'arabi' => 'اَلبِرُّ وَ الصَّدَقَةُ يَنفيانِ الفَقرَ وَ يَزيدانِ فِى العُمرِ وَ يَدفَعانِ عَن صاحِبِهِما سَبعينَ ميتَةَ سوءٍ',
           'farsi' => 'كار خير و صدقه، فقر را می بَرند، بر عمر می افزايند و هفتاد مرگ بد را از صاحب خود دور مى كنند.',
           'charity' => 1,
+      ]);
+
+      User::query()->insert([
+          'name' => 'محمد مهدی حق شناس',
+          'email' => 'mhgorgab@gmail.com',
+          'phone' => '09137021061',
+          'address' => 'گرگاب ، بلوار امام ، خیابان آزادگان ، پلاک 75',
+          'password' => Hash::make('@123456789'),
+          'charity' => 1,
+      ]);
+
+      Faktoor::query()->insert([
+          [
+              'userid' => 1,
+              'amount' => 50000,
+              'type' => 1,
+              'sabtid' => '110-1245454',
+              'is_pardakht' => 1,
+              'charity' => 1,
+          ],
+          [
+              'userid' => 1,
+              'amount' => 10000,
+              'type' => 2,
+              'sabtid' => '110-1278755',
+              'is_pardakht' => 0,
+              'charity' => 1,
+          ]
+      ]);
+
+      DarkhastTypes::query()->insert(
+          [
+              'title' => 'صندوق صدقات',
+              'description' => 'این مورد جت درخواست صندوق صدقات است',
+              'charity' => 1,
+          ]
+      );
+
+      DarkhastTypes::query()->insert([
+          [
+              'title' => 'صندوق کوچک خودرو',
+              'description' => 'صندوق کوچک مناسب خودرو',
+              'charity' => 1,
+              'sub' => 1,
+          ],
+          [
+              'title' => 'صندوق بزرگ',
+              'description' => 'صندوق مناسب منزل و محیط کار',
+              'charity' => 1,
+              'sub' => 1,
+          ]
+      ]);
+
+      Darkhast::query()->insert([
+          'type' => 2,
+          'user' => 1,
+          'description' => 'قبل از ارسال صندوق با بنده تماس بگیرید',
+          'status' => 'در حال برسی',
       ]);
     }
 }
