@@ -36,10 +36,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 
 Route::get('/admin',[LoginController::class,'showAdminLoginForm'])->name('admin.login-view');
 Route::post('/admin',[LoginController::class,'adminLogin'])->name('admin.login');
