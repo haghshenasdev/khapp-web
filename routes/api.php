@@ -35,5 +35,13 @@ Route::group(['prefix' => 'v1/{charity}','middleware' => ['charitycheck']],funct
     // auth required routs
     Route::group(['middleware' => ['auth:sanctum']],function (){
         Route::get('pay',[\App\Http\Controllers\api\v1\Pay::class,'index']);
+
+        Route::group(['prefix' => 'profile'],function (){
+            Route::get('/',[\App\Http\Controllers\api\v1\Profile::class,'index']);
+
+            Route::get('/faktoors',[\App\Http\Controllers\api\v1\Profile::class,'faktoors']);
+
+            Route::get('/darkhasts',[\App\Http\Controllers\api\v1\Profile::class,'darkhasts']);
+        });
     });
 });
