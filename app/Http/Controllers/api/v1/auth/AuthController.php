@@ -51,7 +51,7 @@ class AuthController extends baseApiAuth
     {
         $validator =  validator($request->all(),[
             'name' => ['required', 'string', 'max:255'],
-            'phone' => ['required','regex:/(09)[0-9]{9}/','digits:11','numeric'],
+            'phone' => ['required','regex:/(09)[0-9]{9}/','digits:11','numeric','unique:'.User::class],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed'],
             'device_name' => 'required',

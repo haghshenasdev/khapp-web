@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
+use App\Models\charity;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -74,15 +77,25 @@ class RegisterController extends Controller
 
     public function showAdminRegisterForm()
     {
-        return view('auth.register', ['route' => route('admin.register-view'), 'title'=>'Admin']);
+        return view('auth.register', ['route' => route('admin.register-view'), 'title'=>'ایجاد خیریه']);
     }
 
     protected function createAdmin(Request $request)
     {
         $this->validator($request->all())->validate();
-        $admin = Admin::create([
+
+        $charity = charity::query()->insertGetId([
+            'fullname' => $request['fullname'],
+            'shortname' => $request['shortname'],
+            'about' => $request['about'],
+            'is_active' => 1,
+        ]);
+
+        $admin = Admin::query()->create([
             'name' => $request['name'],
             'email' => $request['email'],
+            'phone' => $request['phone'],
+            'charity' => $charity,
             'password' => Hash::make($request['password']),
         ]);
         return redirect()->intended('admin');
