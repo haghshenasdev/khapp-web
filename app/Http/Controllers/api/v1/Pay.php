@@ -52,9 +52,9 @@ class Pay
     public function verify(Request $request)
     {
         try {
-            dd($request);
+            //dd($request);
             // Get amount & transaction_id from database or gateway request
-            $invoice = new Invoice($request->input('amount'),$request->input('transactionId'));
+            $invoice = new Invoice($request->Amount,$request->ResNum);
             $receipt = PaymentGateway::verify($invoice);
             // Save receipt data and return response
             //
