@@ -12,16 +12,16 @@ use Omalizadeh\MultiPayment\Invoice;
 
 class Pay
 {
-    public function invoice($sabtid)
+    public function invoice($charity,$sabtid)
     {
         $faktoor = Faktoor::query()->where('sabtid',$sabtid)->first();
 
-            $invoice = new Invoice($faktoor->amount);
-            $invoice->setPhoneNumber(\App\Models\User::query()->find($faktoor->userid,'phone')->phone);
+        $invoice = new Invoice($faktoor->amount);
+        $invoice->setPhoneNumber(\App\Models\User::query()->find($faktoor->userid,'phone')->phone);
 
-            return PaymentGateway::purchase($invoice, function (string $transactionId) {
+        return PaymentGateway::purchase($invoice, function (string $transactionId) {
 
-            })->view();
+        })->view();
     }
 
     public function pay(Request $request,$charity)
