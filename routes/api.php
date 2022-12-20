@@ -32,9 +32,12 @@ Route::group(['prefix' => 'v1/{charity}','middleware' => ['charitycheck']],funct
     Route::post('register',[\App\Http\Controllers\api\v1\auth\AuthController::class,'register']);
     Route::post('login',[\App\Http\Controllers\api\v1\auth\AuthController::class,'login']);
 
+    Route::get('invoice/{sabtid}',[\App\Http\Controllers\api\v1\Pay::class,'invoice']);
+
     // auth required routs
     Route::group(['middleware' => ['auth:sanctum']],function (){
-        Route::get('pay',[\App\Http\Controllers\api\v1\Pay::class,'index']);
+        Route::get('pay',[\App\Http\Controllers\api\v1\Pay::class,'pay']);
+
 
         Route::group(['prefix' => 'profile'],function (){
             Route::get('/',[\App\Http\Controllers\api\v1\Profile::class,'index']);

@@ -19,7 +19,7 @@ return new class extends Migration
             $t->integer('amount');
             $t->unsignedBigInteger('type')->unsigned();
             $t->timestamps();
-            $t->string('sabtid',150);
+            $t->string('sabtid',150)->unique();
             $t->boolean('is_pardakht')->default(0);
             $t->unsignedBigInteger('charity')->unsigned();
         });

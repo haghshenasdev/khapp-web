@@ -6,12 +6,25 @@ use App\Models\charity;
 use App\Models\Faktoor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Omalizadeh\MultiPayment\Facades\PaymentGateway;
 use Omalizadeh\MultiPayment\Invoice;
 
 class Pay
 {
-    public function index(Request $request,$charity)
+    public function invoice($sabtid)
+    {
+        $faktoor = Faktoor::query()->where('sabtid',$sabtid)->get();
+
+            $invoice = new Invoice($faktoor->amount);
+            $invoice->setPhoneNumber(\App\Models\User::query()->find($faktoor->userid,'phone')->phone);
+
+            return PaymentGateway::purchase($invoice, function (string $transactionId) {
+
+            })->view();
+    }
+
+    public function pay(Request $request,$charity)
     {
         $request->validate([
             'type' => ['required','numeric'],
@@ -19,21 +32,34 @@ class Pay
         ]);
 
         $user = Auth::user();
-        $invoice = new Invoice($request->input('amount'));
-        $invoice->setPhoneNumber($user->phone);
+        $sabtId = '110-' . Str::random(9);
 
-        return PaymentGateway::purchase($invoice, function (string $transactionId) use ($request, $charity, $user) {
-            Faktoor::query()->insert([
-                'userid' => $user->id,
-                'amount' => $request->input('amount'),
-                'type' => $request->input('type'),
-                'sabtid' => $transactionId,
-                'charity' => $charity,
-            ]);
-        })->view();
-//            return response()->json([
-//                'data' => ->name,
-//                'charity' => $charity
-//            ]);
+        Faktoor::query()->insert([
+            'userid' => $user->id,
+            'amount' => $request->input('amount'),
+            'type' => $request->input('type'),
+            'sabtid' => $sabtId,
+            'charity' => $charity,
+        ]);
+
+        return response()->json([
+            'url' => url('api/v1/'.$charity.'/invoice/'.$sabtId),
+        ]);
     }
+
+//    public function verifay()
+//    {
+//        try {
+//            // Get amount & transaction_id from database or gateway request
+//            $invoice = new Invoice($amount, $transactionId);
+//            $receipt = PaymentGateway::verify($invoice);
+//            // Save receipt data and return response
+//            //
+//        } catch (PaymentAlreadyVerifiedException $exception) {
+//            // Optional: Handle repeated verification request
+//        } catch (PaymentFailedException $exception) {
+//            // Handle exception for failed payments
+//            return $exception->getMessage();
+//        }
+//    }
 }
