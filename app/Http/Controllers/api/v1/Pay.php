@@ -52,14 +52,12 @@ class Pay
     public function verify(Request $request)
     {
         try {
-            //dd($request);
             // Get amount & transaction_id from database or gateway request
             $invoice = new Invoice($request->Amount,$request->ResNum);
-            $receipt = PaymentGateway::verify($invoice);
             // Save receipt data and return response
             //
             return response()->json([
-                'message' => 'موفقیت آمیز بود'
+                'message' => PaymentGateway::verify($invoice)
             ]);
         } catch (PaymentAlreadyVerifiedException $exception) {
             // Optional: Handle repeated verification request
