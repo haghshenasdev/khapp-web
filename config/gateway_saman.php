@@ -20,7 +20,7 @@ return [
      */
     'main' => [
         'terminal_id' => '21486240',
-        'callback_url' => 'https://localhost:8000/1',
+        'callback_url' => url('v1/'.request()->route('charity').'/verify'),
         'callback_method' => 'POST', // supported values: POST, GET
         'description' => 'payment using saman',
     ],

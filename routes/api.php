@@ -33,6 +33,7 @@ Route::group(['prefix' => 'v1/{charity}','middleware' => ['charitycheck']],funct
     Route::post('login',[\App\Http\Controllers\api\v1\auth\AuthController::class,'login']);
 
     Route::get('invoice/{sabtid}',[\App\Http\Controllers\api\v1\Pay::class,'invoice']);
+    Route::get('verify',[\App\Http\Controllers\api\v1\Pay::class,'verify']);
 
     // auth required routs
     Route::group(['middleware' => ['auth:sanctum']],function (){

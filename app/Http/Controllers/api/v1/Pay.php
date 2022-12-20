@@ -7,6 +7,8 @@ use App\Models\Faktoor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Omalizadeh\MultiPayment\Exceptions\PaymentAlreadyVerifiedException;
+use Omalizadeh\MultiPayment\Exceptions\PaymentFailedException;
 use Omalizadeh\MultiPayment\Facades\PaymentGateway;
 use Omalizadeh\MultiPayment\Invoice;
 
@@ -19,8 +21,8 @@ class Pay
         $invoice = new Invoice($faktoor->amount);
         $invoice->setPhoneNumber(\App\Models\User::query()->find($faktoor->userid,'phone')->phone);
 
-        return PaymentGateway::purchase($invoice, function (string $transactionId) {
-
+        return PaymentGateway::purchase($invoice, function (string $transactionId) use ($sabtid) {
+           // Faktoor::query()->where('sabtid',$sabtid)->update(['transactionId' => $transactionId]);
         })->view();
     }
 
@@ -47,19 +49,22 @@ class Pay
         ]);
     }
 
-//    public function verifay()
-//    {
-//        try {
-//            // Get amount & transaction_id from database or gateway request
-//            $invoice = new Invoice($amount, $transactionId);
-//            $receipt = PaymentGateway::verify($invoice);
-//            // Save receipt data and return response
-//            //
-//        } catch (PaymentAlreadyVerifiedException $exception) {
-//            // Optional: Handle repeated verification request
-//        } catch (PaymentFailedException $exception) {
-//            // Handle exception for failed payments
-//            return $exception->getMessage();
-//        }
-//    }
+    public function verify(Request $request)
+    {
+        try {
+            // Get amount & transaction_id from database or gateway request
+            $invoice = new Invoice($request->input('amount'),$request->input('transactionId'));
+            $receipt = PaymentGateway::verify($invoice);
+            // Save receipt data and return response
+            //
+            return response()->json([
+                'message' => 'موفقیت آمیز بود'
+            ]);
+        } catch (PaymentAlreadyVerifiedException $exception) {
+            // Optional: Handle repeated verification request
+        } catch (PaymentFailedException $exception) {
+            // Handle exception for failed payments
+            return $exception->getMessage();
+        }
+    }
 }
