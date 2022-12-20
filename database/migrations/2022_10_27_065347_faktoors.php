@@ -20,6 +20,7 @@ return new class extends Migration
             $t->unsignedBigInteger('type')->unsigned();
             $t->timestamps();
             $t->string('sabtid',150)->unique();
+            $t->string('ResNum',150)->unique()->nullable();
             $t->boolean('is_pardakht')->default(0);
             $t->unsignedBigInteger('charity')->unsigned();
         });

@@ -22,7 +22,7 @@ class Pay
         $invoice->setPhoneNumber(\App\Models\User::query()->find($faktoor->userid,'phone')->phone);
 
         return PaymentGateway::purchase($invoice, function (string $transactionId) use ($sabtid) {
-           // Faktoor::query()->where('sabtid',$sabtid)->update(['transactionId' => $transactionId]);
+           Faktoor::query()->where('sabtid',$sabtid)->update(['ResNum' => $transactionId]);
         })->view();
     }
 
@@ -54,16 +54,22 @@ class Pay
         try {
             // Get amount & transaction_id from database or gateway request
             $invoice = new Invoice($request->Amount,$request->ResNum);
+            $receipt = PaymentGateway::verify($invoice);
             // Save receipt data and return response
             //
+            Faktoor::query()->where('ResNum',$request->ResNum)->update(['is_pardakht' => 1]);
             return response()->json([
-                'message' => PaymentGateway::verify($invoice)
+                'message' => 'پرداخت موفقیت آمیز بود.',
+                'status' => 'success'
             ]);
         } catch (PaymentAlreadyVerifiedException $exception) {
             // Optional: Handle repeated verification request
         } catch (PaymentFailedException $exception) {
             // Handle exception for failed payments
-            return $exception->getMessage();
+            return response()->json([
+                'message' => $exception->getMessage(),
+                'status' => 'error'
+            ]);
         }
     }
 }
