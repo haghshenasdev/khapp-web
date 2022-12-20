@@ -14,7 +14,7 @@ class Pay
 {
     public function invoice($sabtid)
     {
-        $faktoor = Faktoor::query()->where('sabtid',$sabtid)->get()->first();
+        $faktoor = Faktoor::query()->where('sabtid',$sabtid)->first();
 
             $invoice = new Invoice($faktoor->amount);
             $invoice->setPhoneNumber(\App\Models\User::query()->find($faktoor->userid,'phone')->phone);
