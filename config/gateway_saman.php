@@ -20,7 +20,7 @@ return [
      */
     'main' => [
         'terminal_id' => '21486240',
-        'callback_url' => url('api/v1/1/charity/verify'),
+        'callback_url' => url('api/v1/1/verify'),
         'callback_method' => 'POST', // supported values: POST, GET
         'description' => 'payment using saman',
     ],
