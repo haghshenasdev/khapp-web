@@ -13,13 +13,19 @@ class Pay
 {
     public function index(Request $request,$charity)
     {
+        $request->validate([
+            'type' => ['required','numeric'],
+            'amount' => ['required','numeric']
+        ]);
+
         $user = Auth::user();
-        $invoice = new Invoice(10000);
+        $invoice = new Invoice($request->input('amount'));
         $invoice->setPhoneNumber($user->phone);
 
         return PaymentGateway::purchase($invoice, function (string $transactionId) use ($request, $charity, $user) {
             Faktoor::query()->insert([
                 'userid' => $user->id,
+                'amount' => $request->input('amount'),
                 'type' => $request->input('type'),
                 'sabtid' => $transactionId,
                 'charity' => $charity,
