@@ -36,7 +36,7 @@ Route::group(['prefix' => 'v1/{charity}','middleware' => ['charitycheck']],funct
 
     // auth required routs
     Route::group(['middleware' => ['auth:sanctum']],function (){
-        Route::get('pay',[\App\Http\Controllers\api\v1\Pay::class,'pay']);
+        Route::post('pay',[\App\Http\Controllers\api\v1\Pay::class,'pay']);
 
 
         Route::group(['prefix' => 'profile'],function (){
