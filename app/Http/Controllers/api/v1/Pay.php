@@ -12,6 +12,7 @@ use Omalizadeh\MultiPayment\Exceptions\PaymentAlreadyVerifiedException;
 use Omalizadeh\MultiPayment\Exceptions\PaymentFailedException;
 use Omalizadeh\MultiPayment\Facades\PaymentGateway;
 use Omalizadeh\MultiPayment\Invoice;
+use function PHPUnit\Framework\isNull;
 
 class Pay extends Controller
 {
@@ -49,7 +50,13 @@ class Pay extends Controller
 
         try {
             // Get amount & transaction_id from database or gateway request
-            $ResNum = Faktoor::query()->findOrFail($request->faktoorId)->first()->ResNum;
+            $ResNum = Faktoor::query()->find($request->faktoorId)->first()->ResNum;
+            if (isNull($ResNum)){
+                return response()->json([
+                    'message' => 'فاکتور یافت نشد.',
+                    'status' => 'error'
+                ]);
+            }
             $invoice = new Invoice($request->Amount,$ResNum);
             $receipt = PaymentGateway::verify($invoice);
             // Save receipt data and return response
