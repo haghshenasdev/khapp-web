@@ -50,12 +50,12 @@ class Pay extends Controller
         try {
             // Get amount & transaction_id from database or gateway request
             $fk = Faktoor::query()->where('id',$request->faktoorId)->first();
-            if (isNull($fk)){
-                return response()->json([
-                    'message' => 'فاکتور یافت نشد.',
-                    'status' => 'error'
-                ]);
-            }
+//            if (isNull($fk)){
+//                return response()->json([
+//                    'message' => 'فاکتور یافت نشد.',
+//                    'status' => 'error'
+//                ]);
+//            }
             $invoice = new Invoice($fk->amount,$fk->ResNum);
             $receipt = PaymentGateway::verify($invoice);
             // Save receipt data and return response
