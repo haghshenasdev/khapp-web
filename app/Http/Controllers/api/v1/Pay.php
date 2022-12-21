@@ -45,22 +45,24 @@ class Pay extends Controller
     {
         $request->validate([
             'faktoorId' => ['required','numeric'],
-            'Amount' => ['required','numeric'],
         ]);
 
         try {
             // Get amount & transaction_id from database or gateway request
-            $fk = Faktoor::query()->find($request->faktoorId)->first()->get('ResNum');
+            $fk = Faktoor::query()->find($request->faktoorId)->first();
             if (isNull($fk)){
                 return response()->json([
                     'message' => 'فاکتور یافت نشد.',
                     'status' => 'error'
                 ]);
             }
-            $invoice = new Invoice($request->Amount,$fk->ResNum);
+            $invoice = new Invoice($fk->amount,$fk->ResNum);
             $receipt = PaymentGateway::verify($invoice);
             // Save receipt data and return response
             //
+            if ($fk->is_pardakht == 0){
+                $fk->update(['is_pardakht' => 1]);
+            }
             return response()->json([
                 'message' => 'پرداخت موفقیت آمیز بود.',
                 'status' => 'success',
