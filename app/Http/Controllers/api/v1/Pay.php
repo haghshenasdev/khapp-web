@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\api\v1;
 
+use App\Http\Controllers\Controller;
 use App\Models\charity;
 use App\Models\Faktoor;
 use Illuminate\Http\Request;
@@ -12,19 +13,8 @@ use Omalizadeh\MultiPayment\Exceptions\PaymentFailedException;
 use Omalizadeh\MultiPayment\Facades\PaymentGateway;
 use Omalizadeh\MultiPayment\Invoice;
 
-class Pay
+class Pay extends Controller
 {
-    public function invoice($charity,$sabtid)
-    {
-        $faktoor = Faktoor::query()->where('sabtid',$sabtid)->first();
-
-        $invoice = new Invoice($faktoor->amount);
-        $invoice->setPhoneNumber(\App\Models\User::query()->find($faktoor->userid,'phone')->phone);
-
-        return PaymentGateway::purchase($invoice, function (string $transactionId) use ($sabtid) {
-           Faktoor::query()->where('sabtid',$sabtid)->update(['ResNum' => $transactionId]);
-        })->view();
-    }
 
     public function pay(Request $request,$charity)
     {
@@ -36,7 +26,7 @@ class Pay
         $user = Auth::user();
         $sabtId = '110-' . Str::random(9);
 
-        Faktoor::query()->insert([
+        $faktoorId = Faktoor::query()->insertGetId([
             'userid' => $user->id,
             'amount' => $request->input('amount'),
             'type' => $request->input('type'),
@@ -45,22 +35,35 @@ class Pay
         ]);
 
         return response()->json([
-            'url' => url('api/v1/'.$charity.'/invoice/'.$sabtId),
+            'url' => url('/invoice/'.$sabtId),
+            'faktoorId' => $faktoorId,
         ]);
     }
 
     public function verify(Request $request)
     {
+        $request->validate([
+            'faktoorId' => ['required','numeric'],
+            'Amount' => ['required','numeric'],
+        ]);
+
         try {
             // Get amount & transaction_id from database or gateway request
-            $invoice = new Invoice($request->Amount,$request->ResNum);
+            $ResNum = Faktoor::query()->findOrFail($request->faktoorId)->first()->ResNum;
+            $invoice = new Invoice($request->Amount,$ResNum);
             $receipt = PaymentGateway::verify($invoice);
             // Save receipt data and return response
             //
-            Faktoor::query()->where('ResNum',$request->ResNum)->update(['is_pardakht' => 1]);
             return response()->json([
                 'message' => 'پرداخت موفقیت آمیز بود.',
-                'status' => 'success'
+                'status' => 'success',
+                'receipt' => [
+                    'CardNumber' => $receipt->getCardNumber(),
+                    'InvoiceId' => $receipt->getInvoiceId(),
+                    'ReferenceId' => $receipt->getReferenceId(),
+                    'TraceNumber' => $receipt->getTraceNumber(),
+                    'TransactionId' => $receipt->getTransactionId(),
+                ],
             ]);
         } catch (PaymentAlreadyVerifiedException $exception) {
             // Optional: Handle repeated verification request

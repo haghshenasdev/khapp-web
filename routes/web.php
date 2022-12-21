@@ -30,6 +30,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('invoice/{sabtid}',[\App\Http\Controllers\Pay::class,'invoice']);
+Route::post('verify',[\App\Http\Controllers\Pay::class,'verify']);
+
 require __DIR__.'/auth.php';
 
 Auth::routes();

@@ -32,7 +32,6 @@ Route::group(['prefix' => 'v1/{charity}','middleware' => ['charitycheck']],funct
     Route::post('register',[\App\Http\Controllers\api\v1\auth\AuthController::class,'register']);
     Route::post('login',[\App\Http\Controllers\api\v1\auth\AuthController::class,'login']);
 
-    Route::get('invoice/{sabtid}',[\App\Http\Controllers\api\v1\Pay::class,'invoice']);
     Route::post('verify',[\App\Http\Controllers\api\v1\Pay::class,'verify']);
 
     // auth required routs
