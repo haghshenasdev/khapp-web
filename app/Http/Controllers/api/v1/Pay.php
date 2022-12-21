@@ -50,14 +50,14 @@ class Pay extends Controller
 
         try {
             // Get amount & transaction_id from database or gateway request
-            $ResNum = Faktoor::query()->find($request->faktoorId)->first()->ResNum;
-            if (isNull($ResNum)){
+            $fk = Faktoor::query()->find($request->faktoorId)->first()->get('ResNum');
+            if (isNull($fk)){
                 return response()->json([
                     'message' => 'فاکتور یافت نشد.',
                     'status' => 'error'
                 ]);
             }
-            $invoice = new Invoice($request->Amount,$ResNum);
+            $invoice = new Invoice($request->Amount,$fk->ResNum);
             $receipt = PaymentGateway::verify($invoice);
             // Save receipt data and return response
             //
