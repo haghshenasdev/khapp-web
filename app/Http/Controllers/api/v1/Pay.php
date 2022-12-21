@@ -56,6 +56,7 @@ class Pay extends Controller
 //                    'status' => 'error'
 //                ]);
 //            }
+            dd($fk);
             $invoice = new Invoice($fk->amount,$fk->ResNum);
             $receipt = PaymentGateway::verify($invoice);
             // Save receipt data and return response
