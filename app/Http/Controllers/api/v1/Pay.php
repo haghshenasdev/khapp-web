@@ -49,7 +49,7 @@ class Pay extends Controller
 
         try {
             // Get amount & transaction_id from database or gateway request
-            $fk = Faktoor::query()->find($request->faktoorId);
+            $fk = Faktoor::query()->find(3);
             if (isNull($fk)){
                 return response()->json([
                     'message' => 'فاکتور یافت نشد.',
