@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('invoice/{sabtid}',[\App\Http\Controllers\Pay::class,'invoice']);
-Route::post('verify',[\App\Http\Controllers\Pay::class,'verify']);
+Route::post('verify',[\App\Http\Controllers\Pay::class,'verify'])->name('verify_web');
 
 require __DIR__.'/auth.php';
 
