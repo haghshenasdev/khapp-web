@@ -42,6 +42,12 @@ return new class extends Migration
                 ->references('id')
                 ->on('charities');
         });
+
+        Schema::table('darkhasts',function (Blueprint $t){
+            $t->foreign('charity')
+                ->references('id')
+                ->on('charities');
+        });
     }
 
     /**

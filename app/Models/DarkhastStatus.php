@@ -5,9 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DarkhastTypes extends Model
+class DarkhastStatus extends Model
 {
     use HasFactory;
-
-    protected $table = 'darkhast_types';
 }

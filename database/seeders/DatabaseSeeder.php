@@ -5,7 +5,9 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\charity;
 use App\Models\Darkhast;
-use App\Models\DarkhastTypes;
+use App\Models\darkhast_status;
+use App\Models\DarkhastStatus;
+use App\Models\DarkhastType;
 use App\Models\Faktoor;
 use App\Models\Hadis;
 use App\Models\HomeItem;
@@ -146,7 +148,7 @@ class DatabaseSeeder extends Seeder
           ]
       ]);
 
-      DarkhastTypes::query()->insert(
+      DarkhastType::query()->insert(
           [
               'title' => 'صندوق صدقات',
               'description' => 'این مورد جت درخواست صندوق صدقات است',
@@ -154,7 +156,19 @@ class DatabaseSeeder extends Seeder
           ]
       );
 
-      DarkhastTypes::query()->insert([
+      DarkhastStatus::query()->insert([
+          [
+              'title' => 'ثبت شده'
+          ],
+          [
+              'title' => 'در حال بررسی'
+          ],
+          [
+              'title' => 'بسته شده'
+          ]
+      ]);
+
+      DarkhastType::query()->insert([
           [
               'title' => 'صندوق کوچک خودرو',
               'description' => 'صندوق کوچک مناسب خودرو',
@@ -173,7 +187,7 @@ class DatabaseSeeder extends Seeder
           'type' => 2,
           'user' => 1,
           'description' => 'قبل از ارسال صندوق با بنده تماس بگیرید',
-          'status' => 'در حال برسی',
+          'charity' => 1,
       ]);
     }
 }

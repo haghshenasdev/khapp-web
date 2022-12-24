@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('darkhast_types',function (Blueprint $t){
-            $t->id();
-            $t->string('title',100);
-            $t->text('description')->nullable();
-            $t->boolean("is_active")->default(1);
-            $t->unsignedBigInteger('charity')->unsigned();
-            $t->unsignedBigInteger('sub')->unsigned()->nullable();
+        Schema::table('darkhasts',function (Blueprint $t){
+            $t->foreign('status')
+                ->references('id')
+                ->on('darkhast_statuses');
         });
     }
 
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('darkhast_types');
+        //
     }
 };

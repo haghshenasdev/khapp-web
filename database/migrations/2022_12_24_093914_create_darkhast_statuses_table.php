@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('darkhast_types',function (Blueprint $t){
-            $t->id();
-            $t->string('title',100);
-            $t->text('description')->nullable();
-            $t->boolean("is_active")->default(1);
-            $t->unsignedBigInteger('charity')->unsigned();
-            $t->unsignedBigInteger('sub')->unsigned()->nullable();
+        Schema::create('darkhast_statuses', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
         });
     }
 
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('darkhast_types');
+        Schema::dropIfExists('darkhast_statuses');
     }
 };

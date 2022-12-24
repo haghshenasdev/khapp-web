@@ -19,7 +19,7 @@ class Type
             ];
         }
 
-        if ($dataType = \App\Models\Type::where('id',$id = $request->input('id'))
+        if ($request->has('id') && $dataType = \App\Models\Type::where('id',$request->input('id'))
             ->where('is_active',1)
             ->where('charity',$charity)->first()
         ){

@@ -18,8 +18,9 @@ return new class extends Migration
             $t->unsignedBigInteger('type')->unsigned();
             $t->unsignedBigInteger('user');
             $t->text('description')->nullable();
-            $t->timestamp('date')->useCurrent();
-            $t->string('status',100);
+            $t->timestamps();
+            $t->unsignedBigInteger('status')->unsigned()->default(1);
+            $t->unsignedBigInteger('charity')->unsigned();
         });
     }
 

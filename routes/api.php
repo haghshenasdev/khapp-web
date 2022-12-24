@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,11 +39,22 @@ Route::group(['prefix' => 'v1/{charity}','middleware' => ['charitycheck']],funct
 
 
         Route::group(['prefix' => 'profile'],function (){
-            Route::get('/',[\App\Http\Controllers\api\v1\Profile::class,'index']);
+            Route::get('/',[\App\Http\Controllers\api\v1\profile\Profile::class,'index']);
+            Route::post('/update',[\App\Http\Controllers\api\v1\profile\Profile::class,'update']);
 
-            Route::get('/faktoors',[\App\Http\Controllers\api\v1\Profile::class,'faktoors']);
+            Route::get('/faktoors',[\App\Http\Controllers\api\v1\profile\Faktoor::class,'faktoors']);
+            Route::delete('/faktoors/delete',[\App\Http\Controllers\api\v1\profile\Faktoor::class,'delete']);
+            Route::get('/faktoors/dl-img',[\App\Http\Controllers\api\v1\profile\Faktoor::class,'dlimg']);
 
-            Route::get('/darkhasts',[\App\Http\Controllers\api\v1\Profile::class,'darkhasts']);
+            Route::group(['prefix' => 'darkhasts'],function (){
+                Route::get('/',[\App\Http\Controllers\api\v1\profile\Darkhast::class,'index']);
+
+                Route::post('/create',[\App\Http\Controllers\api\v1\profile\Darkhast::class,'create']);
+                Route::delete('/delete',[\App\Http\Controllers\api\v1\profile\Darkhast::class,'delete']);
+                Route::post('/update',[\App\Http\Controllers\api\v1\profile\Darkhast::class,'update']);
+
+                Route::get('/type',[\App\Http\Controllers\api\v1\profile\Darkhast::class,'type']);
+            });
         });
     });
 });
