@@ -158,13 +158,13 @@ class DatabaseSeeder extends Seeder
 
       DarkhastStatus::query()->insert([
           [
-              'title' => 'ثبت شده'
+              'status_title' => 'ثبت شده'
           ],
           [
-              'title' => 'در حال بررسی'
+              'status_title' => 'در حال بررسی'
           ],
           [
-              'title' => 'بسته شده'
+              'status_title' => 'بسته شده'
           ]
       ]);
 

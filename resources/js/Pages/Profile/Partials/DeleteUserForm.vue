@@ -86,7 +86,7 @@ const closeModal = () => {
                         :disabled="form.processing"
                         @click="deleteUser"
                     >
-                        Delete Account
+                        حذف حساب کاربری
                     </DangerButton>
                 </div>
             </div>

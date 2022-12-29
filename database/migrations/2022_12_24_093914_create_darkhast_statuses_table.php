@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('darkhast_statuses', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('status_title');
         });
     }
 
