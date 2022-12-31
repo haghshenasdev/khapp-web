@@ -24,6 +24,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->integer('charity')->unsigned();
+            $table->integer('access_level')->nullable();
         });
     }
 

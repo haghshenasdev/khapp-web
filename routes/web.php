@@ -26,7 +26,6 @@ Route::get('dashboard',function (){
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::delete('/home', [App\Http\Controllers\HomeController::class, 'delete'])->name('deletefk');
 
 Auth::routes();
 

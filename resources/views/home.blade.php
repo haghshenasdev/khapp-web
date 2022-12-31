@@ -34,52 +34,7 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-
-                            <table class="table">
-                                <tr>
-                                    <th>آیدی</th>
-                                    <th>مبلغ</th>
-                                    <th>شماره ثبت</th>
-                                    <th>وضعیت پرداخت</th>
-                                    <th>عملیات</th>
-                                </tr>
-                                @foreach($faktoors as $faktoor)
-                                <tr>
-                                    <td>{{$faktoor->id}}</td>
-                                    <td>{{$faktoor->amount}}</td>
-                                    <td>{{$faktoor->sabtid}}</td>
-                                    <td>
-                                        @if($faktoor->is_pardakht)
-                                            پرداخت شده
-                                            <br>
-                                            @isset($faktoor->ResNum)
-                                                شماره پیگیری : {{$faktoor->ResNum}}
-                                            @endif
-                                        @else
-                                            در انتظار پرداخت
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <div class="row">
-                                            <div class="col">
-                                                <form action="" method="post"><input class="btn btn-danger text-red-700" type="submit" value="حذف">
-                                                    @csrf
-                                                    @method('Delete')
-                                                    <input type="hidden" name="id" value="{{$faktoor->id}}">
-                                                </form>
-                                            </div>
-                                            @if(!$faktoor->is_pardakht)
-                                                <div class="col"><a class="btn btn-success" href="{{url('invoice/'.$faktoor->sabtid)}}">پرداخت</a></div>
-                                            @endif
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </table>
-
-                            @if(count($faktoors) == 0)
-                                <h3 class="text-center">هیچ فاکتوری وجود ندارد!</h3>
-                            @endif
+                            @livewire('faktoors-table-view')
                     </div>
                 </div>
 
@@ -119,5 +74,19 @@
             </div>
         </div>
 
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">کاربران</div>
+
+                    <div class="card-body">
+                        @livewire('faktoors-table-view')
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
+    @laravelViewsScripts
 @endsection

@@ -42,10 +42,4 @@ class HomeController extends Controller
             ]
         );
     }
-
-    public function delete(Request $request)
-    {
-        \App\Models\Faktoor::find($request->input('id'))->delete();
-        return redirect('home');
-    }
 }
