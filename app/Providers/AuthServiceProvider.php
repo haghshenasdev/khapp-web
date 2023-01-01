@@ -39,5 +39,9 @@ class AuthServiceProvider extends ServiceProvider
             return $user->access_level === 2;
         });
         //
+
+        Gate::define('see-users',function (){
+            return Gate::allows('charity-admin') or Gate::allows('super-admin');
+        });
     }
 }
