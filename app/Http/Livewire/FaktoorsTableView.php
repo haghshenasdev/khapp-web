@@ -6,6 +6,7 @@ use App\Actions\DeleteFaktoorAction;
 use App\Actions\PayFaktoorAction;
 use App\Models\Faktoor;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use LaravelViews\Facades\Header;
 use LaravelViews\Facades\UI;
 use LaravelViews\Views\TableView;
@@ -19,7 +20,17 @@ class FaktoorsTableView extends TableView
 
     protected function repository()
     {
-        return \App\Models\Faktoor::query()->where('userid',Auth::id());
+        if (Gate::allows('super-admin')){
+            return \App\Models\Faktoor::query()->orderByDesc('id');
+        }
+
+        if (Gate::allows('charity-admin') or Gate::allows('employee-admin')){
+            return \App\Models\Faktoor::query()
+                ->where('charity',Auth::user()->charity)
+                ->orderByDesc('id');
+        }
+
+        return \App\Models\Faktoor::query()->where('userid',Auth::id())->orderByDesc('id');
     }
 
     protected $paginate = 20;
@@ -37,7 +48,7 @@ class FaktoorsTableView extends TableView
             Header::title('مبلغ')->sortBy('amount'),
             Header::title('شماره ثبت')->sortBy('sabtid'),
             Header::title('وضعیت پرداخت')->sortBy('is_pardakht'),
-            'اکشن'
+            'عملیات'
         ];
     }
 

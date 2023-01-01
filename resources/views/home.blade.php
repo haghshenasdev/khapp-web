@@ -48,44 +48,27 @@
 
                     <div class="card-body">
 
-                        <table class="table">
-                            <tr>
-                                <th>آیدی</th>
-                                <th>نوع</th>
-                                <th>توضیحات</th>
-                                <th>وضعیت</th>
-                            </tr>
-                            @foreach($darkhasts as $darkhast)
-                                <tr>
-                                    <td>{{$darkhast->id}}</td>
-                                    <td>{{$darkhast->title}}</td>
-                                    <td>{{$darkhast->description}}</td>
-                                    <td>{{$darkhast->status_title}}</td>
-                                </tr>
-                            @endforeach
-                        </table>
+                        @livewire('darkhast-s-table-view')
 
-                        @if(count($darkhasts) == 0)
-                            <h3 class="text-center">هیچ درخواستی وجود ندارد!</h3>
-                        @endif
                     </div>
                 </div>
 
             </div>
         </div>
-
+        @if(Auth::user()->can('super-admin') or Auth::user()->can('charity-admin'))
         <div class="row justify-content-center mt-4">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">کاربران</div>
 
                     <div class="card-body">
-                        @livewire('faktoors-table-view')
+                        @livewire('users-table-view')
                     </div>
                 </div>
 
             </div>
         </div>
+        @endif
 
     </div>
     @laravelViewsScripts
