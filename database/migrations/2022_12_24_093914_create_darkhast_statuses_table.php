@@ -26,6 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('darkhasts', function (Blueprint $table) {
+            $table->dropForeign('darkhasts_status_foreign');
+        });
         Schema::dropIfExists('darkhast_statuses');
     }
 };
