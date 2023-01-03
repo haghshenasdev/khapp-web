@@ -18,14 +18,14 @@ class DarkhastSTableView extends TableView
             ->orderByDesc('id')
             ->join('darkhast_types', 'darkhasts.type','=','darkhast_types.id')
             ->join('darkhast_statuses','darkhasts.status','=','darkhast_statuses.id')
-            ->select(['darkhasts.id','darkhasts.description','darkhasts.created_at','darkhasts.updated_at','darkhasts.status','darkhast_types.title','darkhast_statuses.status_title']);
+            ->select(['darkhasts.id','darkhasts.charity','darkhasts.description','darkhasts.created_at','darkhasts.updated_at','darkhasts.status','darkhast_types.title','darkhast_statuses.status_title']);
 
-        if (Gate::allows('super-admin')){
+        if (Gate::allows('see-all-darkhasts')){
             return $query;
         }
 
-        if (Gate::allows('charity-admin') or Gate::allows('employee-admin')){
-            return $query->where('charity',Auth::user()->charity);
+        if (Gate::allows('see-charity-darkhasts')){
+            return $query->where('darkhasts.charity',Auth::user()->charity);
         }
 
         return $query->where('user',Auth::id());

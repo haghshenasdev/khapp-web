@@ -19,13 +19,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/',[\App\Http\Controllers\Home::class,'show']);
 
-Route::get('dashboard',function (){
-    return redirect('home');
-});
-
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['prefix' => 'dashboard','middleware' => ['auth']],function (){
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+    Route::get('users', [App\Http\Controllers\users::class, 'index'])->name('users')->middleware('can:see-users');
+    Route::get('darkhasts', [App\Http\Controllers\Darkhasts::class, 'index'])->name('darkhasts');
+});
 
 Auth::routes();
 

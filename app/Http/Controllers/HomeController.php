@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\api\v1\profile\Faktoor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class HomeController extends Controller
 {
@@ -26,15 +27,28 @@ class HomeController extends Controller
     public function index()
     {
 
-        return view('home',
+        $faktoors = \App\Models\Faktoor::all('amount');
+
+        if (Gate::allows('see-all-faktoors')){
+
+        }elseif (Gate::allows('see-charity-faktoors')){
+            $faktoors->where('charity',Auth::user()->charity);
+        }else{
+            $faktoors->where('userid',Auth::id());
+        }
+
+        $darkhasts = \App\Models\Darkhast::all('id');
+
+        if (Gate::allows('see-all-darkhasts')){
+
+        }elseif (Gate::allows('see-charity-darkhasts')){
+            $darkhasts->where('charity',Auth::user()->charity);
+        }else{
+            $darkhasts->where('user',Auth::id());
+        }
+
+        return view('dashboard.home',
             [
-                'faktoors' => $faktoors = \App\Models\Faktoor::all()->where('userid',Auth::id())->sortDesc(),
-                'darkhasts' => $darkhasts = \App\Models\Darkhast::query()
-                    ->where('user',Auth::id())
-                    ->join('darkhast_types', 'darkhasts.type','=','darkhast_types.id')
-                    ->join('darkhast_statuses','darkhasts.status','=','darkhast_statuses.id')
-                    ->get(['darkhasts.id','darkhasts.description','darkhasts.created_at','darkhasts.updated_at','darkhasts.status','darkhast_types.title','darkhast_statuses.status_title'])
-                    ->sortDesc(),
                 'amar' => [
                     'sumAmount' => $faktoors->sum('amount'),
                     'countDarkhast' => $darkhasts->count(),

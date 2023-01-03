@@ -20,11 +20,11 @@ class FaktoorsTableView extends TableView
 
     protected function repository()
     {
-        if (Gate::allows('super-admin')){
+        if (Gate::allows('see-all-faktoors')){
             return \App\Models\Faktoor::query()->orderByDesc('id');
         }
 
-        if (Gate::allows('charity-admin') or Gate::allows('employee-admin')){
+        if (Gate::allows('see-charity-faktoors')){
             return \App\Models\Faktoor::query()
                 ->where('charity',Auth::user()->charity)
                 ->orderByDesc('id');

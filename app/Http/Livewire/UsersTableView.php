@@ -14,13 +14,12 @@ class UsersTableView extends TableView
      */
     protected function repository()
     {
-        if (Gate::allows('charity-admin')){
-            return \App\Models\User::query()
-                ->where('charity',Auth::user()->charity)
-                ->orderByDesc('id');
+        if (Gate::allows('see-charity-users')){
+            return \App\Models\User::query()->where('charity',Auth::user()->charity);
         }
-
-        return \App\Models\User::query()->orderByDesc('id');
+        return \App\Models\User::query()
+            ->join('charities','users.charity','=','charities.id')
+            ->select(['users.id','users.name','users.email','users.phone','users.created_at','charities.shortname','users.access_level']);
     }
 
     /**
@@ -30,15 +29,17 @@ class UsersTableView extends TableView
      */
     public function headers(): array
     {
-        return [
+        $headers = [
             Header::title('id')->sortBy('id'),
             'نام',
             'ایمیل',
             'تلفن',
             'تاریخ ثبت نام',
-            'خیریه',
             'سطح دسترسی',
         ];
+        if (Gate::allows('see-all-users')) $headers[] = 'خیریه';
+
+        return $headers;
     }
 
     /**
@@ -48,15 +49,17 @@ class UsersTableView extends TableView
      */
     public function row($model): array
     {
-        return [
+        $row = [
             $model->id,
             $model->name,
             $model->email,
             $model->phone,
             $model->created_at,
-            $model->charity,
             $this->getAccessLevelString($model->access_level),
         ];
+        if(Gate::allows('see-all-users')) $row[] = $model->shortname;
+
+        return $row;
     }
 
     private function getAccessLevelString($accessInt): string

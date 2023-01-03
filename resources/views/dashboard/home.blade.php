@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+    @include('layouts.toolbar-nav')
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -36,35 +38,5 @@
             </div>
         </div>
 
-        <div class="row justify-content-center mt-4">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">درخواست ها</div>
-
-                    <div class="card-body">
-
-                        @livewire('darkhast-s-table-view')
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        @can('see-users')
-        <div class="row justify-content-center mt-4">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">کاربران</div>
-
-                    <div class="card-body">
-                        @livewire('users-table-view')
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        @endif
-
     </div>
-    @laravelViewsScripts
 @endsection
