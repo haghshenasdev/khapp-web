@@ -64,10 +64,17 @@ class DatabaseSeeder extends Seeder
       ]);
 
         Type::insert([
-                'type_name' => 'alamdar',
-                'title' => 'پروژه علمدار',
+                [
+                    'type_name' => 'alamdar',
+                    'title' => 'پروژه علمدار',
+                    'charity' => 1,
+                    'sub' => 1,
+                ],[
+                'type_name' => 'ezdevaj',
+                'title' => 'پروژه مسکن ازدواج',
                 'charity' => 1,
                 'sub' => 1,
+            ]
         ]);
 
       Pooyesh::insert([
