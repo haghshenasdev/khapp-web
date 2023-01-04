@@ -25,6 +25,7 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth']],function (){
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
     Route::get('users', [App\Http\Controllers\users::class, 'index'])->name('users')->middleware('can:see-users');
     Route::get('darkhasts', [App\Http\Controllers\Darkhasts::class, 'index'])->name('darkhasts');
+    Route::get('charities', [App\Http\Controllers\Charities::class, 'index'])->name('charities')->middleware('can:see-charities');
 });
 
 Auth::routes();

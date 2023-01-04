@@ -31,6 +31,8 @@ class DarkhastSTableView extends TableView
         return $query->where('user',Auth::id());
     }
 
+    public $searchBy = ['title', 'id'];
+
     /**
      * Sets the headers of the table as you want to be displayed
      *

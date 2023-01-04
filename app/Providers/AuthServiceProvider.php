@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Models\charity;
 use App\Models\Darkhast;
 use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -99,6 +100,21 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('delete-faktoors',function (User $user,Darkhast $darkhast){
             return Gate::allows('update-darkhasts',[$user,$darkhast]);
+        });
+
+        //charities
+        Gate::define('see-charities',function (){
+            return Gate::allows('super-admin');
+        });
+
+        Gate::define('update-charity',function (User $user,charity $charity){
+            return Gate::allows('super-admin')
+                or (Gate::allows('charity-admin') and $user->charity === $charity->id);
+        });
+
+        Gate::define('delete-charity',function (User $user,charity $charity){
+            return Gate::allows('super-admin')
+                or (Gate::allows('charity-admin') and $user->charity === $charity->id);
         });
     }
 }

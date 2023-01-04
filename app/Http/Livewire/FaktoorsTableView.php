@@ -33,6 +33,8 @@ class FaktoorsTableView extends TableView
         return \App\Models\Faktoor::query()->where('userid',Auth::id())->orderByDesc('id');
     }
 
+    public $searchBy = ['amount', 'sabtid'];
+
     protected $paginate = 20;
 
 

@@ -14,6 +14,11 @@
                         <a class="nav-link active" aria-current="page" href="{{route('users')}}">کاربران</a>
                     </li>
                     @endcan
+                    @can('see-charities')
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{route('charities')}}">خیریه ها</a>
+                        </li>
+                    @endcan
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">پویش ها</a>
                     </li>

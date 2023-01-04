@@ -22,6 +22,8 @@ class UsersTableView extends TableView
             ->select(['users.id','users.name','users.email','users.phone','users.created_at','charities.shortname','users.access_level']);
     }
 
+    public $searchBy = ['name', 'email', 'phone'];
+
     /**
      * Sets the headers of the table as you want to be displayed
      *
