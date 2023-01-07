@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('charities',function (Blueprint $t){
-            $t->id();
-            $t->string('fullname',100);
-            $t->string('shortname',100);
-            $t->integer('authority')->unsigned()->nullable();
-            $t->boolean("is_active")->default(0);
+        Schema::table('charities_metas',function (Blueprint $t){
+            $t->foreign('charity')
+                ->references('id')
+                ->on('charities');
         });
     }
 
@@ -29,7 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('Charities');
+        //
     }
 };

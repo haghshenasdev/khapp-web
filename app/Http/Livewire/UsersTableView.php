@@ -24,6 +24,10 @@ class UsersTableView extends TableView
 
     public $searchBy = ['name', 'email', 'phone'];
 
+    public $sortOrder = 'desc';
+
+    public $sortBy = 'id';
+
     /**
      * Sets the headers of the table as you want to be displayed
      *

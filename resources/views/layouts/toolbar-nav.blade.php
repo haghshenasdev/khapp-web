@@ -19,12 +19,17 @@
                             <a class="nav-link active" aria-current="page" href="{{route('charities')}}">خیریه ها</a>
                         </li>
                     @endcan
+                    @can('see-pooyesh')
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">پویش ها</a>
+                        <a class="nav-link active" aria-current="page" href="{{route('pooyeshes')}}">پویش ها</a>
                     </li>
+                    @endcan
+                    @can('see-projects')
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">پروژه ها</a>
+                        <a class="nav-link active" aria-current="page" href="{{route('projects')}}">پروژه ها</a>
                     </li>
+                    @endcan
+                    @can('see-types')
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">نوع ها </a>
                         <ul class="dropdown-menu">
@@ -32,6 +37,7 @@
                             <li><a class="dropdown-item" href="#">نوع درخواست</a></li>
                         </ul>
                     </li>
+                    @endcan
 
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">تنظیمات</a>

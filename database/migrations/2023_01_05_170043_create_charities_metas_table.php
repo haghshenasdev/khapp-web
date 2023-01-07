@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('charities',function (Blueprint $t){
-            $t->id();
-            $t->string('fullname',100);
-            $t->string('shortname',100);
-            $t->integer('authority')->unsigned()->nullable();
-            $t->boolean("is_active")->default(0);
+        Schema::create('charities_metas', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('charity')->unsigned();
+            $table->string('logo')->nullable();
+            $table->string('website')->nullable();
+            $table->string('phone',11)->nullable();
+            $table->text('about')->nullable();
         });
     }
 
@@ -29,7 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('Charities');
+        Schema::dropIfExists('charities_metas');
     }
 };

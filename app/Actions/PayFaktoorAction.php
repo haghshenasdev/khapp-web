@@ -29,4 +29,9 @@ class PayFaktoorAction extends Action
     {
         return redirect(url('invoice/' . $model->sabtid));
     }
+
+    public function renderIf($item, View $view): bool
+    {
+        return !$item->is_pardakht;
+    }
 }

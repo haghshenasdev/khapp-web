@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\CharitiesMeta;
 use App\Models\charity;
 use App\Models\Darkhast;
 use App\Models\darkhast_status;
@@ -36,13 +37,22 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+
         charity::insert([
-            'fullname' => 'خیریه امام علی ابن ابیطالب علیه السلام سهر گرگاب',
+            'fullname' => 'خیریه امام علی ابن ابیطالب علیه السلام شهر گرگاب',
             'shortname' => 'خیریه امام علی (ع) گرگاب',
             'is_active' => 1,
-            'about' => ' خیریه امام علی ابن ابیطالب علیه السلام شهر گرگاب
-فعالیت خود را به صورت رسمی از تاریخ 1392/01/26 با هدف کمک به نیاز مندان و انجام امور خیر در حوزه های حمایتی و عمرانی و... آغاز کرده است . ',
         ]);
+
+        CharitiesMeta::query()->insert(
+            [
+                'about' => ' خیریه امام علی ابن ابیطالب علیه السلام شهر گرگاب
+فعالیت خود را به صورت رسمی از تاریخ 1392/01/26 با هدف کمک به نیاز مندان و انجام امور خیر در حوزه های حمایتی و عمرانی و... آغاز کرده است . ',
+                'phone' => '03145753131',
+                'logo' => '/',
+                'charity' => 1,
+            ]
+        );
 
         HomeItem::Insert([
           [

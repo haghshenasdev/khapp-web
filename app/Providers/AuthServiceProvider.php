@@ -5,6 +5,10 @@ namespace App\Providers;
 // use Illuminate\Support\Facades\Gate;
 use App\Models\charity;
 use App\Models\Darkhast;
+use App\Models\Faktoor;
+use App\Models\Pooyesh;
+use App\Models\Project;
+use App\Models\Type;
 use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -41,6 +45,16 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('employee-admin',function (User $user){
             return $user->access_level === 2;
+        });
+
+        Gate::define('admin',function (){
+            return Gate::allows('super-admin')
+                or Gate::allows('charity-admin')
+                or Gate::allows('employee-admin');
+        });
+
+        Gate::define('user',function (User $user){
+            return !Gate::allows('admin');
         });
 
         //users
@@ -88,18 +102,18 @@ class AuthServiceProvider extends ServiceProvider
             return Gate::allows('charity-admin') or Gate::allows('employee-admin');
         });
 
-        Gate::define('update-faktoors',function (User $user,Darkhast $darkhast){
+        Gate::define('update-faktoors',function (User $user,Faktoor $faktoor){
             if (Gate::allows('super-admin')){
                 return  true;
             }
             if (Gate::allows('charity-admin') or Gate::allows('employee-admin')){
-                return $darkhast->charity === $user->charity;
+                return $faktoor->charity === $user->charity;
             }
-            return $darkhast->user === $user->id;
+            return $faktoor->user === $user->id;
         });
 
-        Gate::define('delete-faktoors',function (User $user,Darkhast $darkhast){
-            return Gate::allows('update-darkhasts',[$user,$darkhast]);
+        Gate::define('delete-faktoors',function (User $user,Faktoor $faktoor){
+            return Gate::allows('update-faktoors',$faktoor);
         });
 
         //charities
@@ -116,5 +130,88 @@ class AuthServiceProvider extends ServiceProvider
             return Gate::allows('super-admin')
                 or (Gate::allows('charity-admin') and $user->charity === $charity->id);
         });
+
+        //pooyesh
+        Gate::define('see-pooyesh',function (){
+            return Gate::allows('admin');
+        });
+
+        Gate::define('see-all-pooyesh',function (){
+            return Gate::allows('super-admin');
+        });
+
+        Gate::define('see-charity-pooyesh',function (){
+            return Gate::allows('charity-admin') or Gate::allows('employee-admin');
+        });
+
+        Gate::define('update-pooyesh',function (User $user,Pooyesh $pooyesh){
+            if (Gate::allows('super-admin')){
+                return  true;
+            }
+            if (Gate::allows('charity-admin') or Gate::allows('employee-admin')){
+                return $pooyesh->charity === $user->charity;
+            }
+            return false;
+        });
+
+        Gate::define('delete-pooyesh',function (User $user,Pooyesh $pooyesh){
+            return Gate::allows('update-pooyesh',$pooyesh);
+        });
+
+        //projects
+        Gate::define('see-projects',function (){
+            return Gate::allows('admin');
+        });
+
+        Gate::define('see-all-projects',function (){
+            return Gate::allows('super-admin');
+        });
+
+        Gate::define('see-charity-projects',function (){
+            return Gate::allows('charity-admin') or Gate::allows('employee-admin');
+        });
+
+        Gate::define('update-projects',function (User $user,Project $project){
+            if (Gate::allows('super-admin')){
+                return  true;
+            }
+            if (Gate::allows('charity-admin') or Gate::allows('employee-admin')){
+                return $project->charity === $user->charity;
+            }
+            return false;
+        });
+
+        Gate::define('delete-projects',function (User $user,Project $project){
+            return Gate::allows('update-projects',$project);
+        });
+
+        //types
+        Gate::define('see-types',function (){
+            return Gate::allows('super-admin') or Gate::allows('charity-admin');
+        });
+
+        Gate::define('see-all-types',function (){
+            return Gate::allows('super-admin');
+        });
+
+        Gate::define('see-charity-types',function (){
+            return Gate::allows('charity-admin') or Gate::allows('employee-admin');
+        });
+
+        Gate::define('update-types',function (User $user,Type $type){
+            if (Gate::allows('super-admin')){
+                return  true;
+            }
+            if (Gate::allows('charity-admin') or Gate::allows('employee-admin')){
+                return $type->charity === $user->charity;
+            }
+            return false;
+        });
+
+        Gate::define('delete-types',function (User $user,Type $type){
+            return Gate::allows('update-types',$type);
+        });
+
+        //setting
     }
 }

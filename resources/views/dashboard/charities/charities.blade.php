@@ -8,6 +8,9 @@
                 <div class="card-header">خیریه ها</div>
 
                 <div class="card-body">
+                    <a href="{{route('newCharity')}}" class="btn btn-outline-success">
+                        افزودن خیریه جدید
+                    </a>
 
                     @livewire('charities-table-view')
 
@@ -17,3 +20,9 @@
         </div>
     </div>
 @endsection
+<script>
+    import DangerButton from "@/Components/DangerButton";
+    export default {
+        components: {DangerButton}
+    }
+</script>

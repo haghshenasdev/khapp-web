@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Actions\ActivateOrDeactiveAction;
+use App\Actions\DeleteCharityAction;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use LaravelViews\Facades\UI;
@@ -14,11 +16,14 @@ class CharitiesTableView extends TableView
      */
     protected function repository()
     {
-        return \App\Models\charity::query()
-            ->orderByDesc('id');
+        return \App\Models\charity::query();
     }
 
     public $searchBy = ['shortname', 'fullname'];
+
+    public $sortOrder = 'desc';
+
+    public $sortBy = 'id';
 
     /**
      * Sets the headers of the table as you want to be displayed
@@ -31,7 +36,7 @@ class CharitiesTableView extends TableView
             'id',
             'نام کوتاه',
             'نام کامل',
-            'وضعیت',
+            'عملیات',
         ];
     }
 
@@ -46,7 +51,14 @@ class CharitiesTableView extends TableView
             $model->id,
             $model->shortname,
             $model->fullname,
-            $model->is_active ? UI::icon('check', 'success') : UI::icon('x', 'danger')
+        ];
+    }
+
+    protected function actionsByRow()
+    {
+        return [
+            new ActivateOrDeactiveAction(),
+            new DeleteCharityAction(),
         ];
     }
 }

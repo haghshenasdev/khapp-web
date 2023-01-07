@@ -21,16 +21,15 @@ class FaktoorsTableView extends TableView
     protected function repository()
     {
         if (Gate::allows('see-all-faktoors')){
-            return \App\Models\Faktoor::query()->orderByDesc('id');
+            return \App\Models\Faktoor::query();
         }
 
         if (Gate::allows('see-charity-faktoors')){
             return \App\Models\Faktoor::query()
-                ->where('charity',Auth::user()->charity)
-                ->orderByDesc('id');
+                ->where('charity',Auth::user()->charity);
         }
 
-        return \App\Models\Faktoor::query()->where('userid',Auth::id())->orderByDesc('id');
+        return \App\Models\Faktoor::query()->where('userid',Auth::id());
     }
 
     public $searchBy = ['amount', 'sabtid'];
@@ -54,6 +53,10 @@ class FaktoorsTableView extends TableView
         ];
     }
 
+    public $sortOrder = 'desc';
+
+    public $sortBy = 'id';
+
     /**
      * Sets the data to every cell of a single row
      *
@@ -71,8 +74,8 @@ class FaktoorsTableView extends TableView
     protected function actionsByRow(): array
     {
         return[
-            new DeleteFaktoorAction(),
             new PayFaktoorAction(),
+            new DeleteFaktoorAction(),
         ];
     }
 }

@@ -83,5 +83,7 @@
     "You are receiving this email because we received a password reset request for your account.": "شما این ایمیل را به دلیل درخواست رمزعبور جدید دریافت کرده‌اید.",
     "You're logged in!": "شما وارد شده‌اید!",
     "Your email address is unverified.": "ایمیل شما تایید نشده است.",
-    "There are no items in this table": "هیچ موردی در این جدول وجود ندارد"
+    "There are no items in this table": "هیچ موردی در این جدول وجود ندارد",
+    "Yes, I'm sure": "بله ، انجام بده",
+    "Do you really want to perform this action?": "آیا از حذف این آیتم اطمینان دارید ؟"
 }
