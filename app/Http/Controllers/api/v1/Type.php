@@ -12,10 +12,10 @@ class Type
         if ($sub = $request->input('sub'))
         {
             return [
-                'data' => \App\Models\Type::all()
+                'data' => array_values(\App\Models\Type::all()
                     ->where('is_active',1)
                     ->where('charity',$charity)
-                    ->where('sub',$sub)
+                    ->where('sub',$sub)->toArray())
             ];
         }
 
