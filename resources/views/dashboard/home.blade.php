@@ -20,6 +20,21 @@
             </div>
         </div>
 
+        @can('see-charities')
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">آمار خیریه ها</div>
+
+                    <div class="card-body">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        @endcan
+
         <div class="row justify-content-center mt-4">
             <div class="col-md-8">
                 <div class="card">
