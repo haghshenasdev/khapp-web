@@ -65,7 +65,7 @@ class FaktoorsTableView extends TableView
     public function row($model): array
     {
         return [
-            $model->amount,
+            number_format($model->amount),
             $model->sabtid,
             $model->is_pardakht ? UI::icon('check', 'success') : UI::icon('x', 'danger'),
         ];

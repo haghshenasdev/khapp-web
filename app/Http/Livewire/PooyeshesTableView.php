@@ -47,7 +47,7 @@ class PooyeshesTableView extends TableView
         return [
             $model->id,
             $model->title,
-            $model->amount,
+            number_format($model->amount),
             ($model->start == null) ? 'ندارد' : $model->start->diffforHumans(),
             ($model->end == null) ? 'ندارد' : $model->end->diffforHumans(),
         ];

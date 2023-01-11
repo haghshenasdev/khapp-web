@@ -11,7 +11,7 @@
 
                     <div class="card-body">
                         <div class="row m-5 text-center">
-                            <div class="col m-2">مجموع کمک ها : {{$amar['sumAmount']}}</div>
+                            <div class="col m-2">مجموع کمک ها : {{number_format($amar['sumAmount'],0,'.',',')}}</div>
                             <div class="col m-2">تعداد درخواست ها :{{$amar['countDarkhast']}}</div>
                             <div class="col m-2">ایتام تحت پوشش :</div>
                         </div>
