@@ -8,6 +8,9 @@
                 <div class="card-header">درخواست ها</div>
 
                 <div class="card-body">
+                    <a href="{{route('newDarkhasts')}}" class="btn btn-outline-success">
+                        افزودن درخواست جدید
+                    </a>
 
                     @livewire('darkhast-s-table-view')
 

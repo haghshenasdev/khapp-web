@@ -5,7 +5,13 @@
     <div class="row justify-content-center mt-4">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">خیریه جدید</div>
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">خیریه جدید</div>
+                        @include('layouts.back-btn')
+                    </div>
+
+                </div>
 
                 <div class="card-body">
 
@@ -48,7 +54,6 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <input class="btn btn-outline-success" type="submit" value="افزودن">
-                        <a href="{{route('charities')}}" class="btn btn-primary">بازگشت</a>
 
                     </form>
 

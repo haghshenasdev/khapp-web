@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\queries\Queries;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use LaravelViews\Facades\Header;
@@ -14,12 +15,7 @@ class UsersTableView extends TableView
      */
     protected function repository()
     {
-        if (Gate::allows('see-charity-users')){
-            return \App\Models\User::query()->where('charity',Auth::user()->charity);
-        }
-        return \App\Models\User::query()
-            ->join('charities','users.charity','=','charities.id')
-            ->select(['users.id','users.name','users.email','users.phone','users.created_at','charities.shortname','users.access_level']);
+        return Queries::getUsers();
     }
 
     public $searchBy = ['name', 'email', 'phone'];

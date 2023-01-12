@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\dashboard;
 
+use App\Http\Controllers\Controller;
 use App\Models\CharitiesMeta;
 use App\Models\charity;
 use Illuminate\Http\Request;
@@ -42,5 +43,16 @@ class Charities extends Controller
         ]);
 
         return redirect(route('charities'));
+    }
+
+    public function show(Request $request)
+    {
+        $validateData = $request->validate([
+            'id' => 'required|numeric'
+        ]);
+
+        $charity = charity::query()->findOrFail($validateData['id']);
+
+        return view('dashboard.charities.showCharity',['charity' => $charity]);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Actions\ShowAction;
+use App\queries\Queries;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use LaravelViews\Views\TableView;
@@ -13,12 +15,7 @@ class PooyeshesTableView extends TableView
      */
     protected function repository()
     {
-        if (Gate::allows('see-charity-pooyesh')){
-            return \App\Models\Pooyesh::query()->where('charity',Auth::user()->charity);
-        }
-        return \App\Models\Pooyesh::query()
-            ->join('charities','pooyeshes.charity','=','charities.id')
-            ->select(['pooyeshes.id','pooyeshes.title','pooyeshes.amount','pooyeshes.charity','pooyeshes.start','pooyeshes.end','charities.shortname']);
+        return Queries::getPooyeshes();
     }
 
     /**
@@ -50,6 +47,13 @@ class PooyeshesTableView extends TableView
             number_format($model->amount),
             ($model->start == null) ? 'ندارد' : $model->start->diffforHumans(),
             ($model->end == null) ? 'ندارد' : $model->end->diffforHumans(),
+        ];
+    }
+
+    protected function actionsByRow()
+    {
+        return [
+            new ShowAction('showPooyeshes'),
         ];
     }
 }

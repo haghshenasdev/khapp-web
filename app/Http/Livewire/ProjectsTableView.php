@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\queries\Queries;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use LaravelViews\Facades\Header;
@@ -14,12 +15,7 @@ class ProjectsTableView extends TableView
      */
     protected function repository()
     {
-        if (Gate::allows('see-charity-projects')){
-            return \App\Models\Project::query()->where('charity',Auth::user()->charity);
-        }
-        return \App\Models\Project::query()
-            ->join('charities','projects.charity','=','charities.id')
-            ->select(['projects.id','projects.title','projects.pishraft','projects.charity','charities.shortname']);
+        return Queries::getProjects();
     }
 
     /**

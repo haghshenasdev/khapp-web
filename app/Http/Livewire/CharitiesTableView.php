@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use App\Actions\ActivateOrDeactiveAction;
 use App\Actions\DeleteCharityAction;
+use App\Actions\ShowAction;
+use App\queries\Queries;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use LaravelViews\Facades\UI;
@@ -16,7 +18,7 @@ class CharitiesTableView extends TableView
      */
     protected function repository()
     {
-        return \App\Models\charity::query();
+        return Queries::getCharities();
     }
 
     public $searchBy = ['shortname', 'fullname'];
@@ -59,6 +61,7 @@ class CharitiesTableView extends TableView
         return [
             new ActivateOrDeactiveAction(),
             new DeleteCharityAction(),
+            new ShowAction('showCharity'),
         ];
     }
 }

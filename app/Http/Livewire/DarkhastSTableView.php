@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Actions\ShowAction;
+use App\queries\Queries;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use LaravelViews\Facades\Header;
@@ -14,27 +16,7 @@ class DarkhastSTableView extends TableView
      */
     protected function repository()
     {
-        $query = \App\Models\Darkhast::query()
-            ->join('darkhast_types', 'darkhasts.type','=','darkhast_types.id')
-            ->join('darkhast_statuses','darkhasts.status','=','darkhast_statuses.id')
-            ->select(['darkhasts.id','darkhasts.charity','darkhasts.description','darkhasts.created_at','darkhasts.updated_at','darkhasts.status','darkhast_types.title','darkhast_statuses.status_title']);
-
-        if (Gate::allows('admin')){
-            $adminQuery = $query
-                ->join('users','darkhasts.user','=','users.id');
-
-            if (Gate::allows('see-all-darkhasts')){
-                return $adminQuery
-                    ->join('charities','darkhasts.charity','=','charities.id')->addSelect(['charities.shortname'])
-                    ->addSelect(['users.name']);
-            }
-
-            if (Gate::allows('see-charity-darkhasts')){
-                return $adminQuery->where('darkhasts.charity',Auth::user()->charity);
-            }
-        }
-
-        return $query->where('user',Auth::id());
+        return Queries::getDrakhasts();
     }
 
     public $searchBy = ['title', 'id'];
@@ -77,5 +59,12 @@ class DarkhastSTableView extends TableView
         if (Gate::allows('see-all-darkhasts')) $row[] = $model->shortname;
         if (Gate::allows('see-charity-darkhasts') or Gate::allows('see-all-darkhasts')) $row[] = $model->name;
         return $row;
+    }
+
+    protected function actionsByRow()
+    {
+        return [
+            new ShowAction('showDarkhasts'),
+        ];
     }
 }

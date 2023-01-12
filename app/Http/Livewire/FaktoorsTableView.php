@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Actions\DeleteFaktoorAction;
 use App\Actions\PayFaktoorAction;
 use App\Models\Faktoor;
+use App\queries\Queries;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use LaravelViews\Facades\Header;
@@ -20,24 +21,7 @@ class FaktoorsTableView extends TableView
 
     protected function repository()
     {
-        if (Gate::allows('admin')){
-            $queryAdmin = \App\Models\Faktoor::query()
-                ->join('users','faktoors.userid','=','users.id')
-                ->select(['faktoors.*','users.name']);
-
-            if (Gate::allows('see-all-faktoors')){
-                return $queryAdmin
-                    ->join('charities','faktoors.charity','=','charities.id')
-                    ->addSelect('charities.shortname');
-            }
-
-            if (Gate::allows('see-charity-faktoors')){
-                return $queryAdmin
-                    ->where('charity',Auth::user()->charity);
-            }
-        }
-
-        return \App\Models\Faktoor::query()->where('userid',Auth::id());
+        return Queries::getFaktoors();
     }
 
     public $searchBy = ['amount', 'sabtid'];

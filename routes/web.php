@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -22,16 +19,35 @@ Route::get('/',[\App\Http\Controllers\Home::class,'show']);
 Auth::routes();
 
 Route::group(['prefix' => 'dashboard','middleware' => ['auth']],function (){
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
-    Route::get('profile', [App\Http\Controllers\Profile::class, 'index'])->name('profile');
+    Route::get('/', [\App\Http\Controllers\dashboard\HomeController::class, 'index'])->name('dashboard');
+    Route::get('profile', [\App\Http\Controllers\dashboard\Profile::class, 'index'])->name('profile');
 
-    Route::get('users', [App\Http\Controllers\Users::class, 'index'])->name('users')->middleware('can:see-users');
-    Route::get('darkhasts', [App\Http\Controllers\Darkhasts::class, 'index'])->name('darkhasts');
-    Route::get('charities', [App\Http\Controllers\Charities::class, 'index'])->name('charities')->middleware('can:see-charities');
-    Route::get('charities/new-charity', [App\Http\Controllers\Charities::class, 'new'])->name('newCharity')->middleware('can:see-charities');
-    Route::post('charities/new-charity', [App\Http\Controllers\Charities::class, 'create'])->name('createCharity')->middleware('can:see-charities');
-    Route::get('pooyeshes', [App\Http\Controllers\Pooyeshes::class, 'index'])->name('pooyeshes')->middleware('can:see-pooyesh');
-    Route::get('projects', [App\Http\Controllers\Projects::class, 'index'])->name('projects')->middleware('can:see-projects');
+    Route::group(['prefix' => 'users','middleware' => 'can:see-users'],function (){
+        Route::get('/', [\App\Http\Controllers\dashboard\Users::class, 'index'])->name('users');
+        Route::get('show', [\App\Http\Controllers\dashboard\Users::class, 'show'])->name('showUser');
+        Route::get('new', [\App\Http\Controllers\dashboard\Users::class, 'new'])->name('newUser');
+        Route::post('new', [\App\Http\Controllers\dashboard\Users::class, 'create'])->name('createUser');
+    });
+
+    Route::group(['prefix' => 'darkhasts'],function (){
+        Route::get('/', [\App\Http\Controllers\dashboard\Darkhasts::class, 'index'])->name('darkhasts');
+        Route::get('show', [\App\Http\Controllers\dashboard\Darkhasts::class, 'show'])->name('showDarkhasts');
+        Route::get('new', [\App\Http\Controllers\dashboard\Darkhasts::class, 'new'])->name('newDarkhasts');
+        Route::post('new', [\App\Http\Controllers\dashboard\Darkhasts::class, 'create'])->name('createDarkhasts');
+
+    });
+
+    Route::group(['prefix' => 'charities','middleware' => 'can:see-charities'],function (){
+        Route::get('/', [\App\Http\Controllers\dashboard\Charities::class, 'index'])->name('charities');
+        Route::get('new', [\App\Http\Controllers\dashboard\Charities::class, 'new'])->name('newCharity');
+        Route::post('new', [\App\Http\Controllers\dashboard\Charities::class, 'create'])->name('createCharity');
+        Route::get('show', [\App\Http\Controllers\dashboard\Charities::class, 'show'])->name('showCharity');
+    });
+
+    Route::get('pooyeshes', [\App\Http\Controllers\dashboard\Pooyeshes::class, 'index'])->name('pooyeshes')->middleware('can:see-pooyesh');
+    Route::get('pooyeshes/show', [\App\Http\Controllers\dashboard\Pooyeshes::class, 'show'])->name('showPooyeshes')->middleware('can:see-pooyesh');
+
+    Route::get('projects', [\App\Http\Controllers\dashboard\Projects::class, 'index'])->name('projects')->middleware('can:see-projects');
 });
 
 Auth::routes();
