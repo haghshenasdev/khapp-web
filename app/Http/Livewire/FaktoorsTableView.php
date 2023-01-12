@@ -20,13 +20,21 @@ class FaktoorsTableView extends TableView
 
     protected function repository()
     {
-        if (Gate::allows('see-all-faktoors')){
-            return \App\Models\Faktoor::query();
-        }
+        if (Gate::allows('admin')){
+            $queryAdmin = \App\Models\Faktoor::query()
+                ->join('users','faktoors.userid','=','users.id')
+                ->select(['faktoors.*','users.name']);
 
-        if (Gate::allows('see-charity-faktoors')){
-            return \App\Models\Faktoor::query()
-                ->where('charity',Auth::user()->charity);
+            if (Gate::allows('see-all-faktoors')){
+                return $queryAdmin
+                    ->join('charities','faktoors.charity','=','charities.id')
+                    ->addSelect('charities.shortname');
+            }
+
+            if (Gate::allows('see-charity-faktoors')){
+                return $queryAdmin
+                    ->where('charity',Auth::user()->charity);
+            }
         }
 
         return \App\Models\Faktoor::query()->where('userid',Auth::id());
@@ -45,12 +53,18 @@ class FaktoorsTableView extends TableView
      */
     public function headers(): array
     {
-        return [
+        $headers = [
             Header::title('مبلغ')->sortBy('amount'),
             Header::title('شماره ثبت')->sortBy('sabtid'),
             Header::title('وضعیت پرداخت')->sortBy('is_pardakht'),
-            'عملیات'
         ];
+        if (Gate::allows('see-all-faktoors')
+        or Gate::allows('see-charity-faktoors')) $headers[] = "کاربر";
+        if (Gate::allows('see-all-faktoors')) $headers[] = "خیریه";
+
+
+        $headers[] = 'عملیات';
+        return $headers;
     }
 
     public $sortOrder = 'desc';
@@ -64,11 +78,14 @@ class FaktoorsTableView extends TableView
      */
     public function row($model): array
     {
-        return [
+        $rows = [
             number_format($model->amount),
             $model->sabtid,
             $model->is_pardakht ? UI::icon('check', 'success') : UI::icon('x', 'danger'),
         ];
+        if (Gate::allows('see-all-faktoors') or Gate::allows('see-charity-faktoors')) $rows[] = $model->name;
+        if (Gate::allows('see-all-faktoors')) $rows[] = $model->shortname;
+        return $rows;
     }
 
     protected function actionsByRow(): array
