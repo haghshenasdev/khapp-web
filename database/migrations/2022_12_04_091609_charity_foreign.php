@@ -16,37 +16,37 @@ return new class extends Migration
         Schema::table('faktoors',function (Blueprint $t){
             $t->foreign('charity')
                 ->references('id')
-                ->on('charities');
+                ->on('charities')->onDelete('cascade');
         });
 
         Schema::table('hadises',function (Blueprint $t){
             $t->foreign('charity')
                 ->references('id')
-                ->on('charities');
+                ->on('charities')->onDelete('cascade');
         });
 
         Schema::table('pooyeshes',function (Blueprint $t){
             $t->foreign('charity')
                 ->references('id')
-                ->on('charities');
+                ->on('charities')->onDelete('cascade');
         });
 
         Schema::table('notifications',function (Blueprint $t){
             $t->foreign('charity')
                 ->references('id')
-                ->on('charities');
+                ->on('charities')->onDelete('cascade');
         });
 
         Schema::table('types',function (Blueprint $t){
             $t->foreign('charity')
                 ->references('id')
-                ->on('charities');
+                ->on('charities')->onDelete('cascade');
         });
 
         Schema::table('darkhasts',function (Blueprint $t){
             $t->foreign('charity')
                 ->references('id')
-                ->on('charities');
+                ->on('charities')->onDelete('cascade');
         });
     }
 

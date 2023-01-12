@@ -19,13 +19,13 @@ return new class extends Migration
                 ->on('users');
             $t->foreign('type')
                 ->references('id')
-                ->on('types');
+                ->on('types')->onDelete('cascade');
         });
 
         Schema::table('hadises',function (Blueprint $t){
             $t->foreign('group')
                 ->references('id')
-                ->on('hadis_groups');
+                ->on('hadis_groups')->nullOnDelete();
         });
 
         Schema::table('pooyeshes',function (Blueprint $t){
@@ -50,7 +50,7 @@ return new class extends Migration
         Schema::table('types',function (Blueprint $t){
             $t->foreign('sub')
                 ->references('id')
-                ->on('types');
+                ->on('types')->nullOnDelete();
         });
     }
 

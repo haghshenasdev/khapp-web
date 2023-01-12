@@ -33,7 +33,6 @@ class DeleteCharityAction extends Action
     {
         if (Gate::allows('super-admin')){
             $model->delete();
-            $model->save();
             $this->success('خیریه مورد نظر حذف شد!');
         }
     }

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::table('charities_metas',function (Blueprint $t){
             $t->foreign('charity')
                 ->references('id')
-                ->on('charities');
+                ->on('charities')->onDelete('cascade');
         });
     }
 

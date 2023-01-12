@@ -29,6 +29,7 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth']],function (){
     Route::get('darkhasts', [App\Http\Controllers\Darkhasts::class, 'index'])->name('darkhasts');
     Route::get('charities', [App\Http\Controllers\Charities::class, 'index'])->name('charities')->middleware('can:see-charities');
     Route::get('charities/new-charity', [App\Http\Controllers\Charities::class, 'new'])->name('newCharity')->middleware('can:see-charities');
+    Route::post('charities/new-charity', [App\Http\Controllers\Charities::class, 'create'])->name('createCharity')->middleware('can:see-charities');
     Route::get('pooyeshes', [App\Http\Controllers\Pooyeshes::class, 'index'])->name('pooyeshes')->middleware('can:see-pooyesh');
     Route::get('projects', [App\Http\Controllers\Projects::class, 'index'])->name('projects')->middleware('can:see-projects');
 });

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::table('darkhasts',function (Blueprint $t){
             $t->foreign('status')
                 ->references('id')
-                ->on('darkhast_statuses');
+                ->on('darkhast_statuses')->onDelete('cascade');
         });
     }
 
