@@ -41,47 +41,25 @@ class Pay extends Controller
         ]);
     }
 
-    public function verify(Request $request)
+    public function verify(Request $request): \Illuminate\Http\JsonResponse
     {
         $request->validate([
             'faktoorId' => ['required','numeric'],
         ]);
 
-        try {
-            // Get amount & transaction_id from database or gateway request
-            $fk = Faktoor::query()->where('id',$request->faktoorId)->first();
-//            if (isNull($fk)){
-//                return response()->json([
-//                    'message' => 'فاکتور یافت نشد.',
-//                    'status' => 'error'
-//                ]);
-//            }
-            $invoice = new Invoice($fk->amount,$fk->ResNum);
-            $receipt = PaymentGateway::verify($invoice);
-            // Save receipt data and return response
-            //
-            if ($fk->is_pardakht == 0){
-                $fk->update(['is_pardakht' => 1]);
-            }
-            return response()->json([
-                'message' => 'پرداخت موفقیت آمیز بود.',
-                'status' => 'success',
-                'receipt' => [
-                    'CardNumber' => $receipt->getCardNumber(),
-                    'InvoiceId' => $receipt->getInvoiceId(),
-                    'ReferenceId' => $receipt->getReferenceId(),
-                    'TraceNumber' => $receipt->getTraceNumber(),
-                    'TransactionId' => $receipt->getTransactionId(),
-                ],
-            ]);
-        } catch (PaymentAlreadyVerifiedException $exception) {
-            // Optional: Handle repeated verification request
-        } catch (PaymentFailedException $exception) {
-            // Handle exception for failed payments
-            return response()->json([
-                'message' => $exception->getMessage(),
-                'status' => 'error'
-            ]);
+        // Get amount & transaction_id from database or gateway request
+        $fk = Faktoor::query()->findOrFail($request->faktoorId);
+
+        $data = [
+            'is_pardakht' => false,
+        ];
+
+        if ($fk->is_pardakht){
+            $data['is_pardakht'] = true;
+            $data['ResNum'] = $fk->ResNum;
         }
+
+        return response()->json($data);
+
     }
 }
