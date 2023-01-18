@@ -12,6 +12,7 @@
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
+        "morilog/jalali": "3.*",
         "omalizadeh/laravel-multi-payment": "^2.5",
         "tightenco/ziggy": "^1.0",
         "twbs/bootstrap": "5.2.2"

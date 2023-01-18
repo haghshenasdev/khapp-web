@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use LaravelViews\Facades\Header;
 use LaravelViews\Views\TableView;
+use Morilog\Jalali\Jalalian;
 
 class UsersTableView extends TableView
 {
@@ -56,7 +57,7 @@ class UsersTableView extends TableView
             $model->name,
             $model->email,
             $model->phone,
-            $model->created_at,
+            Jalalian::fromDateTime($model->created_at),
             $this->getAccessLevelString($model->access_level),
         ];
         if(Gate::allows('see-all-users')) $row[] = $model->shortname;
