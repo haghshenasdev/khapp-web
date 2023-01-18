@@ -26,6 +26,7 @@
                         <h3 class="mb-3">از نیکو کاری شما سپاس گذاریم</h3>
                     @else
                         <h3>{{$message}}</h3>
+                        <button class="btn btn-outline-danger mt-4">بازگشت</button>
                     @endisset
 
                     {{--data--}}

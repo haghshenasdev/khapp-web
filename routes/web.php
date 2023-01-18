@@ -29,6 +29,14 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth']],function (){
         Route::post('new', [\App\Http\Controllers\dashboard\Users::class, 'create'])->name('createUser');
     });
 
+    Route::group(['prefix' => 'faktoors'],function (){
+        Route::get('/', [\App\Http\Controllers\dashboard\Faktoors::class, 'index'])->name('faktoors');
+        Route::get('show', [\App\Http\Controllers\dashboard\Faktoors::class, 'show'])->name('showfaktoor');
+        Route::get('new', [\App\Http\Controllers\dashboard\Faktoors::class, 'new'])->name('newfaktoor');
+        Route::post('new', [\App\Http\Controllers\dashboard\Faktoors::class, 'create'])->name('createfaktoor');
+
+    });
+
     Route::group(['prefix' => 'darkhasts'],function (){
         Route::get('/', [\App\Http\Controllers\dashboard\Darkhasts::class, 'index'])->name('darkhasts');
         Route::get('show', [\App\Http\Controllers\dashboard\Darkhasts::class, 'show'])->name('showDarkhasts');

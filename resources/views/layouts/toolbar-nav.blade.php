@@ -7,6 +7,9 @@
                         <a class="nav-link active" aria-current="page" href="{{route('dashboard')}}">داشبورد</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{route('faktoors')}}">فاکتور ها</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{route('darkhasts')}}">درخواست ها</a>
                     </li>
                     @can('see-users')

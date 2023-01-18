@@ -35,23 +35,5 @@
         </div>
         @endcan
 
-        <div class="row justify-content-center mt-4">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">فاکتور ها</div>
-
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-                            @livewire('faktoors-table-view')
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
     </div>
 @endsection
