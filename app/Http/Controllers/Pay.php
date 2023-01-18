@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\charity;
 use App\Models\Faktoor;
 use Illuminate\Http\Request;
 use Omalizadeh\MultiPayment\Exceptions\PaymentAlreadyVerifiedException;
@@ -31,9 +32,16 @@ class Pay extends Controller
             $receipt = PaymentGateway::verify($invoice);
             // Save receipt data and return response
             //
-            Faktoor::query()->where('ResNum',$request->ResNum)->update(['is_pardakht' => 1]);
-            return view('verifypay',[
+            $fk = Faktoor::query()->where('ResNum',$request->ResNum);
+            $fk->update(['is_pardakht' => 1]);
+
+            return view('pay.verify',[
                 'message' => 'پرداخت موفقیت آمیز بود.',
+                'success' => true,
+                'charity' => charity::query()
+                    ->find($fk->get('charity')
+                        ->charity,'shortname')
+                    ->shortname,
                 'receipt' => [
                     'CardNumber' => $receipt->getCardNumber(),
                     'InvoiceId' => $receipt->getInvoiceId(),
@@ -44,10 +52,10 @@ class Pay extends Controller
             ]);
         } catch (PaymentAlreadyVerifiedException $exception) {
             // Optional: Handle repeated verification request
-            return view('verifypay',['message' => 'خطا در برسی پرداخت .']);
+            return view('pay.verify',['message' => 'خطا در برسی پرداخت .']);
         } catch (PaymentFailedException $exception) {
             // Handle exception for failed payments
-            return view('verifypay',['message' => $exception->getMessage(),]);
+            return view('pay.verify',['message' => $exception->getMessage(),]);
         }
     }
 }
