@@ -2,6 +2,7 @@
 
 namespace App\Actions;
 
+use App\Models\CharitiesMeta;
 use Illuminate\Support\Facades\Gate;
 use LaravelViews\Actions\Action;
 use LaravelViews\Actions\Confirmable;
@@ -33,6 +34,7 @@ class DeleteCharityAction extends Action
     {
         if (Gate::allows('super-admin')){
             $model->delete();
+            CharitiesMeta::query()->where('charity',$model->id)->delete();
             $this->success('خیریه مورد نظر حذف شد!');
         }
     }

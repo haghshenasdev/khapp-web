@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class CharitiesMeta extends Model
 {
     use HasFactory;
+
+    public $timestamps = false;
 }

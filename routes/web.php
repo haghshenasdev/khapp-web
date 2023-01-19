@@ -50,6 +50,8 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth']],function (){
         Route::get('new', [\App\Http\Controllers\dashboard\Charities::class, 'new'])->name('newCharity');
         Route::post('new', [\App\Http\Controllers\dashboard\Charities::class, 'create'])->name('createCharity');
         Route::get('show', [\App\Http\Controllers\dashboard\Charities::class, 'show'])->name('showCharity');
+        Route::post('show', [\App\Http\Controllers\dashboard\Charities::class, 'update'])->name('updateCharity');
+        Route::delete('delete', [\App\Http\Controllers\dashboard\Charities::class, 'delete'])->name('deleteCharity');
     });
 
     Route::get('pooyeshes', [\App\Http\Controllers\dashboard\Pooyeshes::class, 'index'])->name('pooyeshes')->middleware('can:see-pooyesh');

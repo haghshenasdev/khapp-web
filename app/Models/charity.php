@@ -12,4 +12,10 @@ class charity extends Model
     protected $table = 'charities';
 
     public $timestamps = false;
+
+    protected $fillable = [
+        'fullname',
+        'shortname',
+    ];
+
 }

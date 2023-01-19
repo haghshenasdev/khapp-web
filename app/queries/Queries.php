@@ -47,6 +47,13 @@ class Queries
         return \App\Models\charity::query();
     }
 
+    public static function getCharityAndMetas(): Builder
+    {
+        return self::getCharities()
+            ->join('charities_metas','charities.id','=','charities_metas.charity')
+            ->select(['charities.id','charities_metas.*','charities.*']);
+    }
+
     /**
      * @return Builder
      */
