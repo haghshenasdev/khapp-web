@@ -4,8 +4,10 @@ namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AppHomeDataResource;
+use App\Models\CharitiesMeta;
 use App\Models\HomeItem;
 use App\Models\Pooyesh;
+use App\queries\Queries;
 use Illuminate\Support\Facades\Http;
 
 class AppHomeData extends Controller
@@ -33,5 +35,12 @@ class AppHomeData extends Controller
             ],
             'status' => 'success'
         ]);
+    }
+
+    public function about($charity)
+    {
+        return response()->json(
+            Queries::getCharityAndMetas()->where('charity',$charity)->get()->makeHidden(['authority','is_active','charity']),
+        );
     }
 }

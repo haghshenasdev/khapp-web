@@ -10,4 +10,8 @@ class CharitiesMeta extends Model
     use HasFactory;
 
     public $timestamps = false;
+
+    protected $hidden = [
+        'charity',
+    ];
 }

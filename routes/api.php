@@ -17,6 +17,8 @@ Route::group(['prefix' => 'v1/{charity}','middleware' => ['charitycheck']],funct
 
     Route::get('/',[\App\Http\Controllers\api\v1\AppHomeData::class,'index']);
 
+    Route::get('about',[\App\Http\Controllers\api\v1\AppHomeData::class,'about']);
+
     Route::get("hadis",[\App\Http\Controllers\api\v1\Hadis::class,'get']);
 
     Route::get('slider',[\App\Http\Controllers\api\v1\Slider::class,'all']);
