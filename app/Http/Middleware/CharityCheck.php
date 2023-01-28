@@ -20,7 +20,9 @@ class CharityCheck
     public function handle(Request $request, Closure $next)
     {
         if (! $charity = charity::query()->find($request->route('charity')) or $charity->is_active == 0){
-            return new CharityCheckResource([]);
+            return response([
+                'message' => 'خیریه مورد نظر در دسترس نیست',
+            ],403);
         }
         return $next($request);
     }
