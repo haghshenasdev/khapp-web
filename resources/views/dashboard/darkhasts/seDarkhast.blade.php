@@ -78,9 +78,11 @@
             @endcan
 
         @else
+            @isset($data)
             <div class="mb-3">
-                <label for="message-text" class="col-form-label">@isset($data){{$data->status_title}}@endisset}وضعیت درخواست :</label>
+                <label for="message-text" class="col-form-label">وضعیت درخواست : {{$data->status_title}}</label>
             </div>
+            @endisset
         @endcan
 
         <div class="mb-3">
