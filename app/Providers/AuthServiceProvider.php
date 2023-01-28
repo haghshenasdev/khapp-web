@@ -79,7 +79,12 @@ class AuthServiceProvider extends ServiceProvider
             return Gate::allows('charity-admin');
         });
 
-        Gate::define('update-darkhasts',function (User $user,Darkhast $darkhast){
+        Gate::define('update-darkhasts',function (User $user,Darkhast $darkhast = null){
+            //آپدیت کردن همه ی درخواست ها حتی خیریه های دیگر
+            if (is_null($darkhast)){
+                return Gate::allows('super-admin');
+            }
+            // آپدیت کردن یک درخواست بخصوص
             if (Gate::allows('super-admin')){
                 return  true;
             }
@@ -90,7 +95,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('delete-darkhasts',function (User $user,Darkhast $darkhast){
-            return Gate::allows('update-darkhasts',[$user,$darkhast]);
+            return Gate::allows('update-darkhasts',$darkhast);
         });
 
         //faktoors

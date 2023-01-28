@@ -40,9 +40,10 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth']],function (){
     Route::group(['prefix' => 'darkhasts'],function (){
         Route::get('/', [\App\Http\Controllers\dashboard\Darkhasts::class, 'index'])->name('darkhasts');
         Route::get('show', [\App\Http\Controllers\dashboard\Darkhasts::class, 'show'])->name('showDarkhasts');
+        Route::post('show', [\App\Http\Controllers\dashboard\Darkhasts::class, 'update'])->name('updateDarkhasts');
         Route::get('new', [\App\Http\Controllers\dashboard\Darkhasts::class, 'new'])->name('newDarkhasts');
         Route::post('new', [\App\Http\Controllers\dashboard\Darkhasts::class, 'create'])->name('createDarkhasts');
-
+        Route::delete('delete', [\App\Http\Controllers\dashboard\Darkhasts::class, 'delete'])->name('deleteDarkhast');
     });
 
     Route::group(['prefix' => 'charities','middleware' => 'can:see-charities'],function (){

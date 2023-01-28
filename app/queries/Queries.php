@@ -19,7 +19,7 @@ class Queries
         $query = Darkhast::query()
             ->join('darkhast_types', 'darkhasts.type', '=', 'darkhast_types.id')
             ->join('darkhast_statuses', 'darkhasts.status', '=', 'darkhast_statuses.id')
-            ->select(['darkhasts.id', 'darkhasts.charity', 'darkhasts.description', 'darkhasts.created_at', 'darkhasts.updated_at', 'darkhasts.status', 'darkhast_types.title', 'darkhast_statuses.status_title']);
+            ->select(['darkhasts.id', 'darkhasts.charity', 'darkhasts.description', 'darkhasts.created_at', 'darkhasts.updated_at', 'darkhasts.status', 'darkhast_types.title', 'darkhast_statuses.status_title','darkhasts.user']);
 
         if (Gate::allows('admin')) {
             $adminQuery = $query
