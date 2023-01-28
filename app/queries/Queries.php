@@ -144,10 +144,6 @@ class Queries
 
     public static function getDarkhastStatuses()
     {
-        if (Gate::allows('super-admin')) {
             return \App\Models\DarkhastStatus::query();
-        }
-
-        return \App\Models\DarkhastStatus::query()->where('charity', Auth::user()->charity);
     }
 }
