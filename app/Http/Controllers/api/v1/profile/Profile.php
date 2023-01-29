@@ -8,6 +8,8 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
 class Profile
@@ -22,6 +24,7 @@ class Profile
                 'name' => $user->name,
                 'phone' => $user->phone,
                 'email' => $user->email,
+                'address' => $user->address,
                 'charity' => $user->charity,
             ],
         ]);
@@ -35,6 +38,7 @@ class Profile
             'phone' => ['regex:/(09)[0-9]{9}/','digits:11','numeric'],
             'email' => ['string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['confirmed', Password::defaults()],
+            'old_password' => Rule::requiredIf($request->has('password')),
         ]);
 
         $data = [];
@@ -48,7 +52,15 @@ class Profile
             $data['email'] = $request->input('email');
         }
         if ($request->has('password')){
-            $data['password'] = $request->input('password');
+            if (Hash::check($request->input('old_password'),Auth::user()->password)){
+                $data['password'] = Hash::make($request->input('password'));
+            }else{
+                return response()->json([
+                    'message' => 'بروزرسانی انجام نشد!',
+                    'errors' => ['old_password' => 'پسورد قدیمی به درستی وارد نشده است'],
+                    'status' => 'error'
+                ]);
+            }
         }
 
         try {

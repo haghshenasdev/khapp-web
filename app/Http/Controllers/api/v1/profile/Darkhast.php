@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api\v1\profile;
 
 use App\Http\Controllers\Controller;
+use App\queries\Queries;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,10 +13,7 @@ class Darkhast extends Controller
     public function index(): \Illuminate\Http\JsonResponse
     {
         return response()->json([
-            'data' => \App\Models\Darkhast::query()
-                ->where('user',Auth::id())
-                ->join('darkhast_types', 'darkhasts.type','=','darkhast_types.id')
-                ->get(['darkhasts.id','darkhasts.description','darkhasts.created_at','darkhasts.updated_at','darkhasts.status','darkhast_types.title']),
+            'data' => Queries::getDrakhasts()->get(),
         ]);
     }
 

@@ -168,7 +168,7 @@ class DatabaseSeeder extends Seeder
       DarkhastType::query()->insert(
           [
               'title' => 'صندوق صدقات',
-              'description' => 'این مورد جت درخواست صندوق صدقات است',
+              'description' => 'این مورد جهت درخواست صندوق صدقات است',
               'charity' => 1,
           ]
       );
