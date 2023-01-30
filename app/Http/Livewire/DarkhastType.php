@@ -28,7 +28,9 @@ class DarkhastType extends Component
                 }
                 $this->showSub($dt,$dt->optional_sub_select);
             }else{
+                // این قسمت باگ وجود دراد که اگر پیداش نگنه خطا میده
                 $default = Queries::getDarkhastsTypes()->where('default',1)->first();
+                if (is_null($default)) $default = Queries::getDarkhastsTypes()->first();
                 $this->showSub($default,$default->optional_sub_select);
             }
             $this->firstLoad = false;
