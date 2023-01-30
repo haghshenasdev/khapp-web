@@ -9,14 +9,13 @@
 @section('form-content')
     <div class="mb-3">
             <label for="message-text" class="col-form-label">نوع درخواست :</label>
-            <select name="type" class="form-select" aria-label="Default select example">
-                @foreach($types as $type)
-                    <option value="{{$type->id}}"
-                            @if(isset($data) && $type->title === $data->title) selected @endif>
-                        {{$type->title}}
-                    </option>
-                @endforeach
-            </select>
+
+        @isset($data)
+            <livewire:darkhast-type :data="$data['type']">
+        @else
+            <livewire:darkhast-type />
+        @endisset
+
         </div>
         @error('type')
         <div class="alert alert-danger">{{ $message }}</div>

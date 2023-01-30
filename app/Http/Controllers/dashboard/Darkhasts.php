@@ -27,7 +27,6 @@ class Darkhasts extends Controller
 
         return view('dashboard.darkhasts.seDarkhast',[
             'data' => $darkhast,
-            'types' => Queries::getDarkhastsTypes()->get(),
             'darkhast_statuses' => Queries::getDarkhastStatuses()->get(),
         ]);
     }
@@ -35,7 +34,6 @@ class Darkhasts extends Controller
     public function new()
     {
         return view('dashboard.darkhasts.seDarkhast',[
-            'types' => Queries::getDarkhastsTypes()->get(),
             'darkhast_statuses' => Queries::getDarkhastStatuses()->get(),
         ]);
     }

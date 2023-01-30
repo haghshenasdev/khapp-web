@@ -19,35 +19,16 @@ class Darkhast extends Controller
 
     public function type($charity,Request $request): \Illuminate\Http\JsonResponse
     {
-        if ($sub = $request->input('sub'))
-        {
-            return response()->json([
-                'data' => \App\Models\DarkhastType::all()
-                    ->where('is_active',1)
-                    ->where('charity',$charity)
-                    ->where('sub',$sub)
-            ]);
-        }
-
-        if ($request->has('id') && $dataType = \App\Models\DarkhastType::query()
-            ->where('id',$request->input('id'))
-            ->where('is_active',1)
-            ->where('charity',$charity)->first()
-        ){
+        if ($request->has('id')){
             return  response()->json([
-                'data' => $dataType
+                'data' => Queries::getDarkhastsTypesFind($request->integer('id'),true,$charity),
             ]);
         }
 
+        return response()->json([
+            'data' => Queries::getDarkhastsTypes($request->input('sub'),true,$charity)->get(),
+        ]);
 
-        return  response()->json(
-            [
-                'data' => \App\Models\DarkhastType::all()
-                ->where('is_active',1)
-                ->where('charity',$charity)
-                ->where('sub',null)
-            ]
-        );
     }
 
     public function create($charity,Request $request): \Illuminate\Http\JsonResponse

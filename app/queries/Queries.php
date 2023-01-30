@@ -19,7 +19,7 @@ class Queries
         $query = Darkhast::query()
             ->join('darkhast_types', 'darkhasts.type', '=', 'darkhast_types.id')
             ->join('darkhast_statuses', 'darkhasts.status', '=', 'darkhast_statuses.id')
-            ->select(['darkhasts.id', 'darkhasts.charity', 'darkhasts.description', 'darkhasts.created_at', 'darkhasts.updated_at', 'darkhasts.status', 'darkhast_types.title', 'darkhast_statuses.status_title','darkhasts.user']);
+            ->select(['darkhasts.id', 'darkhasts.type', 'darkhasts.charity', 'darkhasts.description', 'darkhasts.created_at', 'darkhasts.updated_at', 'darkhasts.status', 'darkhast_types.title', 'darkhast_statuses.status_title','darkhasts.user']);
 
         if (Gate::allows('admin')) {
             $adminQuery = $query
@@ -133,13 +133,35 @@ class Queries
             ->select(['users.id', 'users.name', 'users.email', 'users.phone', 'users.created_at', 'charities.shortname', 'users.access_level']);
     }
 
-    public static function getDarkhastsTypes()
+    public static function getDarkhastsTypes(int $sub = null,bool $activeFilter = true,$charityId = null)
     {
-        if (Gate::allows('super-admin')) {
-            return \App\Models\DarkhastType::query();
+        $query = \App\Models\DarkhastType::query()
+            ->where('sub',$sub);
+
+        if ($activeFilter){
+            $query->where('is_active',1);
         }
 
-        return \App\Models\DarkhastType::query()->where('charity', Auth::user()->charity);
+        if (Gate::allows('super-admin')) {
+            return $query;
+        }
+
+        return $query->where('charity', (is_null($charityId)) ? Auth::user()->charity : $charityId);
+    }
+
+    public static function getDarkhastsTypesFind(int $id,bool $activeFilter = true,$charityId = null)
+    {
+        $query = \App\Models\DarkhastType::query();
+
+        if ($activeFilter){
+            $query->where('is_active',1);
+        }
+
+        if (Gate::allows('super-admin')) {
+            return $query->findOrFail($id);
+        }
+
+        return $query->where('charity', (is_null($charityId)) ? Auth::user()->charity : $charityId)->findOrFail($id);
     }
 
     public static function getDarkhastStatuses()
