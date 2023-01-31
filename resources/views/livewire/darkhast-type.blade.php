@@ -10,7 +10,7 @@
     </select>
 
     @if($description != null)
-        <p class="mt-2">توضیحات : {{ $description }}</p>
+        <p class="mt-2">{{ $description }}</p>
     @endif
 
     @if($subTypes != null && count($subTypes) > 0)
@@ -34,4 +34,10 @@
             <p class="mt-2">توضیحات : {{ $subDescription }}</p>
         @endif
     @endif
+
+    <div wire:loading>
+            <div class="d-flex align-items-center">
+                <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+            </div>
+    </div>
 </div>

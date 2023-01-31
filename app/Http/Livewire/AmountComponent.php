@@ -17,7 +17,8 @@ class AmountComponent extends Component
     private function numberFormat()
     {
         if (is_string($this->amount)){
-            $this->amount = str_replace(',','',$this->amount);
+            $this->amount = trim(str_replace(',','',$this->amount));
+            if (!ctype_digit($this->amount) or $this->amount == '') $this->amount = 0;
         }
         $this->amount = number_format($this->amount);
     }
