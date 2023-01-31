@@ -51,6 +51,9 @@ class Profile
         if ($request->has('email')){
             $data['email'] = $request->input('email');
         }
+        if ($request->has('address')){
+            $data['address'] = $request->input('address');
+        }
         if ($request->has('password')){
             if (Hash::check($request->input('old_password'),Auth::user()->password)){
                 $data['password'] = Hash::make($request->input('password'));
