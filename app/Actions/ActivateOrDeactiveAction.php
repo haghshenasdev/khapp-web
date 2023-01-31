@@ -2,6 +2,7 @@
 
 namespace App\Actions;
 
+use Illuminate\Support\Facades\Gate;
 use LaravelViews\Actions\Action;
 use LaravelViews\Actions\Confirmable;
 use LaravelViews\Views\View;
@@ -22,6 +23,12 @@ class ActivateOrDeactiveAction extends Action
      */
     public $icon = "check";
 
+
+    public function __construct(public $title_text,public $allows)
+    {
+        parent::__construct();
+    }
+
     /**
      * Execute the action when the user clicked on the button
      *
@@ -30,10 +37,14 @@ class ActivateOrDeactiveAction extends Action
      */
     public function handle($model, View $view)
     {
-        $model->is_active = !$model->is_active;
-        $model->save();
-        $acOrDe = (!$model->is_active) ? "غیر فعال" : "فعال";
-        $this->success("خیریه مورد نظر $acOrDe شد .");
+        if (!is_null($this->allows) && Gate::allows($this->allows,$model)){
+            $model->is_active = !$model->is_active;
+            $model->save();
+            $acOrDe = (!$model->is_active) ? "غیر فعال" : "فعال";
+            $this->success("$this->title_text مورد نظر $acOrDe شد .");
+        }else{
+            $this->error('شما دسترسی این کار را ندارید!');
+        }
     }
     public function renderIf($item, View $view)
     {
@@ -48,6 +59,7 @@ class ActivateOrDeactiveAction extends Action
     public function getConfirmationMessage($item = null): string
     {
         $acOrDe = ($item->is_active) ? "غیر فعال" : "فعال";
-        return "آیا از ".$acOrDe." کردن ".$item->shortname." اطمینان دارید ؟ ";
+        return "آیا از ".$acOrDe." کردن ".$item->title." اطمینان دارید ؟ ";
     }
+
 }

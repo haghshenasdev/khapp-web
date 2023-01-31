@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire;
 
+use App\Actions\DeleteAction;
 use App\Actions\DeleteFaktoorAction;
 use App\Actions\PayFaktoorAction;
+use App\Actions\ShowAction;
 use App\Models\Faktoor;
 use App\queries\Queries;
 use Illuminate\Support\Facades\Auth;
@@ -76,7 +78,8 @@ class FaktoorsTableView extends TableView
     {
         return[
             new PayFaktoorAction(),
-            new DeleteFaktoorAction(),
+            new DeleteAction('فاکتور','delete-faktoors'),
+            new ShowAction('showfaktoor'),
         ];
     }
 }

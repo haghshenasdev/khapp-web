@@ -15,12 +15,18 @@ class Pooyeshes extends Controller
 
     public function show(Request $request)
     {
-        $validateData = $request->validate([
-            'id' => 'required|numeric'
-        ]);
 
-        $pooyesh = Queries::getPooyeshes()->findOrFail($validateData['id']);
+        $pooyesh = Queries::getPooyeshes()->findOrFail($request->integer('id'));
+        return view('dashboard.pooyeshes.sePooyeshes',['data' => $pooyesh]);
+    }
 
-        return view('dashboard.pooyeshes.showPooyesh',['pooyesh' => $pooyesh]);
+    public function update(Request $request)
+    {
+
+    }
+
+    public function new()
+    {
+        return view('dashboard.pooyeshes.sePooyeshes');
     }
 }

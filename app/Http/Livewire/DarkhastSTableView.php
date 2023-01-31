@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Actions\DeleteAction;
 use App\Actions\ShowAction;
 use App\queries\Queries;
 use Illuminate\Support\Facades\Auth;
@@ -65,6 +66,7 @@ class DarkhastSTableView extends TableView
     {
         return [
             new ShowAction('showDarkhasts'),
+            new DeleteAction('درخواست','delete-darkhasts'),
         ];
     }
 }

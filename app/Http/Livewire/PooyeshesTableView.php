@@ -2,11 +2,14 @@
 
 namespace App\Http\Livewire;
 
+use App\Actions\ActivateOrDeactiveAction;
+use App\Actions\DeleteAction;
 use App\Actions\ShowAction;
 use App\queries\Queries;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use LaravelViews\Views\TableView;
+use Morilog\Jalali\Jalalian;
 
 class PooyeshesTableView extends TableView
 {
@@ -31,6 +34,7 @@ class PooyeshesTableView extends TableView
             'مبلغ',
             'شروع',
             'پایان',
+            'عملیات',
         ];
     }
 
@@ -45,15 +49,17 @@ class PooyeshesTableView extends TableView
             $model->id,
             $model->title,
             number_format($model->amount),
-            ($model->start == null) ? 'ندارد' : $model->start->diffforHumans(),
-            ($model->end == null) ? 'ندارد' : $model->end->diffforHumans(),
+            ($model->start == null) ? 'ندارد' : Jalalian::fromDateTime($model->start),
+            ($model->end == null) ? 'ندارد' : Jalalian::fromDateTime($model->end),
         ];
     }
 
     protected function actionsByRow()
     {
         return [
+            new ActivateOrDeactiveAction('پویش','update-pooyesh'),
             new ShowAction('showPooyeshes'),
+            new DeleteAction('پویش','delete-pooyesh'),
         ];
     }
 }

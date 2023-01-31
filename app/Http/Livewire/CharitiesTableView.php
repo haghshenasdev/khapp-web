@@ -3,7 +3,8 @@
 namespace App\Http\Livewire;
 
 use App\Actions\ActivateOrDeactiveAction;
-use App\Actions\DeleteCharityAction;
+use App\Actions\AOrDCharity;
+use App\Actions\DeleteAction;
 use App\Actions\ShowAction;
 use App\queries\Queries;
 use Illuminate\Support\Facades\Auth;
@@ -59,8 +60,8 @@ class CharitiesTableView extends TableView
     protected function actionsByRow()
     {
         return [
-            new ActivateOrDeactiveAction(),
-            new DeleteCharityAction(),
+            new AOrDCharity('خیریه',null),
+            new DeleteAction('خیریه',null),
             new ShowAction('showCharity'),
         ];
     }

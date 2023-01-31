@@ -10,20 +10,18 @@
                         <div class="col">
                             <div class="row">
                                 <div class="col-auto">
-                                    @isset($data)
-                                        {{$data['shortname']}}
-                                    @else
-                                        @yield('title')
-                                    @endisset
+
+                                    @yield('title')
+
                                 </div>
                                 @isset($data)
-                                <div class="col">
+                                    <div class="col">
                                         <form method="post" action="@yield('delete-route')">
                                             @method('delete')
                                             @csrf
                                             <input class="btn btn-outline-danger btn-sm" type="submit" value="حذف">
                                         </form>
-                                </div>
+                                    </div>
                                 @endisset
                             </div>
                         </div>

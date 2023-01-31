@@ -1,5 +1,13 @@
 @extends('layouts.ShowOrEdit')
 
+@section('title')
+    @isset($data)
+        {{$data['title']}}
+    @else
+        درخواست جدید
+    @endisset
+@endsection
+
 @section('delete-route')
     @isset($data)
         {{route('deleteDarkhast',['id' => $data['id']])}}

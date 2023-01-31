@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Actions\ActivateOrDeactiveAction;
+use App\Actions\DeleteAction;
 use App\queries\Queries;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -56,5 +58,13 @@ class ProjectsTableView extends TableView
         return "<div class='progress'>
                 <div class='progress-bar bg-danger' style='width: $pishraft%;' role='progressbar' aria-valuenow='$pishraft%' aria-valuemin='0' aria-valuemax='100'>$pishraft%</div>
               </div>";
+    }
+
+    protected function actionsByRow()
+    {
+        return [
+            new ActivateOrDeactiveAction('پروژه','update-projects'),
+            new DeleteAction('پروژه','delete-projects')
+        ];
     }
 }

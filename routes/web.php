@@ -55,8 +55,14 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth']],function (){
         Route::delete('delete', [\App\Http\Controllers\dashboard\Charities::class, 'delete'])->name('deleteCharity');
     });
 
-    Route::get('pooyeshes', [\App\Http\Controllers\dashboard\Pooyeshes::class, 'index'])->name('pooyeshes')->middleware('can:see-pooyesh');
-    Route::get('pooyeshes/show', [\App\Http\Controllers\dashboard\Pooyeshes::class, 'show'])->name('showPooyeshes')->middleware('can:see-pooyesh');
+    Route::group(['prefix' => 'pooyeshes','middleware' => 'can:see-pooyesh'],function (){
+        Route::get('/', [\App\Http\Controllers\dashboard\Pooyeshes::class, 'index'])->name('pooyeshes');
+        Route::get('new', [\App\Http\Controllers\dashboard\Pooyeshes::class, 'new'])->name('newPooyeshes');
+        Route::post('new', [\App\Http\Controllers\dashboard\Pooyeshes::class, 'create'])->name('createPooyeshes');
+        Route::get('show', [\App\Http\Controllers\dashboard\Pooyeshes::class, 'show'])->name('showPooyeshes');
+        Route::post('show', [\App\Http\Controllers\dashboard\Pooyeshes::class, 'update'])->name('updatePooyeshes');
+        Route::delete('delete', [\App\Http\Controllers\dashboard\Pooyeshes::class, 'delete'])->name('deletePooyeshes');
+    });
 
     Route::get('projects', [\App\Http\Controllers\dashboard\Projects::class, 'index'])->name('projects')->middleware('can:see-projects');
 });

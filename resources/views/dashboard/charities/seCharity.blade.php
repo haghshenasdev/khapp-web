@@ -1,7 +1,11 @@
 @extends('layouts.ShowOrEdit')
 
 @section('title')
-    خیریه جدید
+    @isset($data)
+        {{$data['shortname']}}
+    @else
+        خیریه جدید
+    @endisset
 @endsection
 
 @section('delete-route')
@@ -75,7 +79,11 @@
 
     <div class="mb-3">
         <label for="message-text" class="col-form-label">درباره خیریه :</label>
-        <textarea name="about" class="form-control" id="message-text">@isset($data){{$data['about']}}@else{{ old('about') }}@endisset</textarea>
+        <textarea name="about" class="form-control" id="message-text">@isset($data)
+                {{$data['about']}}
+            @else
+                {{ old('about') }}
+            @endisset</textarea>
     </div>
     @error('about')
     <div class="alert alert-danger">{{ $message }}</div>

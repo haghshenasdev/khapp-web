@@ -104,7 +104,7 @@ class Queries
         }
         return \App\Models\Pooyesh::query()
             ->join('charities', 'pooyeshes.charity', '=', 'charities.id')
-            ->select(['pooyeshes.id', 'pooyeshes.title', 'pooyeshes.amount', 'pooyeshes.charity', 'pooyeshes.start', 'pooyeshes.end', 'charities.shortname']);
+            ->select(['pooyeshes.*', 'charities.shortname']);
     }
 
     /**
@@ -117,7 +117,7 @@ class Queries
         }
         return \App\Models\Project::query()
             ->join('charities', 'projects.charity', '=', 'charities.id')
-            ->select(['projects.id', 'projects.title', 'projects.pishraft', 'projects.charity', 'charities.shortname']);
+            ->select(['projects.*', 'charities.shortname']);
     }
 
     /**
