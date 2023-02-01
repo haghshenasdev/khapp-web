@@ -46,6 +46,26 @@
 @section('form-content')
 
     <div class="mb-3">
+        <label for="amount" class="col-form-label">تصویر پویش :</label>
+        @isset($data)
+            <img class="img-fluid mb-3" src="{{ $data['image'] }}"/>
+        @endif
+
+        <div class="row">
+            <div class="col">
+                <input type="text" class="form-control" name="image"
+                       value="@isset($data){{$data['image']}}@else{{ old('image') }}@endisset">
+            </div>
+            <div class="col-auto">
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    پیش نمایش تصویر
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="mb-3">
         <label for="title" class="col-form-label">عنوان :</label>
         <input name="title" type="text" class="form-control" id="title"
                value="@isset($data){{$data['title']}}@else{{ old('title') }}@endisset">
@@ -118,9 +138,9 @@
     <div class="alert alert-danger">{{ $message }}</div>
     @enderror
 
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-    <script src="https://unpkg.com/persian-date@latest/dist/persian-date.min.js"></script>
-    <script src="https://unpkg.com/persian-datepicker@latest/dist/js/persian-datepicker.min.js"></script>
+{{--    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>--}}
+{{--    <script src="https://unpkg.com/persian-date@latest/dist/persian-date.min.js"></script>--}}
+{{--    <script src="https://unpkg.com/persian-datepicker@latest/dist/js/persian-datepicker.min.js"></script>--}}
     <script>
 
         var to, from;

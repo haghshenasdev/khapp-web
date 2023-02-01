@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title',20);
             $table->string('icon');
-            $table->string('action');
+            $table->json('action');
             $table->boolean("is_active")->default(1);
             $table->unsignedBigInteger('charity')->unsigned();
         });

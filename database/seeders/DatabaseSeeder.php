@@ -57,13 +57,13 @@ class DatabaseSeeder extends Seeder
         HomeItem::Insert([
           [
           'title' => 'دکمه اول',
-          'icon' => 'http://localhost:8000/charities/1/icons/charity.png',
-          'action' => 'page:donaite',
+          'icon' => 'https://kheiriehemamali.ir/css/images/مددجو.svg',
+          'action' => '{"fnName" : "openUrl","params" : {"url" : "https://kheiriehemamali.ir"}}',
           'charity' => 1,
       ], [
           'title' => 'دکمه دوم',
-          'icon' => public_path('charities/1/icons/charity.png'),
-          'action' => 'page:donaite',
+          'icon' => url('charities/1/icons/charity.png'),
+          'action' => '{"fnName" : "openPayment","params" : {"type" : "1"}}',
           'charity' => 1,
       ]]);
 
