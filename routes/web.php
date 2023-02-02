@@ -65,7 +65,14 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth']],function (){
         Route::delete('delete', [\App\Http\Controllers\dashboard\Pooyeshes::class, 'delete'])->name('deletePooyeshes');
     });
 
-    Route::get('projects', [\App\Http\Controllers\dashboard\Projects::class, 'index'])->name('projects')->middleware('can:see-projects');
+    Route::group(['prefix' => 'projects','middleware' => 'can:see-projects'],function (){
+        Route::get('/', [\App\Http\Controllers\dashboard\Projects::class, 'index'])->name('projects');
+        Route::get('new', [\App\Http\Controllers\dashboard\Projects::class, 'new'])->name('newProjects');
+        Route::post('new', [\App\Http\Controllers\dashboard\Projects::class, 'create'])->name('createProjects');
+        Route::get('show', [\App\Http\Controllers\dashboard\Projects::class, 'show'])->name('showProjects');
+        Route::post('show', [\App\Http\Controllers\dashboard\Projects::class, 'update'])->name('updateProjects');
+        Route::delete('delete', [\App\Http\Controllers\dashboard\Projects::class, 'delete'])->name('deleteProjects');
+    });
 });
 
 Auth::routes();

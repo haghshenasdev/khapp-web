@@ -114,6 +114,7 @@ class DatabaseSeeder extends Seeder
               'image_head' => 'https://kheiriehemamali.ir/css/images/salamat/%D9%85%D8%B1%DA%A9%D8%B2%20%D8%AC%D8%A7%D9%85%D8%B9%20%D8%B3%D9%84%D8%A7%D9%85%D8%AA.jpg',
               'description' => 'مرکز جامع سلامت زنده یاد حاج حسن (منصور) بیدرام شهر گرگاب به همت خیریه امام علی ابن ابیطالب شهر گرگاب در سال 1395 احداث شده است .',
               'charity' => 1,
+              'type_pay' => null,
           ],
           [
               'title' => 'پروژه بزرگ علمدار',
@@ -122,6 +123,7 @@ class DatabaseSeeder extends Seeder
               'image_head' => 'https://kheiriehemamali.ir/css/images/alamdar/%D8%A8%DB%8C%D8%AA%20%D8%A7%D9%84%D8%B9%D8%A8%D8%A7%D8%B3.jpg',
               'description' => 'پروژه عظیم مجموعه فرهنگی علمدار با زیر بنای بیشر از 3200 متر مربع با هدف ارائه خدمات فرهنگی احداث شد ، این مجموعه شامل سالن همایش با سقف یک پارچه بتنی با مساحتی بالغ بر 900 متر مربع و... می باشد.',
               'charity' => 1,
+              'type_pay' => 2,
           ]
       ]);
 

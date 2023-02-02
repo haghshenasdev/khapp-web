@@ -8,6 +8,9 @@
                 <div class="card-header">پروژه ها</div>
 
                 <div class="card-body">
+                    <a href="{{route('newProjects')}}" class="btn btn-outline-success">
+                        افزودن پروژه جدید
+                    </a>
 
                     @livewire('projects-table-view')
 

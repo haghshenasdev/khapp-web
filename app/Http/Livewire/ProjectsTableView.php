@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Actions\ActivateOrDeactiveAction;
 use App\Actions\DeleteAction;
+use App\Actions\ShowAction;
 use App\queries\Queries;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -63,6 +64,7 @@ class ProjectsTableView extends TableView
     protected function actionsByRow()
     {
         return [
+            new ShowAction('showProjects'),
             new ActivateOrDeactiveAction('پروژه','update-projects'),
             new DeleteAction('پروژه','delete-projects')
         ];

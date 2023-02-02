@@ -118,7 +118,7 @@
     <div class="alert alert-danger">{{ $message }}</div>
     @enderror
 
-    @can('see-all-darkhasts')
+    @can('see-all-pooyeshes')
         <div class="mb-3">
             <label for="charity" class="col-form-label">خیریه:</label>
 

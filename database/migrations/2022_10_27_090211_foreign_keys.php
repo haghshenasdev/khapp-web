@@ -34,6 +34,12 @@ return new class extends Migration
                 ->on('types');
         });
 
+        Schema::table('projects',function (Blueprint $t){
+            $t->foreign('type_pay')
+                ->references('id')
+                ->on('types');
+        });
+
         Schema::table('darkhasts',function (Blueprint $t){
             $t->foreign('type')
                 ->references('id')

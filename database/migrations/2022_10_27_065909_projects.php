@@ -20,7 +20,7 @@ return new class extends Migration
             $t->text('description');
             $t->string('image_head');
             $t->integer('pishraft');
-            $t->string('tags')->nullable();
+            $t->unsignedBigInteger('type_pay')->unsigned()->nullable();
             $t->unsignedBigInteger('charity')->unsigned();
             $t->boolean("is_active")->default(1);
         });

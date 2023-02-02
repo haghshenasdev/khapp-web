@@ -1,4 +1,4 @@
-<div>
+<div id="types">
     <select name="type" class="form-select" aria-label="Default select example">
         @foreach($types as $type)
             <option title="{{ $type->description }}"
