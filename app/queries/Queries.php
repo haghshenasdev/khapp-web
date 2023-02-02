@@ -168,4 +168,35 @@ class Queries
     {
             return \App\Models\DarkhastStatus::query();
     }
+
+    public static function getTypes(int $sub = null,bool $activeFilter = true,$charityId = null)
+    {
+        $query = \App\Models\Type::query()
+            ->where('sub',$sub);
+
+        if ($activeFilter){
+            $query->where('is_active',1);
+        }
+
+        if (Gate::allows('super-admin')) {
+            return $query;
+        }
+
+        return $query->where('charity', (is_null($charityId)) ? Auth::user()->charity : $charityId);
+    }
+
+    public static function getTypesFind(int $id,bool $activeFilter = true,$charityId = null)
+    {
+        $query = \App\Models\Type::query();
+
+        if ($activeFilter){
+            $query->where('is_active',1);
+        }
+
+        if (Gate::allows('super-admin')) {
+            return $query->findOrFail($id);
+        }
+
+        return $query->where('charity', (is_null($charityId)) ? Auth::user()->charity : $charityId)->findOrFail($id);
+    }
 }

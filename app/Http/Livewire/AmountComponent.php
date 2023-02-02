@@ -8,6 +8,8 @@ class AmountComponent extends Component
 {
     public $amount;
 
+    public $amountFormat = 0;
+
     public function render()
     {
         $this->numberFormat();
@@ -16,10 +18,11 @@ class AmountComponent extends Component
 
     private function numberFormat()
     {
-        if (is_string($this->amount)){
-            $this->amount = trim(str_replace(',','',$this->amount));
-            if (!ctype_digit($this->amount) or $this->amount == '') $this->amount = 0;
+        if (is_string($this->amountFormat)){
+            $this->amountFormat = trim(str_replace(',','',$this->amountFormat));
+            if (!ctype_digit($this->amountFormat) or $this->amountFormat == '') $this->amountFormat = $this->amount = 0;
         }
-        $this->amount = number_format($this->amount);
+        $this->amount = $this->amountFormat;
+        $this->amountFormat = number_format($this->amount);
     }
 }

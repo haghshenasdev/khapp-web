@@ -15,4 +15,16 @@ class Pooyesh extends Model
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'title',
+        'description',
+        'image',
+        'amount',
+        'start',
+        'end',
+        'type_pay',
+        'is_active',
+        'charity',
+    ];
+
 }

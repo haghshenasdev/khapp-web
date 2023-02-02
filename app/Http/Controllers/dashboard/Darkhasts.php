@@ -45,7 +45,7 @@ class Darkhasts extends Controller
         if (!isset($data['charity'])) $data['charity'] = Auth::user()->charity;
         if (!isset($data['status'])) $data['status'] = 1;
         $insertedID = Darkhast::query()->insertGetId($data);
-        return redirect(route('showDarkhasts').'?id='.$insertedID);
+        return redirect(route('showDarkhasts').'?id='.$insertedID)->with(['success' => 'درخواست با موفقیت ایجاد شد .']);
     }
 
     public function update(Request $request)
@@ -57,7 +57,7 @@ class Darkhasts extends Controller
         }else{
             abort(403);
         }
-        return redirect()->back();
+        return redirect()->back()->with(['success' => 'بروز رسانی با موفقیت انجام شد .']);
     }
 
     public function delete(Request $request)

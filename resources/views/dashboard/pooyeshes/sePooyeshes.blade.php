@@ -47,23 +47,16 @@
 
     <div class="mb-3">
         <label for="amount" class="col-form-label">تصویر پویش :</label>
+
         @isset($data)
-            <img class="img-fluid mb-3" src="{{ $data['image'] }}"/>
-        @endif
-
-        <div class="row">
-            <div class="col">
-                <input type="text" class="form-control" name="image"
-                       value="@isset($data){{$data['image']}}@else{{ old('image') }}@endisset">
-            </div>
-            <div class="col-auto">
-                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    پیش نمایش تصویر
-                </button>
-            </div>
-        </div>
-
+            <livewire:photo-preview :url="$data['image']"/>
+        @else
+            <livewire:photo-preview />
+        @endisset
     </div>
+    @error('image')
+    <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
 
     <div class="mb-3">
         <label for="title" class="col-form-label">عنوان :</label>
@@ -77,10 +70,12 @@
     <div class="mb-3">
         <label for="amount" class="col-form-label">مبلغ مورد نیاز :</label>
         @isset($data)
-            <livewire:amount-component :amount="$data['amount']">
+            <livewire:amount-component :amountFormat="$data['amount']"/>
                 @else
                     <livewire:amount-component />
         @endisset
+        <p class="mt-2">فقط اعداد انگلیسی وارد نمایید .</p>
+        <p class="mt-2">اگر مبلغ پویش نا محدود است آن را 0 بگذارید .</p>
     </div>
     @error('amount')
     <div class="alert alert-danger">{{ $message }}</div>
@@ -91,21 +86,35 @@
             <label for="start" class="col-form-label">تاریخ شروع :</label>
             <input class="range-from form-control" name="start"
                    value="@isset($data){{$data['start']}}@else{{ old('start') }}@endisset"/>
+            @error('start')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
 
         </div>
         <div class="col">
             <label for="end" class="col-form-label">تاریخ پایان :</label>
-            <input class="range-to form-control" name="start"
+            <input class="range-to form-control" name="end"
                    value="@isset($data){{$data['end']}}@else{{ old('end') }}@endisset"/>
+            @error('end')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
         </div>
+         <p class="mt-2">در صورت نیاز به محدود کردن هر کدام آن را پر کنید .</p>
     </div>
 
     <div class="mb-3">
         <label for="title" class="col-form-label">نوع پرداخت :</label>
-        <input name="title" type="text" class="form-control" id="title"
-               value="@isset($data){{$data['title']}}@else{{ old('title') }}@endisset">
+        @isset($data)
+            <livewire:pay-type :data="$data['type_pay']">
+        @else
+            <livewire:pay-type />
+        @endisset
+
     </div>
-    @error('title')
+    @error('type')
+    <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
+    @error('subType')
     <div class="alert alert-danger">{{ $message }}</div>
     @enderror
 
@@ -130,7 +139,7 @@
     @endcan
 
     <div class="mb-3">
-        <label for="message-text" class="col-form-label">توضیحات :</label>
+        <label for="tiny" class="col-form-label">توضیحات :</label>
         <textarea name="description" class="form-control" id="tiny">@isset($data){{$data->description}}
             @endisset</textarea>
     </div>
@@ -138,9 +147,9 @@
     <div class="alert alert-danger">{{ $message }}</div>
     @enderror
 
-{{--    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>--}}
-{{--    <script src="https://unpkg.com/persian-date@latest/dist/persian-date.min.js"></script>--}}
-{{--    <script src="https://unpkg.com/persian-datepicker@latest/dist/js/persian-datepicker.min.js"></script>--}}
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="https://unpkg.com/persian-date@latest/dist/persian-date.min.js"></script>
+    <script src="https://unpkg.com/persian-datepicker@latest/dist/js/persian-datepicker.min.js"></script>
     <script>
 
         var to, from;

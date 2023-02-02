@@ -93,7 +93,7 @@ class DatabaseSeeder extends Seeder
               'description' => 'پروژه عظیم مجموعه فرهنگی علمدار با زیر بنای بیشر از 3200 متر مربع با هدف ارائه خدمات فرهنگی احداث شد ، این مجموعه شامل سالن همایش با سقف یک پارچه بتنی با مساحتی بالغ بر 900 متر مربع و... می باشد.',
               'image' => 'https://kheiriehemamali.ir/css/images/alamdar/%D8%A8%DB%8C%D8%AA%20%D8%A7%D9%84%D8%B9%D8%A8%D8%A7%D8%B3.jpg',
               'amount' => 10000000,
-              'type_pay' => 1,
+              'type_pay' => 2,
               'charity' => 1,
           ],
       ]);

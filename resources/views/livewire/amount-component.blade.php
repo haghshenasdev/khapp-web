@@ -1,6 +1,7 @@
 <div>
-    <input name="amount" type="text" class="form-control" id="amount"
-           wire:model="amount">
+    <input type="text" class="form-control" id="amount"
+           wire:model="amountFormat">
+    <input type="hidden" name="amount" wire:model="amount">
     @error('amount') <span class="error">{{ $message }}</span> @enderror
 
     <div wire:loading>

@@ -35,7 +35,7 @@
         @endif
     @endif
 
-    <div wire:loading>
+    <div class="mt-3" wire:loading>
             <div class="d-flex align-items-center">
                 <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
             </div>

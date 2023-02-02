@@ -6,7 +6,7 @@ use App\Models\Darkhast;
 use App\queries\Queries;
 use Livewire\Component;
 
-class DarkhastType extends Component
+class PayType extends Component
 {
     public $data = null;
     public $mainType = null;
@@ -18,24 +18,24 @@ class DarkhastType extends Component
     {
         if ($this->firstLoad){
             if ($this->data != null){
-                $dt = \App\Models\DarkhastType::query()->find($this->data);
+                $dt = \App\Models\Type::query()->find($this->data);
                 if ($dt->sub == null){
                     $this->mainType = $dt->id;
                 }else{
                     $this->subTypeId = $dt->id;
                     $this->mainType = $dt->sub;
-                    $dt = \App\Models\DarkhastType::query()->find($this->mainType);
+                    $dt = \App\Models\Type::query()->find($this->mainType);
                 }
                 $this->showSub($dt,$dt->optional_sub_select);
             }else{
-                $default = Queries::getDarkhastsTypes()->where('default',1)->first();
-                if (is_null($default)) $default = Queries::getDarkhastsTypes()->first();
+                $default = Queries::getTypes()->where('default',1)->first();
+                if (is_null($default)) $default = Queries::getTypes()->first();
                 $this->showSub($default,$default->optional_sub_select);
             }
             $this->firstLoad = false;
         }
         return view('livewire.type-component',[
-            'types' => Queries::getDarkhastsTypes()->get(),
+            'types' => Queries::getTypes()->get(),
         ]);
     }
 
@@ -50,7 +50,7 @@ class DarkhastType extends Component
     public function showSub($type,$optional_sub_select)
     {
         $this->optional_sub_select = $optional_sub_select == 1;
-        $this->subTypes = Queries::getDarkhastsTypes($type['id'])->get();
+        $this->subTypes = Queries::getTypes($type['id'])->get();
         $this->description = $type['description'];
     }
 

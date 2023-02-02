@@ -175,7 +175,7 @@ return [
         'number'                   => 'شماره',
         'password'                 => 'رمز عبور',
         'password_confirmation'    => 'تکرار رمز عبور',
-        'phone'                    => 'شماره ثابت',
+        'phone'                    => 'شماره تماس',
         'photo'                    => 'تصویر',
         'postal_code'              => 'کد پستی',
         'price'                    => 'قیمت',
@@ -204,5 +204,6 @@ return [
         'updated_at'               => 'بروزشده در',
         'username'                 => 'نام کاربری',
         'year'                     => 'سال',
+        'charity'                  => 'خیریه',
     ],
 ];
