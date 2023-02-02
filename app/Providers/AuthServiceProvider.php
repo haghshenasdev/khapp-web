@@ -5,6 +5,7 @@ namespace App\Providers;
 // use Illuminate\Support\Facades\Gate;
 use App\Models\charity;
 use App\Models\Darkhast;
+use App\Models\DarkhastType;
 use App\Models\Faktoor;
 use App\Models\Pooyesh;
 use App\Models\Project;
@@ -217,6 +218,31 @@ class AuthServiceProvider extends ServiceProvider
             return Gate::allows('update-types',$type);
         });
 
-        //setting
+        //darkhastType
+        Gate::define('see-darkhastType',function (){
+            return Gate::allows('super-admin') or Gate::allows('charity-admin');
+        });
+
+        Gate::define('see-all-darkhastType',function (){
+            return Gate::allows('super-admin');
+        });
+
+        Gate::define('see-charity-darkhastType',function (){
+            return Gate::allows('charity-admin') or Gate::allows('employee-admin');
+        });
+
+        Gate::define('update-darkhastType',function (User $user,DarkhastType $type){
+            if (Gate::allows('super-admin')){
+                return  true;
+            }
+            if (Gate::allows('charity-admin') or Gate::allows('employee-admin')){
+                return $type->charity === $user->charity;
+            }
+            return false;
+        });
+
+        Gate::define('delete-darkhastType',function (User $user,DarkhastType $type){
+            return Gate::allows('update-darkhastType',$type);
+        });
     }
 }

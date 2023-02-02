@@ -73,6 +73,16 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth']],function (){
         Route::post('show', [\App\Http\Controllers\dashboard\Projects::class, 'update'])->name('updateProjects');
         Route::delete('delete', [\App\Http\Controllers\dashboard\Projects::class, 'delete'])->name('deleteProjects');
     });
+
+    Route::group(['prefix' => 'darkhastType','middleware' => 'can:see-darkhastType'],function (){
+        Route::get('/', [\App\Http\Controllers\dashboard\TypeDarkhasts::class, 'index'])->name('DarkhastType');
+        Route::get('new', [\App\Http\Controllers\dashboard\TypeDarkhasts::class, 'new'])->name('newDarkhastType');
+        Route::post('new', [\App\Http\Controllers\dashboard\TypeDarkhasts::class, 'create'])->name('createDarkhastType');
+        Route::get('show', [\App\Http\Controllers\dashboard\TypeDarkhasts::class, 'show'])->name('showDarkhastType');
+        Route::post('show', [\App\Http\Controllers\dashboard\TypeDarkhasts::class, 'update'])->name('updateDarkhastType');
+        Route::delete('delete', [\App\Http\Controllers\dashboard\TypeDarkhasts::class, 'delete'])->name('deleteDarkhastType');
+    });
+
 });
 
 Auth::routes();

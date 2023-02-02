@@ -133,6 +133,21 @@ class Queries
             ->select(['users.id', 'users.name', 'users.email', 'users.phone', 'users.created_at', 'charities.shortname', 'users.access_level']);
     }
 
+    public static function getAllDarkhastsTypes(bool $activeFilter = true,$charityId = null)
+    {
+        $query = \App\Models\DarkhastType::query();
+
+        if ($activeFilter){
+            $query->where('is_active',1);
+        }
+
+        if (Gate::allows('super-admin')) {
+            return $query;
+        }
+
+        return $query->where('charity', (is_null($charityId)) ? Auth::user()->charity : $charityId);
+    }
+
     public static function getDarkhastsTypes(int $sub = null,bool $activeFilter = true,$charityId = null)
     {
         $query = \App\Models\DarkhastType::query()

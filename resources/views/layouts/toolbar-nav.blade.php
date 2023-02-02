@@ -37,7 +37,7 @@
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">نوع ها </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">نوع پرداخت</a></li>
-                            <li><a class="dropdown-item" href="#">نوع درخواست</a></li>
+                            <li><a class="dropdown-item" href="{{route('DarkhastType')}}">نوع درخواست</a></li>
                         </ul>
                     </li>
                     @endcan
