@@ -14,11 +14,16 @@ class AppHomeData extends Controller
 {
     public function index($charity)
     {
+        $homeItem = HomeItem::all()
+            ->where('charity',$charity)
+            ->where('is_active',1);
+        foreach ($homeItem as $item){
+            $item->action = json_decode($item->action);
+        }
+
         return response()->json([
             'data' => [
-                'homeItems' => HomeItem::all()
-                    ->where('charity',$charity)
-                    ->where('is_active',1)
+                'homeItems' => $homeItem
                 ,
                 'pooyeshes' => \App\Models\Pooyesh::query()->where('charity',$charity)
                     ->where('is_active',1)
