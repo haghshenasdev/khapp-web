@@ -10,4 +10,8 @@ class Faktoor extends Model
     use HasFactory;
 
     protected $table = 'faktoors';
+
+    protected $fillable = [
+        'created_at'
+    ];
 }

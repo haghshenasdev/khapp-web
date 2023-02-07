@@ -16,4 +16,16 @@ class DarkhastType extends Model
         'charity',
         'sub',
     ];
+
+    protected $fillable = [
+        'title',
+        'description',
+        'is_active',
+        'charity',
+        'sub',
+        'default',
+        'optional_sub_select',
+    ];
+
+    public $timestamps = false;
 }

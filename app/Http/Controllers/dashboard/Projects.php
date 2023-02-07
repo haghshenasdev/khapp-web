@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\DarkhastType;
 use App\Models\Project;
 use App\queries\Queries;
 use Illuminate\Http\Request;
@@ -50,6 +51,17 @@ class Projects extends Controller
         Project::query()->findOrFail($request->integer('id'))->update($validData);
 
         return redirect()->back()->with(['success' => 'پروژه با موفقیت ایجاد شد .']);
+    }
+
+    public function delete(Request $request)
+    {
+        $type = Project::query()->findOrFail($request->integer('id'));
+        if (Gate::allows('delete-project',$type)){
+            $type->delete();
+        }else{
+            abort(403);
+        }
+        return redirect()->route('projects');
     }
 
     private function getValidator(Request $request): array

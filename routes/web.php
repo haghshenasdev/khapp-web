@@ -32,6 +32,7 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth']],function (){
 
     Route::group(['prefix' => 'faktoors'],function (){
         Route::get('/', [\App\Http\Controllers\dashboard\Faktoors::class, 'index'])->name('faktoors');
+        Route::get('/print', [\App\Http\Controllers\dashboard\Faktoors::class, 'print'])->name('printfaktoors');
         Route::get('show', [\App\Http\Controllers\dashboard\Faktoors::class, 'show'])->name('showfaktoor');
         Route::get('new', [\App\Http\Controllers\dashboard\Faktoors::class, 'new'])->name('newfaktoor');
         Route::post('new', [\App\Http\Controllers\dashboard\Faktoors::class, 'create'])->name('createfaktoor');
@@ -81,6 +82,15 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth']],function (){
         Route::get('show', [\App\Http\Controllers\dashboard\TypeDarkhasts::class, 'show'])->name('showDarkhastType');
         Route::post('show', [\App\Http\Controllers\dashboard\TypeDarkhasts::class, 'update'])->name('updateDarkhastType');
         Route::delete('delete', [\App\Http\Controllers\dashboard\TypeDarkhasts::class, 'delete'])->name('deleteDarkhastType');
+    });
+
+    Route::group(['prefix' => 'payType','middleware' => 'can:see-types'],function (){
+        Route::get('/', [\App\Http\Controllers\dashboard\TypePay::class, 'index'])->name('PayType');
+        Route::get('new', [\App\Http\Controllers\dashboard\TypePay::class, 'new'])->name('newPayType');
+        Route::post('new', [\App\Http\Controllers\dashboard\TypePay::class, 'create'])->name('createPayType');
+        Route::get('show', [\App\Http\Controllers\dashboard\TypePay::class, 'show'])->name('showPayType');
+        Route::post('show', [\App\Http\Controllers\dashboard\TypePay::class, 'update'])->name('updatePayType');
+        Route::delete('delete', [\App\Http\Controllers\dashboard\TypePay::class, 'delete'])->name('deletePayType');
     });
 
 });

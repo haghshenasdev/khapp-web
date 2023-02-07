@@ -6,6 +6,11 @@ use App\Actions\DeleteAction;
 use App\Actions\DeleteFaktoorAction;
 use App\Actions\PayFaktoorAction;
 use App\Actions\ShowAction;
+use App\Filters\CreatedDateTimeFilter;
+use App\Filters\InvokedDateTimeFilter;
+use App\Filters\InvokedFiletr;
+use App\Filters\MonthFiletr;
+use App\Filters\TypeFilter;
 use App\Models\Faktoor;
 use App\queries\Queries;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +18,7 @@ use Illuminate\Support\Facades\Gate;
 use LaravelViews\Facades\Header;
 use LaravelViews\Facades\UI;
 use LaravelViews\Views\TableView;
+use Morilog\Jalali\Jalalian;
 
 class FaktoorsTableView extends TableView
 {
@@ -43,6 +49,9 @@ class FaktoorsTableView extends TableView
             Header::title('مبلغ')->sortBy('amount'),
             Header::title('شماره ثبت')->sortBy('sabtid'),
             Header::title('وضعیت پرداخت')->sortBy('is_pardakht'),
+            Header::title('نوع')->sortBy('title'),
+            Header::title('تاریخ پرداخت')->sortBy('updated_at'),
+            Header::title('تاریخ ایجاد')->sortBy('created_at'),
         ];
         if (Gate::allows('see-all-faktoors')
         or Gate::allows('see-charity-faktoors')) $headers[] = "کاربر";
@@ -68,6 +77,9 @@ class FaktoorsTableView extends TableView
             number_format($model->amount),
             $model->sabtid,
             $model->is_pardakht ? UI::icon('check', 'success') : UI::icon('x', 'danger'),
+            $model->title,
+            is_null($model->updated_at) ? '' : Jalalian::fromDateTime($model->updated_at),
+            is_null($model->created_at) ? '' : Jalalian::fromDateTime($model->created_at),
         ];
         if (Gate::allows('see-all-faktoors') or Gate::allows('see-charity-faktoors')) $rows[] = $model->name;
         if (Gate::allows('see-all-faktoors')) $rows[] = $model->shortname;
@@ -80,6 +92,17 @@ class FaktoorsTableView extends TableView
             new PayFaktoorAction(),
             new DeleteAction('فاکتور','delete-faktoors'),
             new ShowAction('showfaktoor'),
+        ];
+    }
+
+    protected function filters(): array
+    {
+        return [
+            new MonthFiletr(),
+            new InvokedFiletr(),
+            new TypeFilter(),
+            new CreatedDateTimeFilter(),
+            new InvokedDateTimeFilter(),
         ];
     }
 }

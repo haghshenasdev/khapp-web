@@ -10,4 +10,9 @@ class Faktoors extends Controller
     {
         return view('dashboard.faktoors.faktoors');
     }
+
+    public function print()
+    {
+        return view('dashboard.faktoors.print');
+    }
 }

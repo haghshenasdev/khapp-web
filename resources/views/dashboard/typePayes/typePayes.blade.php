@@ -5,14 +5,14 @@
     <div class="row justify-content-center mt-4">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">پویش ها</div>
+                <div class="card-header">نوع پرداخت ها</div>
 
                 <div class="card-body">
-                    <a href="{{route('newPooyeshes')}}" class="btn btn-outline-success">
-                        افزودن پویش جدید
+                    <a href="{{route('newPayType')}}" class="btn btn-outline-success">
+                        افزودن نوع پرداخت جدید
                     </a>
 
-                    @livewire('pooyeshes-table-view')
+                    @livewire('pay-type-table')
 
                 </div>
             </div>

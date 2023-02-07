@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\DarkhastType;
+use App\Models\Darkhast;
 use App\Models\Type;
 use App\queries\Queries;
 use Illuminate\Http\Request;
@@ -11,27 +11,27 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 use Morilog\Jalali\CalendarUtils;
 
-class TypeDarkhasts extends Controller
+class TypePay extends Controller
 {
     public function index()
     {
-        return view('dashboard.typeDarkhasts.typeDarkhasts');
+        return view('dashboard.typePayes.typePayes');
     }
 
     public function show(Request $request)
     {
 
-        $DarkhastType = Queries::getAllDarkhastsTypes(false)->findOrFail($request->integer('id'));
-        return view('dashboard.typeDarkhasts.setypeDarkhasts',['data' => $DarkhastType,'types' => Queries::getDarkhastsTypes()->get(['id','title','description','sub'])]);
+        $type = Queries::getAllTypes(false)->findOrFail($request->integer('id'));
+        return view('dashboard.typePayes.setypePay',['data' => $type,'types' => Queries::getTypes()->get(['id','title','description','sub'])]);
     }
 
     public function update(Request $request)
     {
         $validData = $this->getValidator($request);
 
-        $DarkhastType = DarkhastType::query()->findOrFail($request->integer('id'));
-        if (Gate::allows('update-darkhastType',$DarkhastType)){
-            $DarkhastType->update($validData);
+        $type = Type::query()->findOrFail($request->integer('id'));
+        if (Gate::allows('update-types',$type)){
+            $type->update($validData);
         }else{
             abort(403);
         }
@@ -41,29 +41,29 @@ class TypeDarkhasts extends Controller
 
     public function new()
     {
-        return view('dashboard.typeDarkhasts.setypeDarkhasts',['types' => Queries::getDarkhastsTypes()->get(['id','title','description','sub'])]);
+        return view('dashboard.typePayes.setypePay',['types' => Queries::getTypes()->get(['id','title','description','sub'])]);
     }
 
     public function create(Request $request)
     {
         $validData = $this->getValidator($request);
 
-        if ($validData['sub'] != null) DarkhastType::query()->findOrFail($validData['sub']);
+        if ($validData['sub'] != null) Type::query()->findOrFail($validData['sub']);
 
-        DarkhastType::query()->insert($validData);
+        Type::query()->insert($validData);
 
         return redirect()->back()->with(['success' => 'نوع درخواست با موفقیت ایجاد شد .']);
     }
 
     public function delete(Request $request)
     {
-        $type = DarkhastType::query()->findOrFail($request->integer('id'));
-        if (Gate::allows('delete-darkhastType',$type)){
+        $type = Type::query()->findOrFail($request->integer('id'));
+        if (Gate::allows('delete-types',$type)){
             $type->delete();
         }else{
             abort(403);
         }
-        return redirect()->route('DarkhastType');
+        return redirect()->route('PayType');
     }
 
     private function getValidator(Request $request): array

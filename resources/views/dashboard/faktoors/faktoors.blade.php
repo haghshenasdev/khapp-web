@@ -8,6 +8,9 @@
                 <div class="card-header">فاکتور ها</div>
 
                 <div class="card-body">
+
+                    <button onclick="window.open('{{ route('printfaktoors') }}' + window.location.search,'_blank')" class="btn btn-outline-primary">چاپ</button>
+
                     @livewire('faktoors-table-view')
                 </div>
             </div>

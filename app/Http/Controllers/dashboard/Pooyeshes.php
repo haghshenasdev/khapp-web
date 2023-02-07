@@ -4,6 +4,7 @@ namespace App\Http\Controllers\dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pooyesh;
+use App\Models\Project;
 use App\Models\Type;
 use App\queries\Queries;
 use Illuminate\Http\Request;
@@ -51,6 +52,17 @@ class Pooyeshes extends Controller
         Pooyesh::query()->findOrFail($request->integer('id'))->update($validData);
 
         return redirect()->back()->with(['success' => 'پویش با موفقیت ایجاد شد .']);
+    }
+
+    public function delete(Request $request)
+    {
+        $type = Pooyesh::query()->findOrFail($request->integer('id'));
+        if (Gate::allows('delete-pooyesh',$type)){
+            $type->delete();
+        }else{
+            abort(403);
+        }
+        return redirect()->route('pooyeshes');
     }
 
     private function getValidator(Request $request): array

@@ -2,7 +2,7 @@
 
 @section('delete-route')
     @isset($data)
-        {{route('deleteDarkhastType',['id' => $data['id']])}}
+        {{route('deletePayType',['id' => $data['id']])}}
     @endisset
 @endsection
 
@@ -10,7 +10,7 @@
     @isset($data)
         {{$data['title']}}
     @else
-        افزودن نوع درخواست جدید
+        افزودن نوع پرداخت جدید
     @endisset
 @endsection
 
@@ -86,8 +86,7 @@
 
     <div class="mb-3">
         <label for="tiny" class="col-form-label">توضیحات :</label>
-        <textarea name="description" class="form-control" id="tiny">@isset($data){{$data->description}}
-            @endisset</textarea>
+        <textarea name="description" class="form-control" id="tiny">@isset($data){{$data->description}}@endisset</textarea>
     </div>
     @error('description')
     <div class="alert alert-danger">{{ $message }}</div>

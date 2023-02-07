@@ -10,14 +10,14 @@ use App\queries\Queries;
 use Illuminate\Support\Facades\Gate;
 use LaravelViews\Views\TableView;
 
-class DarkhastTypeTable extends TableView
+class PayTypeTable extends TableView
 {
     /**
      * Sets a model class to get the initial data
      */
     protected function repository()
     {
-        return Queries::getAllDarkhastsTypes(false);
+        return Queries::getAllTypes(false);
     }
 
     public $searchBy = ['title', 'id'];
@@ -62,9 +62,9 @@ class DarkhastTypeTable extends TableView
     protected function actionsByRow()
     {
         return [
-            new ActivateOrDeactiveAction('نوع درخواست','update-darkhastType'),
-            new ShowAction('showDarkhastType'),
-            new DeleteAction('نوع درخواست','delete-darkhastType'),
+            new ActivateOrDeactiveAction('نوع درخواست','update-types'),
+            new ShowAction('showPayType'),
+            new DeleteAction('نوع درخواست','delete-types'),
         ];
     }
 }

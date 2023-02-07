@@ -10,4 +10,16 @@ class Type extends Model
     use HasFactory;
 
     protected $table = 'types';
+
+    public $timestamps = false;
+
+    protected $fillable = [
+        'title',
+        'description',
+        'is_active',
+        'charity',
+        'sub',
+        'default',
+        'optional_sub_select',
+    ];
 }

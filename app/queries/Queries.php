@@ -59,10 +59,14 @@ class Queries
      */
     public static function getFaktoors(): Builder
     {
+        $query = \App\Models\Faktoor::query()
+            ->join('types', 'faktoors.type', '=', 'types.id')
+            ->select(['faktoors.*', 'types.title']);
+
         if (Gate::allows('admin')) {
-            $queryAdmin = \App\Models\Faktoor::query()
+            $queryAdmin = $query
                 ->join('users', 'faktoors.userid', '=', 'users.id')
-                ->select(['faktoors.*', 'users.name']);
+                ->addSelect(['users.name']);
 
             if (Gate::allows('see-all-faktoors')) {
                 return $queryAdmin
@@ -76,7 +80,7 @@ class Queries
             }
         }
 
-        return \App\Models\Faktoor::query()->where('userid', Auth::id());
+        return $query->where('userid', Auth::id());
     }
 
     public static function getFaktoorsSum()
@@ -182,6 +186,21 @@ class Queries
     public static function getDarkhastStatuses()
     {
             return \App\Models\DarkhastStatus::query();
+    }
+
+    public static function getAllTypes(bool $activeFilter = true,$charityId = null)
+    {
+        $query = \App\Models\Type::query();
+
+        if ($activeFilter){
+            $query->where('is_active',1);
+        }
+
+        if (Gate::allows('super-admin')) {
+            return $query;
+        }
+
+        return $query->where('charity', (is_null($charityId)) ? Auth::user()->charity : $charityId);
     }
 
     public static function getTypes(int $sub = null,bool $activeFilter = true,$charityId = null)
