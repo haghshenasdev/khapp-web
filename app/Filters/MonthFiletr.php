@@ -22,15 +22,19 @@ class MonthFiletr extends Filter
     {
         if (is_null($value)) return $query;
 
-        if ($value == 'current') return $this->monthWhere($query,date('n'));
-        if ($value == 'before') return $this->monthWhere($query,date('n') - 1);
+        if ($value == 'current') return $this->monthWhere($query,Jalalian::now()->getMonth());
+        if ($value == 'before') return $this->monthWhere($query,Jalalian::now()->subMonths()->getMonth());
 
         return $this->monthWhere($query,$value);
     }
 
-    private function monthWhere(Builder $query,$val)
+    private function monthWhere(Builder $query,$month)
     {
-        return $query->whereMonth('faktoors.created_at', $val);
+        $year = Jalalian::now()->getYear();
+        $from = new Jalalian($year,$month,1);
+        $to = new Jalalian($year,$month,$from->getMonthDays());
+
+        return $query->whereBetween('faktoors.created_at', [$from->toCarbon()->toDateTimeString(), $to->toCarbon()->toDateTimeString()]);
     }
 
     /**
