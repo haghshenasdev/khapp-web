@@ -58,7 +58,7 @@ class DarkhastSTableView extends TableView
             $model->status_title,
         ];
         if (Gate::allows('see-all-darkhasts')) $row[] = $model->shortname;
-        if (Gate::allows('see-charity-darkhasts') or Gate::allows('see-all-darkhasts')) $row[] = $model->name;
+        if (Gate::allows('see-charity-darkhasts') or Gate::allows('see-all-darkhasts')) $row[] = $model->name . '<br>' . $model->phone;
         return $row;
     }
 

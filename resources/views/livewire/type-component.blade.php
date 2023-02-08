@@ -1,4 +1,12 @@
 <div id="types">
+    @if(!is_null($data))
+        @if(!is_null($typedata))
+            <p class="mb-3">نوع ثبت شده : {{ $typedata->title }}</p>
+        @else
+            <p class="mb-3">نوع ثبت شده وجود ندارد</p>
+        @endif
+    @endif
+
     <select name="type" class="form-select" aria-label="Default select example">
         @foreach($types as $type)
             <option title="{{ $type->description }}"

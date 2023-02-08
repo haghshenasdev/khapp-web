@@ -11,6 +11,15 @@ use Illuminate\Support\Facades\Gate;
 
 class Queries
 {
+
+    public function charityFilter(Builder $query,$charityId = null,$column = 'charity',$globalData = true) : Builder
+    {
+        return $query->where(function ($qur) use ($globalData, $charityId, $column) {
+            $qur->where($column,(is_null($charityId)) ? Auth::user()->charity : $charityId);
+            if ($globalData) $qur->orWhere($column,0);
+        });
+    }
+
     /**
      * @return Builder
      */
@@ -23,12 +32,13 @@ class Queries
 
         if (Gate::allows('admin')) {
             $adminQuery = $query
-                ->join('users', 'darkhasts.user', '=', 'users.id');
+                ->join('users', 'darkhasts.user', '=', 'users.id')
+                ->addSelect(['users.name','users.phone']);
 
             if (Gate::allows('see-all-darkhasts')) {
                 return $adminQuery
-                    ->join('charities', 'darkhasts.charity', '=', 'charities.id')->addSelect(['charities.shortname'])
-                    ->addSelect(['users.name']);
+                    ->join('charities', 'darkhasts.charity', '=', 'charities.id')
+                    ->addSelect(['charities.shortname']);
             }
 
             if (Gate::allows('see-charity-darkhasts')) {
@@ -66,7 +76,7 @@ class Queries
         if (Gate::allows('admin')) {
             $queryAdmin = $query
                 ->join('users', 'faktoors.userid', '=', 'users.id')
-                ->addSelect(['users.name']);
+                ->addSelect(['users.name','users.phone']);
 
             if (Gate::allows('see-all-faktoors')) {
                 return $queryAdmin
@@ -76,7 +86,7 @@ class Queries
 
             if (Gate::allows('see-charity-faktoors')) {
                 return $queryAdmin
-                    ->where('charity', Auth::user()->charity);
+                    ->where('faktoors.charity', Auth::user()->charity);
             }
         }
 
@@ -104,7 +114,7 @@ class Queries
     public static function getPooyeshes(): Builder
     {
         if (Gate::allows('see-charity-pooyesh')) {
-            return \App\Models\Pooyesh::query()->where('charity', Auth::user()->charity);
+            return (new Queries)->charityFilter(\App\Models\Pooyesh::query());
         }
         return \App\Models\Pooyesh::query()
             ->join('charities', 'pooyeshes.charity', '=', 'charities.id')
@@ -117,7 +127,7 @@ class Queries
     public static function getProjects(): Builder
     {
         if (Gate::allows('see-charity-projects')) {
-            return \App\Models\Project::query()->where('charity', Auth::user()->charity);
+            return (new Queries())->charityFilter(\App\Models\Project::query());
         }
         return \App\Models\Project::query()
             ->join('charities', 'projects.charity', '=', 'charities.id')
@@ -149,7 +159,7 @@ class Queries
             return $query;
         }
 
-        return $query->where('charity', (is_null($charityId)) ? Auth::user()->charity : $charityId);
+        return (new Queries())->charityFilter($query,$charityId);
     }
 
     public static function getDarkhastsTypes(int $sub = null,bool $activeFilter = true,$charityId = null)
@@ -165,7 +175,7 @@ class Queries
             return $query;
         }
 
-        return $query->where('charity', (is_null($charityId)) ? Auth::user()->charity : $charityId);
+        return (new Queries())->charityFilter($query,$charityId);
     }
 
     public static function getDarkhastsTypesFind(int $id,bool $activeFilter = true,$charityId = null)
@@ -180,7 +190,7 @@ class Queries
             return $query->findOrFail($id);
         }
 
-        return $query->where('charity', (is_null($charityId)) ? Auth::user()->charity : $charityId)->findOrFail($id);
+        return (new Queries())->charityFilter($query,$charityId)->findOrFail($id);
     }
 
     public static function getDarkhastStatuses()
@@ -200,7 +210,7 @@ class Queries
             return $query;
         }
 
-        return $query->where('charity', (is_null($charityId)) ? Auth::user()->charity : $charityId);
+        return (new Queries())->charityFilter($query,$charityId);
     }
 
     public static function getTypes(int $sub = null,bool $activeFilter = true,$charityId = null)
@@ -216,7 +226,7 @@ class Queries
             return $query;
         }
 
-        return $query->where('charity', (is_null($charityId)) ? Auth::user()->charity : $charityId);
+        return (new Queries())->charityFilter($query,$charityId);
     }
 
     public static function getTypesFind(int $id,bool $activeFilter = true,$charityId = null)
@@ -231,6 +241,6 @@ class Queries
             return $query->findOrFail($id);
         }
 
-        return $query->where('charity', (is_null($charityId)) ? Auth::user()->charity : $charityId)->findOrFail($id);
+        return (new Queries())->charityFilter($query,$charityId)->findOrFail($id);
     }
 }

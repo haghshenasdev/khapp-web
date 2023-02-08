@@ -14,11 +14,13 @@ class DarkhastType extends Component
 
     public $firstLoad = true;
 
+    public $typedata = null;
+
     public function render()
     {
         if ($this->firstLoad){
             if ($this->data != null){
-                $dt = \App\Models\DarkhastType::query()->find($this->data);
+                $this->typedata = $dt = \App\Models\DarkhastType::query()->find($this->data);
                 if ($dt->sub == null){
                     $this->mainType = $dt->id;
                 }else{
@@ -26,7 +28,7 @@ class DarkhastType extends Component
                     $this->mainType = $dt->sub;
                     $dt = \App\Models\DarkhastType::query()->find($this->mainType);
                 }
-                $this->showSub($dt,$dt->optional_sub_select);
+                if (!is_null($dt)) $this->showSub($dt,$dt->optional_sub_select);
             }else{
                 $default = Queries::getDarkhastsTypes()->where('default',1)->first();
                 if (is_null($default)) $default = Queries::getDarkhastsTypes()->first();

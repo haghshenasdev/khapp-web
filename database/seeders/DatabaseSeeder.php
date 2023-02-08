@@ -37,6 +37,12 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+        charity::insert([
+            'id' => 0,
+            'fullname' => 'سراسری',
+            'shortname' => 'سراسری',
+            'is_active' => 1,
+        ]);
 
         charity::insert([
             'fullname' => 'خیریه امام علی ابن ابیطالب علیه السلام شهر گرگاب',

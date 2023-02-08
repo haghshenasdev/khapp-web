@@ -12,6 +12,12 @@ class Faktoor extends Model
     protected $table = 'faktoors';
 
     protected $fillable = [
-        'created_at'
+        'userid',
+        'amount',
+        'type',
+        'sabtid',
+        'ResNum',
+        'is_pardakht',
+        'charity',
     ];
 }

@@ -48,10 +48,10 @@ class FaktoorsTableView extends TableView
         $headers = [
             Header::title('مبلغ')->sortBy('amount'),
             Header::title('شماره ثبت')->sortBy('sabtid'),
+            'شماره تراکنش',
             Header::title('وضعیت پرداخت')->sortBy('is_pardakht'),
             Header::title('نوع')->sortBy('title'),
             Header::title('تاریخ پرداخت')->sortBy('updated_at'),
-            Header::title('تاریخ ایجاد')->sortBy('created_at'),
         ];
         if (Gate::allows('see-all-faktoors')
         or Gate::allows('see-charity-faktoors')) $headers[] = "کاربر";
@@ -76,12 +76,12 @@ class FaktoorsTableView extends TableView
         $rows = [
             number_format($model->amount),
             $model->sabtid,
+            $model->ResNum,
             $model->is_pardakht ? UI::icon('check', 'success') : UI::icon('x', 'danger'),
             $model->title,
             is_null($model->updated_at) ? '' : Jalalian::fromDateTime($model->updated_at),
-            is_null($model->created_at) ? '' : Jalalian::fromDateTime($model->created_at),
         ];
-        if (Gate::allows('see-all-faktoors') or Gate::allows('see-charity-faktoors')) $rows[] = $model->name;
+        if (Gate::allows('see-all-faktoors') or Gate::allows('see-charity-faktoors')) $rows[] = $model->name . '<br>' . $model->phone;
         if (Gate::allows('see-all-faktoors')) $rows[] = $model->shortname;
         return $rows;
     }
