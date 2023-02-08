@@ -34,7 +34,7 @@ class MonthFiletr extends Filter
         $from = new Jalalian($year,$month,1);
         $to = new Jalalian($year,$month,$from->getMonthDays());
 
-        return $query->whereBetween('faktoors.created_at', [$from->toCarbon()->toDateTimeString(), $to->toCarbon()->toDateTimeString()]);
+        return $query->whereBetween('faktoors.updated_at', [$from->toCarbon()->toDateTimeString(), $to->toCarbon()->toDateTimeString()]);
     }
 
     /**
