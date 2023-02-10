@@ -52,7 +52,7 @@
                             </tr>
                             <tr>
                                 <td>شماره کارت</td>
-                                <td>{{$receipt['CardNumber']}}</td>
+                                <td dir="ltr">{{$receipt['CardNumber']}}</td>
                             </tr>
                             <tr>
                                 <td>شناسه پرداخت</td>
