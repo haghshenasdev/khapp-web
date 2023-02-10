@@ -39,8 +39,8 @@ class Pay extends Controller
                 'message' => 'پرداخت موفقیت آمیز بود.',
                 'success' => true,
                 'charity' => charity::query()
-                    ->find($fk->get('charity')
-                        ->charity,'shortname')
+                    ->find($fk->charity)
+                    ->get('shortname')
                     ->shortname,
                 'receipt' => [
                     'CardNumber' => $receipt->getCardNumber(),
