@@ -32,14 +32,14 @@ class Pay extends Controller
             $receipt = PaymentGateway::verify($invoice);
             // Save receipt data and return response
             //
-            $fk = Faktoor::query()->where('ResNum',$request->ResNum);
+            $f = $fk = Faktoor::query()->where('ResNum',$request->ResNum);
             $fk->update(['is_pardakht' => 1]);
 
             return view('pay.verify',[
                 'message' => 'پرداخت موفقیت آمیز بود.',
                 'success' => true,
                 'charity' => charity::query()
-                    ->find($fk->get('charity')->charity)
+                    ->find($f->get('charity')->charity)
                     ->get('shortname')
                     ->shortname,
                 'receipt' => [
