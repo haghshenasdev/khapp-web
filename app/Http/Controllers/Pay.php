@@ -35,8 +35,6 @@ class Pay extends Controller
             $fk = Faktoor::query()->where('ResNum',$request->ResNum);
             $fk->update(['is_pardakht' => 1]);
 
-            dd($fk);
-
             return view('pay.verify',[
                 'message' => 'پرداخت موفقیت آمیز بود.',
                 'success' => true,
