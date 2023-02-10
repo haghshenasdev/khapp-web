@@ -66,10 +66,6 @@
                                 <td>TraceNumber</td>
                                 <td>{{$receipt['TraceNumber']}}</td>
                             </tr>
-                            <tr>
-                                <td>TransactionId</td>
-                                <td>{{$receipt['TransactionId']}}</td>
-                            </tr>
                         </table>
                     @endisset
 

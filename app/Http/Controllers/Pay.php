@@ -48,7 +48,6 @@ class Pay extends Controller
                     'InvoiceId' => $receipt->getInvoiceId(),
                     'ReferenceId' => $receipt->getReferenceId(),
                     'TraceNumber' => $receipt->getTraceNumber(),
-                    'TransactionId' => $receipt->getTransactionId(),
                 ],
             ]);
         } catch (PaymentAlreadyVerifiedException $exception) {
