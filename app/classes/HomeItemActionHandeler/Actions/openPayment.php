@@ -21,7 +21,7 @@ class openPayment extends hiAction
     {
         return $request->validate([
             'type' => ['required','numeric'],
-            'title' => ['string'],
+            'title' => ['required','string'],
         ]);
     }
 }
