@@ -1,6 +1,6 @@
 <div>
     @if($image)
-        <img class="img-fluid mb-3" src="{{ $image }}"/>
+        <img class="img-fluid mb-3 bg-gray-300" src="{{ $image }}"/>
     @endif
 
     <div class="row">

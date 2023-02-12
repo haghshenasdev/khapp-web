@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\components;
 
 use Livewire\Component;
+use function App\Http\Livewire\ctype_digit;
 
 class AmountComponent extends Component
 {

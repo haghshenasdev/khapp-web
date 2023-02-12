@@ -93,6 +93,15 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth']],function (){
         Route::delete('delete', [\App\Http\Controllers\dashboard\TypePay::class, 'delete'])->name('deletePayType');
     });
 
+    Route::group(['prefix' => 'homeItems','middleware' => 'can:see-homeItems'],function (){
+        Route::get('/', [\App\Http\Controllers\dashboard\HomeItem::class, 'index'])->name('HomeItems');
+        Route::get('new', [\App\Http\Controllers\dashboard\HomeItem::class, 'new'])->name('newHomeItem');
+        Route::post('new', [\App\Http\Controllers\dashboard\HomeItem::class, 'create'])->name('createHomeItem');
+        Route::get('show', [\App\Http\Controllers\dashboard\HomeItem::class, 'show'])->name('showHomeItem');
+        Route::post('show', [\App\Http\Controllers\dashboard\HomeItem::class, 'update'])->name('updateHomeItem');
+        Route::delete('delete', [\App\Http\Controllers\dashboard\HomeItem::class, 'delete'])->name('deleteHomeItem');
+    });
+
 });
 
 Auth::routes();

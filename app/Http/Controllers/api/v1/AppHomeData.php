@@ -14,9 +14,7 @@ class AppHomeData extends Controller
 {
     public function index($charity)
     {
-        $homeItem = HomeItem::all()
-            ->where('charity',$charity)
-            ->where('is_active',1);
+        $homeItem = Queries::getHomeItems();
         foreach ($homeItem as $item){
             $item->action = json_decode($item->action);
         }

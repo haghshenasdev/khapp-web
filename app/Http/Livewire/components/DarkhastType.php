@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\components;
 
-use App\Models\Darkhast;
 use App\queries\Queries;
 use Livewire\Component;
 

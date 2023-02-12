@@ -8,6 +8,7 @@ use App\Models\Project;
 use App\Models\Type;
 use App\queries\Queries;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 use Morilog\Jalali\CalendarUtils;
@@ -49,7 +50,7 @@ class Pooyeshes extends Controller
     {
         $validData = $this->getValidator($request);
 
-        Pooyesh::query()->findOrFail($request->integer('id'))->update($validData);
+        Pooyesh::query()->insert($validData);
 
         return redirect()->back()->with(['success' => 'پویش با موفقیت ایجاد شد .']);
     }
@@ -77,6 +78,8 @@ class Pooyeshes extends Controller
             'type' => ['required','numeric'],
             'charity' => [Rule::requiredIf(Gate::allows('super-admin')),'exists:charities,id'],
         ]);
+
+        if (!Gate::allows('super-admin')) $validData['charity'] = Auth::user()->charity;
 
         //subtype support
         if ($request->has('subType') && $request->integer('subType') != 0) $validData['type'] = $request->integer('subType');

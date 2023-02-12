@@ -7,6 +7,7 @@ use App\Models\charity;
 use App\Models\Darkhast;
 use App\Models\DarkhastType;
 use App\Models\Faktoor;
+use App\Models\HomeItem;
 use App\Models\Pooyesh;
 use App\Models\Project;
 use App\Models\Type;
@@ -243,6 +244,29 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('delete-darkhastType',function (User $user,DarkhastType $type){
             return Gate::allows('update-darkhastType',$type);
+        });
+
+        //homeItems
+        Gate::define('see-homeItems',function (){
+            return Gate::allows('super-admin') or Gate::allows('charity-admin');
+        });
+
+        Gate::define('see-all-homeItems',function (){
+            return Gate::allows('super-admin');
+        });
+
+        Gate::define('update-homeItems',function (User $user,HomeItem $HomeItem){
+            if (Gate::allows('super-admin')){
+                return  true;
+            }
+            if (Gate::allows('charity-admin') or Gate::allows('employee-admin')){
+                return $HomeItem->charity === $user->charity;
+            }
+            return false;
+        });
+
+        Gate::define('delete-homeItems',function (User $user,HomeItem $HomeItem){
+            return Gate::allows('update-homeItems',$HomeItem);
         });
     }
 }

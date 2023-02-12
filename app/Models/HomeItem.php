@@ -12,4 +12,12 @@ class HomeItem extends Model
 
     protected $hidden = ['is_active','charity','id'];
 
+    public $timestamps = false;
+
+    protected $fillable = [
+        'title',
+        'icon',
+        'action',
+    ];
+
 }

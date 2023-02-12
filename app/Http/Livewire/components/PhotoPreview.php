@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\components;
 
 use Livewire\Component;
+use function App\Http\Livewire\str_starts_with;
 
 class PhotoPreview extends Component
 {
@@ -17,7 +18,7 @@ class PhotoPreview extends Component
 
     public function show()
     {
-        if (str_starts_with($this->url,'/')) $this->url = url($this->url);
+        if (\str_starts_with($this->url,'/')) $this->url = url($this->url);
         $this->image = $this->url;
     }
 }

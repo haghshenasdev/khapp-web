@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\tables;
 
 use App\Actions\ActivateOrDeactiveAction;
 use App\Actions\DeleteAction;
 use App\Actions\ShowAction;
+use App\Http\Livewire\Current;
 use App\Models\charity;
 use App\queries\Queries;
 use Illuminate\Support\Facades\Gate;

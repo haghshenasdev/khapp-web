@@ -7,6 +7,7 @@ use App\Models\DarkhastType;
 use App\Models\Type;
 use App\queries\Queries;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 use Morilog\Jalali\CalendarUtils;
@@ -76,6 +77,8 @@ class TypeDarkhasts extends Controller
             'default' => ['bool'],
             'charity' => [Rule::requiredIf(Gate::allows('super-admin')),'exists:charities,id'],
         ]);
+
+        if (!Gate::allows('super-admin')) $validData['charity'] = Auth::user()->charity;
 
         if ($validData['sub'] == 0) $validData['sub'] = null;
         if (!$request->has('default')) $validData['default'] = null;

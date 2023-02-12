@@ -1,32 +1,23 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\tables;
 
 use App\Actions\ActivateOrDeactiveAction;
-use App\Actions\AOrDCharity;
 use App\Actions\DeleteAction;
 use App\Actions\ShowAction;
+use App\Http\Livewire\Current;
 use App\queries\Queries;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
-use LaravelViews\Facades\UI;
 use LaravelViews\Views\TableView;
 
-class CharitiesTableView extends TableView
+class HomeItemsTable extends TableView
 {
     /**
      * Sets a model class to get the initial data
      */
-    protected function repository()
+    protected function repository(): \Illuminate\Database\Eloquent\Builder
     {
-        return Queries::getCharities();
+        return Queries::getHomeItems(false);
     }
-
-    public $searchBy = ['shortname', 'fullname'];
-
-    public $sortOrder = 'desc';
-
-    public $sortBy = 'id';
 
     /**
      * Sets the headers of the table as you want to be displayed
@@ -36,10 +27,7 @@ class CharitiesTableView extends TableView
     public function headers(): array
     {
         return [
-            'id',
-            'نام کوتاه',
-            'نام کامل',
-            'عملیات',
+            'عنوان',
         ];
     }
 
@@ -51,18 +39,16 @@ class CharitiesTableView extends TableView
     public function row($model): array
     {
         return [
-            $model->id,
-            $model->shortname,
-            $model->fullname,
+            $model->title,
         ];
     }
 
     protected function actionsByRow()
     {
         return [
-            new AOrDCharity('خیریه',null),
-            new DeleteAction('خیریه',null),
-            new ShowAction('showCharity'),
+            new ShowAction('showHomeItem'),
+            new ActivateOrDeactiveAction('دکمه صفحه اصلی نرم افزار','update-homeItems'),
+            new  DeleteAction('دکمه صفحه اصلی نرم افزار','delete-homeItems'),
         ];
     }
 }

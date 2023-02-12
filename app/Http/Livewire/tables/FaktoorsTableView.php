@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\tables;
 
 use App\Actions\DeleteAction;
-use App\Actions\DeleteFaktoorAction;
 use App\Actions\PayFaktoorAction;
 use App\Actions\ShowAction;
 use App\Filters\CreatedDateTimeFilter;
@@ -11,9 +10,8 @@ use App\Filters\InvokedDateTimeFilter;
 use App\Filters\InvokedFiletr;
 use App\Filters\MonthFiletr;
 use App\Filters\TypeFilter;
-use App\Models\Faktoor;
+use App\Http\Livewire\Current;
 use App\queries\Queries;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use LaravelViews\Facades\Header;
 use LaravelViews\Facades\UI;

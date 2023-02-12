@@ -42,6 +42,12 @@
                     </li>
                     @endcan
 
+                    @can('see-homeItems')
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ route('HomeItems') }}">دکمه های نرم افزار</a>
+                        </li>
+                    @endcan
+
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">تنظیمات</a>
                     </li>

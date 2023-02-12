@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\tables;
 
+use App\Http\Livewire\Current;
 use App\queries\Queries;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use LaravelViews\Facades\Header;
 use LaravelViews\Views\TableView;

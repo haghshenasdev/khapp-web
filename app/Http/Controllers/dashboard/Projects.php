@@ -7,6 +7,7 @@ use App\Models\DarkhastType;
 use App\Models\Project;
 use App\queries\Queries;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 use Morilog\Jalali\CalendarUtils;
@@ -48,7 +49,7 @@ class Projects extends Controller
     {
         $validData = $this->getValidator($request);
 
-        Project::query()->findOrFail($request->integer('id'))->update($validData);
+        Project::query()->insert($validData);
 
         return redirect()->back()->with(['success' => 'پروژه با موفقیت ایجاد شد .']);
     }
@@ -74,6 +75,8 @@ class Projects extends Controller
             'type' => [Rule::requiredIf(!$request->has('nullType')),'numeric'],
             'charity' => [Rule::requiredIf(Gate::allows('super-admin')),'exists:charities,id'],
         ]);
+
+        if (!Gate::allows('super-admin')) $validData['charity'] = Auth::user()->charity;
 
         $validData['image_head'] = $validData['image'];
 

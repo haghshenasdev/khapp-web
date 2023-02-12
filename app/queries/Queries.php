@@ -4,6 +4,7 @@ namespace App\queries;
 
 use App\Models\Darkhast;
 use App\Models\DarkhastStatus;
+use App\Models\HomeItem;
 use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
@@ -242,5 +243,20 @@ class Queries
         }
 
         return (new Queries())->charityFilter($query,$charityId)->findOrFail($id);
+    }
+
+    public static function getHomeItems(bool $activeFilter = true,$charityId = null)
+    {
+        $query = HomeItem::query();
+
+        if ($activeFilter){
+            $query->where('is_active',1);
+        }
+
+        if (Gate::allows('super-admin')) {
+            return $query;
+        }
+
+        return (new Queries())->charityFilter($query,$charityId);
     }
 }
