@@ -52,7 +52,7 @@
                             </tr>
                             <tr>
                                 <td>شماره کارت</td>
-                                <td>{{$receipt['CardNumber']}}</td>
+                                <td dir="ltr">{{$receipt['CardNumber']}}</td>
                             </tr>
                             <tr>
                                 <td>شناسه پرداخت</td>
@@ -65,10 +65,6 @@
                             <tr>
                                 <td>TraceNumber</td>
                                 <td>{{$receipt['TraceNumber']}}</td>
-                            </tr>
-                            <tr>
-                                <td>TransactionId</td>
-                                <td>{{$receipt['TransactionId']}}</td>
                             </tr>
                         </table>
                     @endisset

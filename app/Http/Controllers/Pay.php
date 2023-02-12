@@ -32,22 +32,22 @@ class Pay extends Controller
             $receipt = PaymentGateway::verify($invoice);
             // Save receipt data and return response
             //
-            $fk = Faktoor::query()->where('ResNum',$request->ResNum);
-            $fk->update(['is_pardakht' => 1]);
+            // $fk = Faktoor::query()->where('ResNum',$request->ResNum);
+            $fk = Faktoor::where('ResNum',$request->ResNum)->first();
+            $fk->is_pardakht = 1;
+            $fk->save();
 
             return view('pay.verify',[
                 'message' => 'پرداخت موفقیت آمیز بود.',
                 'success' => true,
                 'charity' => charity::query()
-                    ->find($fk->get('charity')
-                        ->charity,'shortname')
+                    ->find($fk->charity,'shortname')
                     ->shortname,
                 'receipt' => [
                     'CardNumber' => $receipt->getCardNumber(),
                     'InvoiceId' => $receipt->getInvoiceId(),
                     'ReferenceId' => $receipt->getReferenceId(),
                     'TraceNumber' => $receipt->getTraceNumber(),
-                    'TransactionId' => $receipt->getTransactionId(),
                 ],
             ]);
         } catch (PaymentAlreadyVerifiedException $exception) {
