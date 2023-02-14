@@ -12,7 +12,7 @@
                         افزودن پویش جدید
                     </a>
 
-                    @livewire('pooyeshes-table-view')
+                    @livewire('tables.pooyeshes-table-view')
 
                 </div>
             </div>

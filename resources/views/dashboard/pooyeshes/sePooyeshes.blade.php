@@ -26,11 +26,11 @@
 
             plugins: [
 
-                'a11ychecker','advlist','advcode','advtable','autolink','checklist','export',
+                'a11ychecker', 'advlist', 'advcode', 'advtable', 'autolink', 'checklist', 'export',
 
-                'lists','link','image','charmap','preview','anchor','searchreplace','visualblocks',
+                'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks',
 
-                'powerpaste','fullscreen','formatpainter','insertdatetime','media','table','help','wordcount'
+                'powerpaste', 'fullscreen', 'formatpainter', 'insertdatetime', 'media', 'table', 'help', 'wordcount'
 
             ],
 
@@ -41,18 +41,35 @@
         })
 
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+
 @endsection
 
 @section('form-content')
 
     <div class="mb-3">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+        <script>
+            var route_prefix = "/filemanager";
+        </script>
+
         <label for="amount" class="col-form-label">تصویر پویش :</label>
 
-        @isset($data)
-            <livewire:photo-preview :url="$data['image']"/>
-        @else
-            <livewire:photo-preview />
-        @endisset
+        <div class="input-group">
+   <span class="input-group-btn">
+     <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+       <i class="fa fa-picture-o">انتخاب</i>
+     </a>
+   </span>
+            <input id="thumbnail" class="form-control" type="text" name="image"
+                   value="@isset($data){{$data['image']}}@else{{ old('image') }}@endisset">
+        </div>
+        <img id="holder" style="margin-top:15px;max-height:100px;">
+
+        <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+        <script>
+            $('#lfm').filemanager('image');
+        </script>
     </div>
     @error('image')
     <div class="alert alert-danger">{{ $message }}</div>
@@ -70,9 +87,9 @@
     <div class="mb-3">
         <label for="amount" class="col-form-label">مبلغ مورد نیاز :</label>
         @isset($data)
-            <livewire:amount-component :amountFormat="$data['amount']"/>
-                @else
-                    <livewire:amount-component />
+            <livewire:components.amount-component :amountFormat="$data['amount']"/>
+        @else
+            <livewire:components.amount-component/>
         @endisset
         <p class="mt-2">فقط اعداد انگلیسی وارد نمایید .</p>
         <p class="mt-2">اگر مبلغ پویش نا محدود است آن را 0 بگذارید .</p>
@@ -99,15 +116,15 @@
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
         </div>
-         <p class="mt-2">در صورت نیاز به محدود کردن هر کدام آن را پر کنید .</p>
+        <p class="mt-2">در صورت نیاز به محدود کردن هر کدام آن را پر کنید .</p>
     </div>
 
     <div class="mb-3">
         <label for="title" class="col-form-label">نوع پرداخت :</label>
         @isset($data)
-            <livewire:pay-type :data="$data['type_pay']">
-        @else
-            <livewire:pay-type />
+            <livewire:components.pay-type :data="$data['type_pay']">
+                @else
+                    <livewire:components.pay-type/>
         @endisset
 
     </div>
@@ -140,14 +157,14 @@
 
     <div class="mb-3">
         <label for="tiny" class="col-form-label">توضیحات :</label>
-        <textarea name="description" class="form-control" id="tiny">@isset($data){{$data->description}}
+        <textarea name="description" class="form-control" id="tiny">@isset($data)
+                {{$data->description}}
             @endisset</textarea>
     </div>
     @error('description')
     <div class="alert alert-danger">{{ $message }}</div>
     @enderror
 
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script src="https://unpkg.com/persian-date@latest/dist/persian-date.min.js"></script>
     <script src="https://unpkg.com/persian-datepicker@latest/dist/js/persian-datepicker.min.js"></script>
     <script>

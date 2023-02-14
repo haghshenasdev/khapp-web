@@ -11,7 +11,7 @@
 
                     <button onclick="window.open('{{ route('printfaktoors') }}' + window.location.search,'_blank')" class="btn btn-outline-primary">چاپ</button>
 
-                    @livewire('faktoors-table-view')
+                    @livewire('tables.faktoors-table-view')
                 </div>
             </div>
 

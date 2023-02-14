@@ -13,5 +13,14 @@ class Project extends Model
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'title',
+        'description',
+        'image_head',
+        'pishraft',
+        'type_pay',
+        'type_pay',
+    ];
+
 
 }

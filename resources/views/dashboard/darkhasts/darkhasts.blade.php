@@ -12,7 +12,7 @@
                         افزودن درخواست جدید
                     </a>
 
-                    @livewire('darkhast-s-table-view')
+                    @livewire('tables.darkhast-s-table-view')
 
                 </div>
             </div>

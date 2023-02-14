@@ -31,7 +31,7 @@ class Projects extends Controller
         $validData = $this->getValidator($request);
 
         $project = Project::query()->findOrFail($request->integer('id'));
-        if (Gate::allows('update-project',$project)){
+        if (Gate::allows('update-projects',$project)){
             $project->update($validData);
         }else{
             abort(403);
@@ -57,7 +57,7 @@ class Projects extends Controller
     public function delete(Request $request)
     {
         $type = Project::query()->findOrFail($request->integer('id'));
-        if (Gate::allows('delete-project',$type)){
+        if (Gate::allows('delete-projects',$type)){
             $type->delete();
         }else{
             abort(403);

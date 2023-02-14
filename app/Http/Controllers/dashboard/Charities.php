@@ -57,11 +57,7 @@ class Charities extends Controller
 
     public function show(Request $request)
     {
-        $validateData = $request->validate([
-            'id' => 'required|numeric'
-        ]);
-
-        $charity = Queries::getCharityAndMetas()->findOrFail($validateData['id']);
+        $charity = Queries::getCharityAndMetas()->findOrFail($request->integer('id'));
 
         return view('dashboard.charities.seCharity',['data' => $charity]);
     }

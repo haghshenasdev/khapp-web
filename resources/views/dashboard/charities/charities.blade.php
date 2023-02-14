@@ -12,7 +12,7 @@
                         افزودن خیریه جدید
                     </a>
 
-                    @livewire('charities-table-view')
+                    @livewire('tables.charities-table-view')
 
                 </div>
             </div>

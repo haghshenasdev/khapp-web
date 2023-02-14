@@ -12,7 +12,7 @@
                         افزودن نوع پرداخت جدید
                     </a>
 
-                    @livewire('pay-type-table')
+                    @livewire('tables.pay-type-table')
 
                 </div>
             </div>

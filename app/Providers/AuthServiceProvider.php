@@ -59,6 +59,11 @@ class AuthServiceProvider extends ServiceProvider
             return !Gate::allows('admin');
         });
 
+        //file_manager
+        Gate::define('file_manager',function (User $user){
+            return Gate::allows('admin');
+        });
+
         //users
         Gate::define('see-all-users',function (){
             return Gate::allows('super-admin');

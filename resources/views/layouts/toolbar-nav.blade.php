@@ -12,6 +12,11 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{route('darkhasts')}}">درخواست ها</a>
                     </li>
+                    @can('file_manager')
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{url('filemanager')}}">مدیریت فایل</a>
+                        </li>
+                    @endcan
                     @can('see-users')
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{route('users')}}">کاربران</a>

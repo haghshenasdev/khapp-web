@@ -12,7 +12,7 @@
                         افزودن نوع درخواست جدید
                     </a>
 
-                    @livewire('darkhast-type-table')
+                    @livewire('tables.darkhast-type-table')
 
                 </div>
             </div>

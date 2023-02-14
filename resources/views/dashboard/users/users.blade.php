@@ -8,7 +8,7 @@
                     <div class="card-header">کاربران</div>
 
                     <div class="card-body">
-                        @livewire('users-table-view')
+                        @livewire('tables.users-table-view')
                     </div>
                 </div>
 

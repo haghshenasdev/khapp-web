@@ -40,18 +40,37 @@
         })
 
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+
 @endsection
 
 @section('form-content')
 
     <div class="mb-3">
         <label for="amount" class="col-form-label">تصویر اصلی پروژه :</label>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+        <script>
+            var route_prefix = "/filemanager";
+        </script>
 
-        @isset($data)
-            <livewire:photo-preview :url="$data['image_head']"/>
-        @else
-            <livewire:photo-preview/>
-        @endisset
+        <label for="amount" class="col-form-label">تصویر پویش :</label>
+
+        <div class="input-group">
+   <span class="input-group-btn">
+     <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+       <i class="fa fa-picture-o">انتخاب</i>
+     </a>
+   </span>
+            <input id="thumbnail" class="form-control" type="text" name="image"
+                   value="@isset($data){{$data['image_head']}}@else{{ old('image') }}@endisset">
+        </div>
+        <img id="holder" style="margin-top:15px;max-height:100px;">
+
+        <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+        <script>
+            $('#lfm').filemanager('image');
+        </script>
+
     </div>
     @error('image')
     <div class="alert alert-danger">{{ $message }}</div>
@@ -85,17 +104,18 @@
         <label for="nullType">بدون امکان مشارکت در پروژه </label>
 
         @isset($data)
-            <livewire:pay-type :data="$data['type_pay']">
-        @else
-            <livewire:pay-type/>
-        @endisset
+            <livewire:components.pay-type :data="$data['type_pay']">
+                @else
+                    <livewire:components.pay-type/>
+                @endisset
 
-        <script>
-            function hid() {
-                document.getElementById('types').hidden = document.getElementById('nullType').checked;
-            }
-            hid();
-        </script>
+                <script>
+                    function hid() {
+                        document.getElementById('types').hidden = document.getElementById('nullType').checked;
+                    }
+
+                    hid();
+                </script>
 
     </div>
     @error('type')

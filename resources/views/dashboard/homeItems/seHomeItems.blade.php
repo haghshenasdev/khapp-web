@@ -14,16 +14,36 @@
     @endisset
 @endsection
 
+@section('header')
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+@endsection
+
 @section('form-content')
 
     <div class="mb-3">
         <label for="image" class="col-form-label">آیکون دکمه :</label>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+        <script>
+            var route_prefix = "/filemanager";
+        </script>
 
-        @isset($data)
-            <livewire:components.photo-preview :url="$data['image']"/>
-        @else
-            <livewire:components.photo-preview />
-        @endisset
+        <label for="amount" class="col-form-label">تصویر پویش :</label>
+
+        <div class="input-group">
+   <span class="input-group-btn">
+     <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+       <i class="fa fa-picture-o">انتخاب</i>
+     </a>
+   </span>
+            <input id="thumbnail" class="form-control" type="text" name="image"
+                   value="@isset($data){{$data['image']}}@else{{ old('image') }}@endisset">
+        </div>
+        <img id="holder" style="margin-top:15px;max-height:100px;">
+
+        <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+        <script>
+            $('#lfm').filemanager('image');
+        </script>
     </div>
     @error('image')
     <div class="alert alert-danger">{{ $message }}</div>

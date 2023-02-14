@@ -10,7 +10,7 @@
     @laravelViewsStyles
 </head>
 <body>
-@livewire('faktoors-table-view')
+@livewire('tables.faktoors-table-view')
 
 
 @laravelViewsScripts

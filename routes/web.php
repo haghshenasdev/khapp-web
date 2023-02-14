@@ -104,6 +104,10 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth']],function (){
 
 });
 
+Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth','can:file_manager']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
+
 Auth::routes();
 
 Route::get('invoice/{sabtid}',[\App\Http\Controllers\Pay::class,'invoice']);

@@ -12,7 +12,7 @@
                         افزودن پروژه جدید
                     </a>
 
-                    @livewire('projects-table-view')
+                    @livewire('tables.projects-table-view')
 
                 </div>
             </div>

@@ -19,9 +19,9 @@
             <label for="message-text" class="col-form-label">نوع درخواست :</label>
 
         @isset($data)
-            <livewire:darkhast-type :data="$data['type']">
+            <livewire:components.darkhast-type :data="$data['type']">
         @else
-            <livewire:darkhast-type />
+            <livewire:components.darkhast-type />
         @endisset
 
         </div>
