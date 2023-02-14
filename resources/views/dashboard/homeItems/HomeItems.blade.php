@@ -27,7 +27,7 @@
                                                     <div class="bg-blue-800 p-1" style="border-radius: 20px">
                                                         <img src="{{ $item->icon }}">
                                                     </div>
-                                                    <p>{{ $item->title }}</p>
+                                                    <p class="small">{{ $item->title }}</p>
                                                 </div>
                                             </a>
                                         @endforeach

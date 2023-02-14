@@ -84,9 +84,12 @@ class Pooyeshes extends Controller
         //subtype support
         if ($request->has('subType') && $request->integer('subType') != 0) $validData['type'] = $request->integer('subType');
 
+        $validData['type_pay'] = $validData['type'];
+        unset($validData['type']);
+        
         //date time convert to standard format
-        $validData['start'] = CalendarUtils::createDatetimeFromFormat('Y-m-d H:i:s', CalendarUtils::convertNumbers($validData['start'],true));
-        $validData['end'] = CalendarUtils::createDatetimeFromFormat('Y-m-d H:i:s', CalendarUtils::convertNumbers($validData['end'],true));
+        if (trim($validData['start']) != "") $validData['start'] = CalendarUtils::createDatetimeFromFormat('Y-m-d H:i:s', CalendarUtils::convertNumbers($validData['start'],true));
+        if (trim($validData['end']) != "") $validData['end'] = CalendarUtils::createDatetimeFromFormat('Y-m-d H:i:s', CalendarUtils::convertNumbers($validData['end'],true));
 
         return $validData;
     }
