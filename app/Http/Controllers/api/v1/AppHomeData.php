@@ -14,7 +14,7 @@ class AppHomeData extends Controller
 {
     public function index($charity)
     {
-        $homeItem = Queries::getHomeItems();
+        $homeItem = Queries::getHomeItems(true,$charity);
         foreach ($homeItem as $item){
             $item->action = json_decode($item->action);
         }
