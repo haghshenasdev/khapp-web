@@ -13,7 +13,7 @@
                     </a>
 
                     <div class="row">
-                        <div class="col">@livewire('tables.home-items-table')</div>
+                        <div class="col-12 col-lg">@livewire('tables.home-items-table')</div>
 
                         {{--phone--}}
                         <div class="col">

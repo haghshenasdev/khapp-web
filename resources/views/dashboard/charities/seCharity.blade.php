@@ -14,6 +14,10 @@
     @endisset
 @endsection
 
+@section('header')
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+@endsection
+
 @section('form-content')
 
     <div class="mb-3">
@@ -70,7 +74,28 @@
 
     <div class="mb-3">
         <label for="logo" class="col-form-label">لوگو خیریه :</label>
-        <input type="file" class="form-control" name="logo"/>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+        <script>
+            var route_prefix = "/filemanager";
+        </script>
+
+        <div class="input-group">
+   <span class="input-group-btn">
+     <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+       <i class="fa fa-picture-o">انتخاب</i>
+     </a>
+   </span>
+            <input id="thumbnail" class="form-control" type="text" name="logo"
+                   value="@isset($data){{$data['logo']}}@else{{ old('logo') }}@endisset">
+        </div>
+        <img id="holder" style="margin-top:15px;max-height:100px;">
+
+        <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+        <script>
+            $('#lfm').filemanager('image');
+        </script>
+
         <label class="col-form-label">فقط تصویر با فرمت png در ابعاد 100*100 پیکسل مورد قبول است.</label>
     </div>
     @error('logo')
@@ -79,11 +104,7 @@
 
     <div class="mb-3">
         <label for="message-text" class="col-form-label">درباره خیریه :</label>
-        <textarea name="about" class="form-control" id="message-text">@isset($data)
-                {{$data['about']}}
-            @else
-                {{ old('about') }}
-            @endisset</textarea>
+        <textarea name="about" class="form-control" id="message-text">@isset($data){{$data['about']}}@else{{ old('about') }}@endisset</textarea>
     </div>
     @error('about')
     <div class="alert alert-danger">{{ $message }}</div>

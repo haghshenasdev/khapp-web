@@ -22,6 +22,7 @@ Auth::routes();
 Route::group(['prefix' => 'dashboard','middleware' => ['auth']],function (){
     Route::get('/', [\App\Http\Controllers\dashboard\HomeController::class, 'index'])->name('dashboard');
     Route::get('profile', [\App\Http\Controllers\dashboard\Profile::class, 'index'])->name('profile');
+    Route::post('profile', [\App\Http\Controllers\dashboard\Profile::class, 'update'])->name('UpdateProfile');
 
     Route::group(['prefix' => 'users','middleware' => 'can:see-users'],function (){
         Route::get('/', [\App\Http\Controllers\dashboard\Users::class, 'index'])->name('users');
