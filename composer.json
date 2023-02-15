@@ -14,6 +14,7 @@
         "laravel/tinker": "^2.7",
         "morilog/jalali": "3.*",
         "omalizadeh/laravel-multi-payment": "^2.5",
+        "pishran/laravel-persian-slug": "^2.2",
         "tightenco/ziggy": "^1.0",
         "twbs/bootstrap": "5.2.2",
         "unisharp/laravel-filemanager": "^2.5"

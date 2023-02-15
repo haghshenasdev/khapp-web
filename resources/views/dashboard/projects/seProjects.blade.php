@@ -71,6 +71,15 @@
 @endsection
 
 @section('form-content')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <div class="mb-3">
         <label for="amount" class="col-form-label">تصویر اصلی پروژه :</label>
@@ -87,8 +96,8 @@
        <i class="fa fa-picture-o">انتخاب</i>
      </a>
    </span>
-            <input id="thumbnail" class="form-control" type="text" name="image"
-                   value="@isset($data){{$data['image_head']}}@else{{ old('image') }}@endisset">
+            <input id="thumbnail" class="form-control" type="text" name="image_head"
+                   value="@isset($data){{$data['image_head']}}@else{{ old('image_head') }}@endisset">
         </div>
         <img id="holder" style="margin-top:15px;max-height:100px;">
 
@@ -98,7 +107,7 @@
         </script>
 
     </div>
-    @error('image')
+    @error('image_head')
     <div class="alert alert-danger">{{ $message }}</div>
     @enderror
 

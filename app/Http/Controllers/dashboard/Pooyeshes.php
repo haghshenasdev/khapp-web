@@ -76,7 +76,7 @@ class Pooyeshes extends Controller
             'image' => ['required','string'],
             'amount' => ['required','numeric'],
             'type' => ['required','numeric'],
-            'charity' => [Rule::requiredIf(Gate::allows('super-admin')),'exists:charities,id'],
+            'charity' => [Rule::requiredIf(Gate::allows('see-all-pooyesh')),'exists:charities,id'],
         ]);
 
         if (!Gate::allows('super-admin')) $validData['charity'] = Auth::user()->charity;
@@ -86,7 +86,7 @@ class Pooyeshes extends Controller
 
         $validData['type_pay'] = $validData['type'];
         unset($validData['type']);
-        
+
         //date time convert to standard format
         if (trim($validData['start']) != "") $validData['start'] = CalendarUtils::createDatetimeFromFormat('Y-m-d H:i:s', CalendarUtils::convertNumbers($validData['start'],true));
         if (trim($validData['end']) != "") $validData['end'] = CalendarUtils::createDatetimeFromFormat('Y-m-d H:i:s', CalendarUtils::convertNumbers($validData['end'],true));

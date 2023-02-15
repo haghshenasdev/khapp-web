@@ -74,6 +74,16 @@
 
 @section('form-content')
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="mb-3">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
         <script>
@@ -162,7 +172,7 @@
     <div class="alert alert-danger">{{ $message }}</div>
     @enderror
 
-    @can('see-all-pooyeshes')
+    @can('see-all-pooyesh')
         <div class="mb-3">
             <label for="charity" class="col-form-label">خیریه:</label>
 

@@ -71,14 +71,12 @@ class Projects extends Controller
             'pishraft' => ['required','numeric','max:100','min:0'],
             'title' => ['required','string'],
             'description' => ['required','string'],
-            'image' => ['required','string'],
+            'image_head' => ['required','string'],
             'type' => [Rule::requiredIf(!$request->has('nullType')),'numeric'],
             'charity' => [Rule::requiredIf(Gate::allows('super-admin')),'exists:charities,id'],
         ]);
 
         if (!Gate::allows('super-admin')) $validData['charity'] = Auth::user()->charity;
-
-        $validData['image_head'] = $validData['image'];
 
         if ($request->has('nullType')){
             $validData['type'] = null;
@@ -88,7 +86,9 @@ class Projects extends Controller
         }
 
         $validData['type_pay'] = $validData['type'];
-
+        unset($validData['type']);
+        $validData['slug'] = str_slug_persian($validData['title']);
+        
         return $validData;
     }
 
