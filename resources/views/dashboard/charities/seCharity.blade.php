@@ -20,6 +20,16 @@
 
 @section('form-content')
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="mb-3">
         <label for="recipient-name" class="col-form-label">نام کوتاه:</label>
         <input name="shortname" type="text" class="form-control" id="recipient-name"
@@ -44,6 +54,15 @@
                value="@isset($data){{$data['phone']}}@else{{ old('phone')}}@endisset">
     </div>
     @error('phone')
+    <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
+
+    <div class="mb-3">
+        <label for="terminal_id" class="col-form-label">شماره ترمینال درگاه پرداخت سامان :</label>
+        <input name="terminal_id" type="text" class="form-control" id="terminal_id"
+               value="@isset($data){{$data['terminal_id']}}@else{{ old('terminal_id')}}@endisset">
+    </div>
+    @error('terminal_id')
     <div class="alert alert-danger">{{ $message }}</div>
     @enderror
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\charity;
 use App\Models\Faktoor;
+use App\queries\Queries;
 use Illuminate\Http\Request;
 use Omalizadeh\MultiPayment\Exceptions\PaymentAlreadyVerifiedException;
 use Omalizadeh\MultiPayment\Exceptions\PaymentFailedException;
@@ -14,7 +15,9 @@ class Pay extends Controller
 {
     public function invoice($sabtid)
     {
-        $faktoor = Faktoor::query()->where('sabtid',$sabtid)->first();
+        $faktoor = Faktoor::query()->where('sabtid',$sabtid)->firstOrFail();
+
+        $this->configPaymentBuyDatabaseData();
 
         $invoice = new Invoice($faktoor->amount);
         $invoice->setPhoneNumber(\App\Models\User::query()->find($faktoor->userid,'phone')->phone);
@@ -27,12 +30,13 @@ class Pay extends Controller
     public function verify(Request $request)
     {
         try {
+            $this->configPaymentBuyDatabaseData();
+
             // Get amount & transaction_id from database or gateway request
             $invoice = new Invoice($request->Amount,$request->ResNum);
             $receipt = PaymentGateway::verify($invoice);
             // Save receipt data and return response
             //
-            // $fk = Faktoor::query()->where('ResNum',$request->ResNum);
             $fk = Faktoor::where('ResNum',$request->ResNum)->first();
             $fk->is_pardakht = 1;
             $fk->save();
@@ -57,5 +61,12 @@ class Pay extends Controller
             // Handle exception for failed payments
             return view('pay.verify',['message' => $exception->getMessage(),]);
         }
+    }
+
+    private function configPaymentBuyDatabaseData()
+    {
+        $terminalID = Queries::getCharityTerminalid();
+
+        if (!is_null($terminalID)) config()->set('gateway_saman.main.terminal_id',$terminalID);
     }
 }

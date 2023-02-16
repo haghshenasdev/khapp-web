@@ -55,15 +55,15 @@
                                 <td dir="ltr">{{$receipt['CardNumber']}}</td>
                             </tr>
                             <tr>
-                                <td>شناسه پرداخت</td>
+                                <td>شناسه صورتحساب</td>
                                 <td>{{$receipt['InvoiceId']}}</td>
                             </tr>
                             <tr>
-                                <td>ReferenceId</td>
+                                <td>شماره ارجاع بانکی</td>
                                 <td>{{$receipt['ReferenceId']}}</td>
                             </tr>
                             <tr>
-                                <td>TraceNumber</td>
+                                <td>شماره پیگیری</td>
                                 <td>{{$receipt['TraceNumber']}}</td>
                             </tr>
                         </table>

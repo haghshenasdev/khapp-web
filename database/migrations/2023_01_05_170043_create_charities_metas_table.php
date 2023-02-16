@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('logo')->nullable();
             $table->string('website')->nullable();
             $table->string('phone',11)->nullable();
+            $table->integer('terminal_id')->nullable();
             $table->text('about')->nullable();
         });
     }

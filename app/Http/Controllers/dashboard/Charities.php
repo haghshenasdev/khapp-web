@@ -41,7 +41,7 @@ class Charities extends Controller
     {
         $validatedData = $this->getCharitiesValidator($request);
         $ch = charity::query()->findOrFail($request->integer('id'));
-
+        /// باگ در افزودن ترمینال id
         if(Gate::allows('update-charity',$ch)){
             $ch->update(
                 $this->getCharityDataFromRequest($validatedData)
@@ -82,6 +82,7 @@ class Charities extends Controller
             'phone' => ['required'],
             'website' => ['url'],
             'about' => ['string'],
+            'terminal_id' => ['numeric'],
         ]);
     }
 

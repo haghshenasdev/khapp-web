@@ -2,6 +2,7 @@
 
 namespace App\queries;
 
+use App\Models\CharitiesMeta;
 use App\Models\Darkhast;
 use App\Models\DarkhastStatus;
 use App\Models\HomeItem;
@@ -19,6 +20,11 @@ class Queries
             $qur->where($column,(is_null($charityId)) ? Auth::user()->charity : $charityId);
             if ($globalData) $qur->orWhere($column,0);
         });
+    }
+
+    public static function getCharityTerminalid() : int|null
+    {
+        return CharitiesMeta::query()->where('charity',Auth::user()->charity)->get('terminal_id')->first()->terminal_id;
     }
 
     /**

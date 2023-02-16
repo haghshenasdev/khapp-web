@@ -56,6 +56,7 @@ class DatabaseSeeder extends Seeder
 فعالیت خود را به صورت رسمی از تاریخ 1392/01/26 با هدف کمک به نیاز مندان و انجام امور خیر در حوزه های حمایتی و عمرانی و... آغاز کرده است . ',
                 'phone' => '03145753131',
                 'logo' => '/',
+                'terminal_id' => '21486240',
                 'charity' => 1,
             ]
         );
@@ -152,6 +153,7 @@ class DatabaseSeeder extends Seeder
           'address' => 'گرگاب ، بلوار امام ، خیابان آزادگان ، پلاک 75',
           'password' => Hash::make('@123456789'),
           'charity' => 1,
+          'access_level' => 0,
       ]);
 
       Faktoor::query()->insert([

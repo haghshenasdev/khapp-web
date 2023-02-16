@@ -13,5 +13,10 @@ class CharitiesMeta extends Model
 
     protected $hidden = [
         'charity',
+        'terminal_id',
+    ];
+
+    protected $fillable = [
+        'terminal_id',
     ];
 }
