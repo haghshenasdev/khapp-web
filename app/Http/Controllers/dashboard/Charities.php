@@ -83,16 +83,18 @@ class Charities extends Controller
             'website' => ['url'],
             'about' => ['string'],
             'terminal_id' => ['numeric'],
+            'logo' => ['url'],
         ]);
     }
 
-    private function getCharityDataFromRequest(array $validatedData,) : array
+    private function getCharityDataFromRequest(array $validatedData) : array
     {
         return [
             'shortname' => $validatedData['shortname'],
             'fullname' => $validatedData['fullname'],
             'terminal_id' => $validatedData['terminal_id'],
             'is_active' => 1,
+            'logo' => $validatedData['logo'],
         ];
     }
 
@@ -104,6 +106,7 @@ class Charities extends Controller
             'website' => $validatedData['website'],
             'about' => $validatedData['about'],
             'terminal_id' => $validatedData['terminal_id'],
+            'logo' => $validatedData['logo'],
         ];
     }
 }
