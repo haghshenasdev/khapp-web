@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',[\App\Http\Controllers\Home::class,'show']);
-Route::get('fk/{sabtid}',[\App\Http\Controllers\Home::class,'showFK']);
+Route::get('fk/{sabtid}',[\App\Http\Controllers\Home::class,'showFK'])->name('showFaktoor');
 
 Auth::routes();
 
