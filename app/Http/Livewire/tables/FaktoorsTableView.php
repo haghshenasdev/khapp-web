@@ -12,6 +12,7 @@ use App\Filters\MonthFiletr;
 use App\Filters\TypeFilter;
 use App\Http\Livewire\Current;
 use App\queries\Queries;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use LaravelViews\Facades\Header;
 use LaravelViews\Facades\UI;
@@ -56,7 +57,8 @@ class FaktoorsTableView extends TableView
         if (Gate::allows('see-all-faktoors')) $headers[] = "خیریه";
 
 
-        $headers[] = 'عملیات';
+        if (! \Illuminate\Support\Facades\Request::has('no_action')) $headers[] = 'عملیات';
+
         return $headers;
     }
 
@@ -86,11 +88,15 @@ class FaktoorsTableView extends TableView
 
     protected function actionsByRow(): array
     {
-        return[
+        $actions = [
             new PayFaktoorAction(),
             new DeleteAction('فاکتور','delete-faktoors'),
             new ShowAction('showfaktoor'),
         ];
+
+        if (\Illuminate\Support\Facades\Request::has('no_action')) $actions = [];
+
+        return $actions;
     }
 
     protected function filters(): array

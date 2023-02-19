@@ -9,7 +9,7 @@
 
                 <div class="card-body">
 
-                    <button onclick="window.open('{{ route('printfaktoors') }}' + window.location.search,'_blank')" class="btn btn-outline-primary">چاپ</button>
+                    <button onclick="window.open('{{ route('printfaktoors') }}' + window.location.search + '&no_action','_blank')" class="btn btn-outline-primary">چاپ</button>
 
                     @livewire('tables.faktoors-table-view')
                 </div>
