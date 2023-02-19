@@ -17,7 +17,7 @@ class Pay extends Controller
     {
         $faktoor = Faktoor::query()->where('sabtid',$sabtid)->firstOrFail();
 
-        $this->configPaymentBuyDatabaseData();
+        $this->configPaymentBuyDatabaseData($faktoor->charity);
 
         $invoice = new Invoice($faktoor->amount);
         $invoice->setPhoneNumber(\App\Models\User::query()->find($faktoor->userid,'phone')->phone);
@@ -30,14 +30,14 @@ class Pay extends Controller
     public function verify(Request $request)
     {
         try {
-            $this->configPaymentBuyDatabaseData();
-
-            // Get amount & transaction_id from database or gateway request
-            $invoice = new Invoice($request->Amount,$request->ResNum);
-            $receipt = PaymentGateway::verify($invoice);
             // Save receipt data and return response
             //
             $fk = Faktoor::where('ResNum',$request->ResNum)->first();
+            $this->configPaymentBuyDatabaseData($fk->charity);
+            // Get amount & transaction_id from database or gateway request
+            $invoice = new Invoice($request->Amount,$request->ResNum);
+            $receipt = PaymentGateway::verify($invoice);
+
             $fk->is_pardakht = 1;
             $fk->save();
 
@@ -63,9 +63,9 @@ class Pay extends Controller
         }
     }
 
-    private function configPaymentBuyDatabaseData()
+    private function configPaymentBuyDatabaseData($charity)
     {
-        $terminalID = Queries::getCharityTerminalid();
+        $terminalID = Queries::getCharityTerminalid($charity);
 
         if (!is_null($terminalID)) config()->set('gateway_saman.main.terminal_id',$terminalID);
     }

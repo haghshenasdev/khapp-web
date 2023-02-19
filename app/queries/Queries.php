@@ -22,9 +22,9 @@ class Queries
         });
     }
 
-    public static function getCharityTerminalid() : int|null
+    public static function getCharityTerminalid($charity) : int|null
     {
-        return CharitiesMeta::query()->where('charity',Auth::user()->charity)->get('terminal_id')->first()->terminal_id;
+        return CharitiesMeta::query()->where('charity',$charity)->get('terminal_id')->first()->terminal_id;
     }
 
     /**
