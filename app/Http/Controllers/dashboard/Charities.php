@@ -34,14 +34,14 @@ class Charities extends Controller
             $this->getCharityMetaDataFromRequest($validatedData,$charityId)
         );
 
-        return redirect(route('charities'));
+        return redirect(route('showCharity') . "?id=$charityId")->with('success','خیریه افزوده شد');
     }
 
     public function update(Request $request)
     {
         $validatedData = $this->getCharitiesValidator($request);
         $ch = charity::query()->findOrFail($request->integer('id'));
-        /// باگ در افزودن ترمینال id
+
         if(Gate::allows('update-charity',$ch)){
             $ch->update(
                 $this->getCharityDataFromRequest($validatedData)
@@ -51,7 +51,7 @@ class Charities extends Controller
             CharitiesMeta::query()->update(
                 $this->getCharityMetaDataFromRequest($validatedData,$ch->id)
             );
-            return redirect()->back();
+            return redirect()->back()->with('success', 'خیریه بروز رسانی شد .');
         }else abort(403);
     }
 
@@ -91,6 +91,7 @@ class Charities extends Controller
         return [
             'shortname' => $validatedData['shortname'],
             'fullname' => $validatedData['fullname'],
+            'terminal_id' => $validatedData['terminal_id'],
             'is_active' => 1,
         ];
     }
@@ -102,6 +103,7 @@ class Charities extends Controller
             'phone' => $validatedData['phone'],
             'website' => $validatedData['website'],
             'about' => $validatedData['about'],
+            'terminal_id' => $validatedData['terminal_id'],
         ];
     }
 }
