@@ -92,9 +92,7 @@ class Charities extends Controller
         return [
             'shortname' => $validatedData['shortname'],
             'fullname' => $validatedData['fullname'],
-            'terminal_id' => $validatedData['terminal_id'],
             'is_active' => 1,
-            'logo' => $validatedData['logo'],
         ];
     }
 
