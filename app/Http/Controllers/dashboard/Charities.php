@@ -79,11 +79,11 @@ class Charities extends Controller
         return $request->validate([
             'shortname' => ['required','string'],
             'fullname' => ['required','string'],
-            'phone' => ['required'],
+            'phone' => ['required','digits:11','numeric'],
             'website' => ['url'],
             'about' => ['string'],
-            'terminal_id' => ['numeric'],
-            'logo' => ['url'],
+            'terminal_id' => ['nullable','numeric'],
+            'logo' => ['required','url'],
         ]);
     }
 
