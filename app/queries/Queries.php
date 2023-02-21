@@ -151,7 +151,7 @@ class Queries
         }
         return \App\Models\User::query()
             ->join('charities', 'users.charity', '=', 'charities.id')
-            ->select(['users.id', 'users.name', 'users.email', 'users.phone', 'users.created_at', 'charities.shortname', 'users.access_level']);
+            ->select(['users.*', 'charities.shortname']);
     }
 
     public static function getAllDarkhastsTypes(bool $activeFilter = true,$charityId = null)

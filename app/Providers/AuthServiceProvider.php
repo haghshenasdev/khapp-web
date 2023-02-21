@@ -77,6 +77,20 @@ class AuthServiceProvider extends ServiceProvider
             return Gate::allows('see-all-users') or Gate::allows('see-charity-users');
         });
 
+        Gate::define('update-user',function (User $user,User $user2){
+            if (Gate::allows('super-admin')){
+                return  true;
+            }
+            if (Gate::allows('charity-admin')){
+                return $user2->charity === $user->charity;
+            }
+            return false;
+        });
+
+        Gate::define('delete-user',function (User $user,User $user2){
+            return $user->id != $user2->id and Gate::allows('update-user',$user2);
+        });
+
         //darkhasts
         Gate::define('see-all-darkhasts',function (){
             return Gate::allows('super-admin');

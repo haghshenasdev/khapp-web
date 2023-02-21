@@ -27,8 +27,10 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth']],function (){
     Route::group(['prefix' => 'users','middleware' => 'can:see-users'],function (){
         Route::get('/', [\App\Http\Controllers\dashboard\Users::class, 'index'])->name('users');
         Route::get('show', [\App\Http\Controllers\dashboard\Users::class, 'show'])->name('showUser');
+        Route::post('show', [\App\Http\Controllers\dashboard\Users::class, 'update'])->name('updateUser');
         Route::get('new', [\App\Http\Controllers\dashboard\Users::class, 'new'])->name('newUser');
         Route::post('new', [\App\Http\Controllers\dashboard\Users::class, 'create'])->name('createUser');
+        Route::delete('delete', [\App\Http\Controllers\dashboard\Users::class, 'delete'])->name('deleteUser');
     });
 
     Route::group(['prefix' => 'faktoors'],function (){

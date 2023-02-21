@@ -2,6 +2,9 @@
 
 namespace App\Http\Livewire\tables;
 
+use App\Actions\ActivateOrDeactiveAction;
+use App\Actions\DeleteAction;
+use App\Actions\ShowAction;
 use App\Http\Livewire\Current;
 use App\queries\Queries;
 use Illuminate\Support\Facades\Gate;
@@ -73,5 +76,14 @@ class UsersTableView extends TableView
             2 => 'کارمند خیریه',
             default => 'کاربر',
         };
+    }
+
+    protected function actionsByRow()
+    {
+        return [
+            new ShowAction('showUser'),
+//            new ActivateOrDeactiveAction('کاربر','update-user'),
+            new DeleteAction('کاربر','delete-user')
+        ];
     }
 }

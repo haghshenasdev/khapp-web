@@ -8,6 +8,10 @@
                     <div class="card-header">کاربران</div>
 
                     <div class="card-body">
+                        <a href="{{route('newUser')}}" class="btn btn-outline-success">
+                            افزودن کاربر جدید
+                        </a>
+
                         @livewire('tables.users-table-view')
                     </div>
                 </div>
