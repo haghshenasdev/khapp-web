@@ -8,6 +8,8 @@ use App\Models\CharitiesMeta;
 use App\Models\HomeItem;
 use App\Models\Pooyesh;
 use App\queries\Queries;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Http;
 
 class AppHomeData extends Controller
@@ -25,6 +27,11 @@ class AppHomeData extends Controller
                 ,
                 'pooyeshes' => \App\Models\Pooyesh::query()->where('charity',$charity)
                     ->where('is_active',1)
+                    ->where(function ($q){
+                        $q->where('start','<=',Carbon::now()->format('Y-m-d H:i:s'))->orWhere('start',null);
+                    })->where(function ($q){
+                        $q->where('end','>',Carbon::now()->format('Y-m-d H:i:s'))->orWhere('end',null);
+                    })
                     ->get(['id','title','image'])
                 ,
                 'projects' => \App\Models\Project::query()->where('charity',$charity)
