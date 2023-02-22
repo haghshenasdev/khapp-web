@@ -7,6 +7,7 @@ use App\Models\Pooyesh;
 use App\Models\Project;
 use App\Models\Type;
 use App\queries\Queries;
+use App\Rules\JalaliDateValidation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -71,8 +72,8 @@ class Pooyeshes extends Controller
          $validData = $request->validate([
             'title' => ['required','string'],
             'description' => ['required','string'],
-            'start' => '',
-            'end' => '',
+            'start' => ['nullable',new JalaliDateValidation('Y-m-d H:i:s')],
+            'end' => ['nullable',new JalaliDateValidation('Y-m-d H:i:s')],
             'image' => ['required','string'],
             'amount' => ['required','numeric'],
             'type' => ['required','numeric'],
