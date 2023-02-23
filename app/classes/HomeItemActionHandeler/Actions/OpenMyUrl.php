@@ -16,11 +16,11 @@ class OpenMyUrl extends hiAction
         $this->params['url'] = $url;
     }
 
-    public function validator(Request $request): array
+    public function vlidationRoules(): array
     {
-        return $request->validate([
+        return [
             'url' => ['required','url']
-        ]);
+        ];
     }
 
 }

@@ -6,6 +6,7 @@ use App\classes\HomeItemActionHandeler\hiHandeler;
 use App\Http\Controllers\Controller;
 use App\Models\homeItems;
 use App\queries\Queries;
+use App\Rules\CharityValidator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -72,7 +73,7 @@ class HomeItem extends Controller
             'image' => ['required'],
             'title' => ['required','string'],
             'action' => ['required','string'],
-            'charity' => [Rule::requiredIf(Gate::allows('super-admin')),'exists:charities,id'],
+            'charity' => [Rule::requiredIf(Gate::allows('super-admin')),'exists:charities,id',new CharityValidator()],
         ]);
 
         $validData['icon'] = $validData['image'];
@@ -80,7 +81,7 @@ class HomeItem extends Controller
 
         //item action handle
         $hiAction = (new hiHandeler)->getObjAction($validData['action']);
-        $hiAction->validateAndGetParams($request);
+        $this->validateWith($hiAction->validateAndGetParams($request));
         $validData['action'] = $hiAction->toJson();
 
         if (!Gate::allows('super-admin')) $validData['charity'] = Auth::user()->charity;

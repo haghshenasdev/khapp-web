@@ -18,7 +18,7 @@
             @foreach($params as $key => $param)
                 <div class="mb-3">
                     <label for="title" class="col-form-label">{{ __($key) }} :</label>
-                    <input name="{{$key}}" type="text" class="form-control" id="title"   @isset($selectedData[$key]) value="{{$selectedData[$key]}}" @endisset>
+                    <input name="hi-prop-{{$key}}" type="text" class="form-control" id="title"   @isset($selectedData[$key]) value="{{$selectedData[$key]}}" @endisset>
                 </div>
             @endforeach
         @endif

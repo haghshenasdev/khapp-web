@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\dashboard;
 
 use App\Models\User;
+use App\Rules\CharityValidator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -45,7 +46,7 @@ class Users extends Dashboard
             'access_level' => ['required','numeric'],
             'phone' => ['unique:'.User::class,'required','regex:/(09)[0-9]{9}/','digits:11','numeric'],
             'email' => ['unique:'.User::class,'string', 'email', 'max:255'],
-            'charity' => [Rule::requiredIf(Gate::allows('see-all-users')),'exists:charities,id'],
+            'charity' => [Rule::requiredIf(Gate::allows('see-all-users')),'exists:charities,id',new CharityValidator()],
             'password' => [Rule::requiredIf($forCreate), 'confirmed']
         ];
 

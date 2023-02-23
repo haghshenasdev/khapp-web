@@ -17,11 +17,11 @@ class openPayment extends hiAction
         $this->params['title'] = $title;
     }
 
-    public function validator(Request $request): array
+    public function vlidationRoules(): array
     {
-        return $request->validate([
+        return [
             'type' => ['required','numeric'],
             'title' => ['required','string'],
-        ]);
+        ];
     }
 }

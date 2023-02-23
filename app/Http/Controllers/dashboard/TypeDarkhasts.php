@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\DarkhastType;
 use App\Models\Type;
 use App\queries\Queries;
+use App\Rules\CharityValidator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -75,7 +76,7 @@ class TypeDarkhasts extends Controller
             'sub' => ['required','numeric'],
             'optional_sub_select' => ['bool'],
             'default' => ['bool'],
-            'charity' => [Rule::requiredIf(Gate::allows('super-admin')),'exists:charities,id'],
+            'charity' => [Rule::requiredIf(Gate::allows('super-admin')),'exists:charities,id',new CharityValidator()],
         ]);
 
         if (!Gate::allows('super-admin')) $validData['charity'] = Auth::user()->charity;

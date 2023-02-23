@@ -15,6 +15,8 @@ class DarkhastType extends Component
 
     public $typedata = null;
 
+    public bool $hasData = true;
+
     public function render()
     {
         if ($this->firstLoad){
@@ -31,7 +33,12 @@ class DarkhastType extends Component
             }else{
                 $default = Queries::getDarkhastsTypes()->where('default',1)->first();
                 if (is_null($default)) $default = Queries::getDarkhastsTypes()->first();
-                $this->showSub($default,$default->optional_sub_select);
+                if (!is_null($default)) {
+                    $this->showSub($default,$default->optional_sub_select);
+                }else{
+                    $this->hasData = false;
+                }
+
             }
             $this->firstLoad = false;
         }

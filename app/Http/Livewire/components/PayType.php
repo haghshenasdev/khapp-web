@@ -15,6 +15,8 @@ class PayType extends Component
 
     public $typedata = null;
 
+    public bool $hasData = true;
+
     public function render()
     {
         if ($this->firstLoad){
@@ -31,7 +33,11 @@ class PayType extends Component
             }else{
                 $default = Queries::getTypes()->where('default',1)->first();
                 if (is_null($default)) $default = Queries::getTypes()->first();
-                $this->showSub($default,$default->optional_sub_select);
+                if (!is_null($default)) {
+                    $this->showSub($default,$default->optional_sub_select);
+                }else{
+                    $this->hasData = false;
+                }
             }
             $this->firstLoad = false;
         }

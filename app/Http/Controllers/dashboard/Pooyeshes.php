@@ -7,6 +7,7 @@ use App\Models\Pooyesh;
 use App\Models\Project;
 use App\Models\Type;
 use App\queries\Queries;
+use App\Rules\CharityValidator;
 use App\Rules\JalaliDateValidation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -77,7 +78,7 @@ class Pooyeshes extends Controller
             'image' => ['required','string'],
             'amount' => ['required','numeric'],
             'type' => ['required','numeric'],
-            'charity' => [Rule::requiredIf(Gate::allows('see-all-pooyesh')),'exists:charities,id'],
+            'charity' => [Rule::requiredIf(Gate::allows('see-all-pooyesh')),'exists:charities,id',new CharityValidator()],
         ]);
 
         if (!Gate::allows('super-admin')) $validData['charity'] = Auth::user()->charity;

@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('types',function (Blueprint $t){
             $t->id();
-            $t->string('type_name',150);
             $t->string('title',150);
             $t->string('description')->nullable();
             $t->boolean('is_active')->default(1);

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\DarkhastType;
 use App\Models\Project;
 use App\queries\Queries;
+use App\Rules\CharityValidator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -73,7 +74,7 @@ class Projects extends Controller
             'description' => ['required','string'],
             'image_head' => ['required','string'],
             'type' => [Rule::requiredIf(!$request->has('nullType')),'numeric'],
-            'charity' => [Rule::requiredIf(Gate::allows('super-admin')),'exists:charities,id'],
+            'charity' => [Rule::requiredIf(Gate::allows('super-admin')),'exists:charities,id',new CharityValidator()],
         ]);
 
         if (!Gate::allows('super-admin')) $validData['charity'] = Auth::user()->charity;
@@ -88,7 +89,7 @@ class Projects extends Controller
         $validData['type_pay'] = $validData['type'];
         unset($validData['type']);
         $validData['slug'] = str_slug_persian($validData['title']);
-        
+
         return $validData;
     }
 
