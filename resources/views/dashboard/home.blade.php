@@ -27,7 +27,14 @@
                     <div class="card-header">آمار خیریه ها</div>
 
                     <div class="card-body">
-
+                        <div>
+                            {!! $chart->container() !!}
+                            {!! $chart->script() !!}
+                        </div>
+                        <div class="mt-3">
+                            {!! $daramadChart->container() !!}
+                            {!! $daramadChart->script() !!}
+                        </div>
                     </div>
                 </div>
 
@@ -35,5 +42,8 @@
         </div>
         @endcan
 
+
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
+
 @endsection
