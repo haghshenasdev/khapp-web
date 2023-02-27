@@ -20,6 +20,24 @@
             </div>
         </div>
 
+        @can('admin')
+            <div class="row justify-content-center mt-4">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">آمار خیریه</div>
+
+                        <div class="card-body">
+                            <div>
+                                {!! $daramadByMonthChart->container() !!}
+                                {!! $daramadByMonthChart->script() !!}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        @endcan
+
         @can('see-charities')
         <div class="row justify-content-center mt-4">
             <div class="col-md-8">

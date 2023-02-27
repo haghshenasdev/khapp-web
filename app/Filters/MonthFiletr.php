@@ -2,6 +2,7 @@
 
 namespace App\Filters;
 
+use App\queries\Queries;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Date;
 use LaravelViews\Filters\Filter;
@@ -22,19 +23,10 @@ class MonthFiletr extends Filter
     {
         if (is_null($value)) return $query;
 
-        if ($value == 'current') return $this->monthWhere($query,Jalalian::now()->getMonth());
-        if ($value == 'before') return $this->monthWhere($query,Jalalian::now()->subMonths()->getMonth());
+        if ($value == 'current') return Queries::monthWhere($query,Jalalian::now()->getMonth());
+        if ($value == 'before') return Queries::monthWhere($query,Jalalian::now()->subMonths()->getMonth());
 
-        return $this->monthWhere($query,$value);
-    }
-
-    private function monthWhere(Builder $query,$month)
-    {
-        $year = Jalalian::now()->getYear();
-        $from = new Jalalian($year,$month,1);
-        $to = new Jalalian($year,$month,$from->getMonthDays());
-
-        return $query->whereBetween('faktoors.updated_at', [$from->toCarbon()->toDateTimeString(), $to->toCarbon()->toDateTimeString()]);
+        return Queries::monthWhere($query,$value);
     }
 
     /**

@@ -10,6 +10,7 @@ use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Morilog\Jalali\Jalalian;
 
 class Queries
 {
@@ -264,5 +265,14 @@ class Queries
         }
 
         return (new Queries())->charityFilter($query,$charityId);
+    }
+
+    public static function monthWhere(Builder $query,$month)
+    {
+        $year = Jalalian::now()->getYear();
+        $from = new Jalalian($year,$month,1);
+        $to = new Jalalian($year,$month,$from->getMonthDays());
+
+        return $query->whereBetween('faktoors.updated_at', [$from->toCarbon()->toDateTimeString(), $to->toCarbon()->toDateTimeString()]);
     }
 }

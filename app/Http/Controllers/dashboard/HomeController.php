@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\dashboard;
 
+use App\Charts\CharityDaramadByMonthChart;
 use App\Charts\CharityDaramadChart;
 use App\Charts\CharityPayment;
 use App\Http\Controllers\Controller;
@@ -55,6 +56,10 @@ class HomeController extends Controller
             $charityNames = $charities->pluck('shortname');
             $data['chart'] = new CharityPayment($charities,$charityNames);
             $data['daramadChart'] = new CharityDaramadChart($charities,$charityNames);
+        }
+
+        if (Gate::allows('admin')){
+            $data['daramadByMonthChart'] = new CharityDaramadByMonthChart();
         }
 
         return view('dashboard.home',$data);
