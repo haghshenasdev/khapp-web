@@ -5,6 +5,7 @@ namespace App\Charts;
 use App\Models\Faktoor;
 use App\queries\Queries;
 use ConsoleTVs\Charts\Classes\Chartjs\Chart;
+use Illuminate\Support\Facades\Auth;
 use Morilog\Jalali\Jalalian;
 
 class CharityDaramadByMonthChart extends Chart
@@ -34,7 +35,9 @@ class CharityDaramadByMonthChart extends Chart
 
         $MonthDaramadSum = [];
         for ($i = 1; $i <= 12;$i++){
-            $MonthDaramadSum[] = Queries::monthWhere(Faktoor::query()->where('is_pardakht',1),$i)->sum('amount');
+            $MonthDaramadSum[] = Queries::monthWhere(Faktoor::query()
+                ->where('charity',Auth::user()->charity)
+                ->where('is_pardakht',1),$i)->sum('amount');
         }
         $this->dataset('درآمد','line',$MonthDaramadSum);
 
