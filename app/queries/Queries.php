@@ -275,4 +275,12 @@ class Queries
 
         return $query->whereBetween('faktoors.updated_at', [$from->toCarbon()->toDateTimeString(), $to->toCarbon()->toDateTimeString()]);
     }
+
+    public static function getRandomHadis($charity,$getPublicData = true)
+    {
+        $query = \App\Models\Hadis::query();
+
+        if ($getPublicData) return (new Queries())->charityFilter($query,$charity)->inRandomOrder()->first();
+        return $query->where('charity',$charity)->inRandomOrder()->first();
+    }
 }

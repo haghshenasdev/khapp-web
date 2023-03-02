@@ -41,7 +41,7 @@ class AppHomeData extends Controller
                 'slider' => \App\Models\Slider::query()->where('charity',$charity)
                     ->where('is_active',1)->get()
                 ,
-                'hadis' => \App\Models\Hadis::query()->where('charity',$charity)->inRandomOrder()->first(),
+                'hadis' => Queries::getRandomHadis($charity),
             ],
             'status' => 'success'
         ]);
