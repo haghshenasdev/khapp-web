@@ -38,8 +38,7 @@ class AppHomeData extends Controller
                     ->where('is_active',1)
                     ->get(['id','title','image_head','pishraft'])
                 ,
-                'slider' => \App\Models\Slider::query()->where('charity',$charity)
-                    ->where('is_active',1)->get()
+                'slider' => Queries::getSliders($charity)->get('image')
                 ,
                 'hadis' => Queries::getRandomHadis($charity),
             ],

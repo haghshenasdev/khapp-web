@@ -105,6 +105,15 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth']],function (){
         Route::delete('delete', [\App\Http\Controllers\dashboard\HomeItem::class, 'delete'])->name('deleteHomeItem');
     });
 
+    Route::group(['prefix' => 'sliders','middleware' => 'can:see-sliders'],function (){
+        Route::get('/', [\App\Http\Controllers\dashboard\Sliders::class, 'index'])->name('Sliders');
+        Route::get('new', [\App\Http\Controllers\dashboard\Sliders::class, 'new'])->name('newSlider');
+        Route::post('new', [\App\Http\Controllers\dashboard\Sliders::class, 'create'])->name('createSlider');
+        Route::get('show', [\App\Http\Controllers\dashboard\Sliders::class, 'show'])->name('showSlider');
+        Route::post('show', [\App\Http\Controllers\dashboard\Sliders::class, 'update'])->name('updateSlider');
+        Route::delete('delete', [\App\Http\Controllers\dashboard\Sliders::class, 'delete'])->name('deleteSlider');
+    });
+
 });
 
 Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth','can:file_manager']], function () {

@@ -283,4 +283,19 @@ class Queries
         if ($getPublicData) return (new Queries())->charityFilter($query,$charity)->inRandomOrder()->first();
         return $query->where('charity',$charity)->inRandomOrder()->first();
     }
+
+    public static function getSliders($charityId = null,bool $activeFilter = true)
+    {
+        $query = \App\Models\Slider::query();
+
+        if ($activeFilter){
+            $query->where('is_active',1);
+        }
+
+        if (Gate::allows('super-admin')) {
+            return $query;
+        }
+
+        return (new Queries())->charityFilter($query,$charityId);
+    }
 }

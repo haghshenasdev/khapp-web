@@ -10,6 +10,7 @@ use App\Models\Faktoor;
 use App\Models\HomeItem;
 use App\Models\Pooyesh;
 use App\Models\Project;
+use App\Models\Slider;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -286,6 +287,29 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('delete-homeItems',function (User $user,HomeItem $HomeItem){
             return Gate::allows('update-homeItems',$HomeItem);
+        });
+
+        //Sliders
+        Gate::define('see-sliders',function (){
+            return Gate::allows('super-admin') or Gate::allows('charity-admin');
+        });
+
+        Gate::define('see-all-sliders',function (){
+            return Gate::allows('super-admin');
+        });
+
+        Gate::define('update-sliders',function (User $user,Slider $Slider){
+            if (Gate::allows('super-admin')){
+                return  true;
+            }
+            if (Gate::allows('charity-admin') or Gate::allows('employee-admin')){
+                return $Slider->charity === $user->charity;
+            }
+            return false;
+        });
+
+        Gate::define('delete-sliders',function (User $user,Slider $Slider){
+            return Gate::allows('update-sliders',$Slider);
         });
     }
 }

@@ -53,6 +53,12 @@
                         </li>
                     @endcan
 
+                    @can('see-sliders')
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ route('Sliders') }}">اسلایدر</a>
+                        </li>
+                    @endcan
+
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">تنظیمات</a>
                     </li>

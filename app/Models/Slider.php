@@ -13,4 +13,8 @@ class Slider extends Model
 
     protected $hidden = ['is_active','charity','id'];
 
+    protected $fillable = ['image'];
+
+    public $timestamps = false;
+
 }
