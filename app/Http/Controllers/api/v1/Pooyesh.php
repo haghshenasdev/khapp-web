@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Faktoor;
 use Illuminate\Http\Request;
 
 class Pooyesh extends Controller
@@ -14,8 +15,12 @@ class Pooyesh extends Controller
             ->where('charity', $charity);
 
         if ($request->has('id')){
+            $data = $queryBase->findOrFail($request->input('id'))->toArray();
+            if (!is_null($data['amount'])){
+                $data['persent_tamin']  = Faktoor::query()->where('is_pardakht',1)->where('type',$data['type_pay'])->where('charity',$charity)->sum('amount') * 100 / $data['amount'];
+            }
             return [
-                'data' => $queryBase->findOrFail($request->input('id'))
+                'data' => $data
             ];
         }
 
