@@ -16,7 +16,7 @@ class Pooyesh extends Controller
 
         if ($request->has('id')){
             $data = $queryBase->findOrFail($request->input('id'))->toArray();
-            if (!is_null($data['amount'])){
+            if (!is_null($data['amount']) and $data['amount'] != 0){
                 $data['persent_tamin']  = Faktoor::query()->where('is_pardakht',1)->where('type',$data['type_pay'])->where('charity',$charity)->sum('amount') * 100 / $data['amount'];
             }
             return [
