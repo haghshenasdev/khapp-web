@@ -57,8 +57,8 @@ class CharitiesTableView extends TableView
     protected function actionsByRow()
     {
         return [
-            new AOrDCharity('خیریه',null),
-            new DeleteAction('خیریه',null),
+            new AOrDCharity('خیریه','update-charity'),
+            new DeleteAction('خیریه','delete-charity'),
             new ShowAction('showCharity'),
         ];
     }

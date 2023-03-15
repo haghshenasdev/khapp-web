@@ -311,5 +311,20 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('delete-sliders',function (User $user,Slider $Slider){
             return Gate::allows('update-sliders',$Slider);
         });
+
+        //charity
+        Gate::define('update-charity',function (User $user,Charity $charity){
+            if (Gate::allows('super-admin')){
+                return  true;
+            }
+            if (Gate::allows('charity-admin')){
+                return $charity->id === $user->charity;
+            }
+            return false;
+        });
+
+        Gate::define('delete-charity',function (User $user,Charity $charity){
+            return Gate::allows('super-admin');
+        });
     }
 }
