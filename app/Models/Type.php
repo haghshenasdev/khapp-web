@@ -15,6 +15,7 @@ class Type extends Model
 
     protected $fillable = [
         'title',
+        'slug',
         'description',
         'is_active',
         'charity',

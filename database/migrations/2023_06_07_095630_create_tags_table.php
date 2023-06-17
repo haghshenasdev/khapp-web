@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
             $table->string('bename');
-            $table->smallInteger('status'); // null = entezar pardakht, 0 = sabt shodeh, 1 = chap , 2 = garar gerefteh
+            $table->smallInteger('status')->nullable(); // null = entezar pardakht, 0 = sabt shodeh, 1 = chap , 2 = garar gerefteh
             $table->foreignId('payed')->nullable()->constrained('faktoors')->nullOnDelete();
             $table->timestamps();
             $table->foreignId('user')->constrained('users');

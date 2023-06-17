@@ -12,12 +12,17 @@ use App\Models\DarkhastType;
 use App\Models\Faktoor;
 use App\Models\Hadis;
 use App\Models\HomeItem;
+use App\Models\Marasem;
 use App\Models\Pooyesh;
 use App\Models\Project;
 use App\Models\Slider;
+use App\Models\Tag;
+use App\Models\TagTarh;
+use App\Models\TagType;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -75,23 +80,29 @@ class DatabaseSeeder extends Seeder
       ]]);
 
       Type::insert([
-          'type_name' => 'projects',
+          'slug' => 'projects',
           'title' => 'پروژه های عمرانی',
           'charity' => 1,
       ]);
 
         Type::insert([
                 [
-                    'type_name' => 'alamdar',
+                    'slug' => 'alamdar',
                     'title' => 'پروژه علمدار',
                     'charity' => 1,
                     'sub' => 1,
                 ],[
-                'type_name' => 'ezdevaj',
+                'slug' => 'ezdevaj',
                 'title' => 'پروژه مسکن ازدواج',
                 'charity' => 1,
                 'sub' => 1,
-            ]
+            ],
+        ]);
+        Type::query()->insert([
+            'slug' => 'tag',
+            'title' => 'تاج گل',
+            'charity' => 1,
+            'is_active' => 0,
         ]);
 
       Pooyesh::insert([
@@ -106,10 +117,10 @@ class DatabaseSeeder extends Seeder
       ]);
 
       Slider::insert([[
-          'url' => 'https://kheiriehemamali.ir/css/images/orzans-115/%D8%A7%D9%88%D8%B1%DA%98%D8%A7%D9%86%D8%B3.jpg',
+          'image' => 'https://kheiriehemamali.ir/css/images/orzans-115/%D8%A7%D9%88%D8%B1%DA%98%D8%A7%D9%86%D8%B3.jpg',
           'charity' => 1,
       ],[
-          'url' => 'https://kheiriehemamali.ir/css/images/salamat/%D9%85%D8%B1%DA%A9%D8%B2%20%D8%AC%D8%A7%D9%85%D8%B9%20%D8%B3%D9%84%D8%A7%D9%85%D8%AA.jpg',
+          'image' => 'https://kheiriehemamali.ir/css/images/salamat/%D9%85%D8%B1%DA%A9%D8%B2%20%D8%AC%D8%A7%D9%85%D8%B9%20%D8%B3%D9%84%D8%A7%D9%85%D8%AA.jpg',
           'charity' => 1,
       ]]);
 
@@ -216,5 +227,67 @@ class DatabaseSeeder extends Seeder
           'description' => 'قبل از ارسال صندوق با بنده تماس بگیرید',
           'charity' => 1,
       ]);
+
+      TagType::query()->insert([
+          [
+              'charity' => 1,
+              'title' => 'ایستاده بزرگ ',
+              'img' => 'https://rezvanflower.ir/wp-content/uploads/2018/08/TT-tarhim-149.jpg',
+              'amount' => 250000,
+              'count' => 20,
+          ],
+          [
+              'charity' => 1,
+              'title' => 'ایستاده بزرگ 2',
+              'img' => 'https://bakhtarflower.com/wp-content/uploads/2022/10/%DB%B2%DB%B0%DB%B2%DB%B2%DB%B0%DB%B5%DB%B1%DB%B2_%DB%B1%DB%B7%DB%B3%DB%B7%DB%B4%DB%B0.jpg',
+              'amount' => 200000,
+              'count' => 1,
+          ]
+      ]);
+
+      TagTarh::query()->insert([
+          'charity' => 1,
+          'name' => 'طرح طلایی رنگ',
+          'img' => 'https://www.cafepsd.com/wp-content/uploads/2018/05/Tarhim3797.jpg',
+      ]);
+
+      Marasem::query()->insert([
+          [
+              'charity' => 1,
+              'created_by' => 1,
+              'location' => 'مسجد جامع شهر گرگاب',
+              'marhoom_name' => 'فلانی ابن فلانی',
+              'date' => now(),
+              'is_active' => 1,
+          ],
+          [
+              'charity' => 1,
+              'created_by' => 1,
+              'location' => 'مسجد جامع شهر گرگاب',
+              'marhoom_name' => 'یه بنده خدا',
+              'date' => now(),
+              'is_active' => 0,
+          ]
+      ]);
+
+      Tag::query()->insert([
+          [
+              'bename' => 'محمد مهدی حق شناس',
+              'user' => 1,
+              'marasem' => 1,
+              'type' => 1,
+              'tarh' => 1,
+              'charity' => 1,
+          ],
+          [
+              'bename' => 'محمد جواد بیدرام',
+              'user' => 1,
+              'marasem' => 2,
+              'type' => 2,
+              'tarh' => 1,
+              'charity' => 1,
+          ]
+      ]);
+
     }
 }

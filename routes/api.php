@@ -39,7 +39,6 @@ Route::group(['prefix' => 'v1/{charity}','middleware' => ['charitycheck']],funct
     Route::group(['middleware' => ['auth:sanctum']],function (){
         Route::post('pay',[\App\Http\Controllers\api\v1\Pay::class,'pay']);
 
-
         Route::group(['prefix' => 'profile'],function (){
             Route::get('/',[\App\Http\Controllers\api\v1\profile\Profile::class,'index']);
             Route::post('/update',[\App\Http\Controllers\api\v1\profile\Profile::class,'update']);
@@ -57,6 +56,20 @@ Route::group(['prefix' => 'v1/{charity}','middleware' => ['charitycheck']],funct
 
                 Route::get('/type',[\App\Http\Controllers\api\v1\profile\Darkhast::class,'type']);
             });
+        });
+
+        Route::group(['prefix' => 'marasem'],function(){
+            Route::get('/',[\App\Http\Controllers\api\v1\Marasem::class,'getMarasem']);
+//            Route::post('/create',[\App\Http\Controllers\api\v1\Marasem::class,'createMarasem']);
+        });
+
+        Route::group(['prefix' => 'taj'],function(){
+            Route::get('/tarh',[\App\Http\Controllers\api\v1\Tag::class,'getTagTarh']);
+            Route::get('/type',[\App\Http\Controllers\api\v1\Tag::class,'getTagType']);
+            Route::get('/user-order',[\App\Http\Controllers\api\v1\Tag::class,'getUserOrder']);
+
+            Route::post('/create-order',[\App\Http\Controllers\api\v1\Tag::class,'createOrder']);
+//            Route::post('/create',[\App\Http\Controllers\api\v1\Marasem::class,'createMarasem']);
         });
     });
 });

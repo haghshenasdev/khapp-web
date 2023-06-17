@@ -17,6 +17,7 @@ return new class extends Migration
             $t->id();
             $t->string('title',150);
             $t->string('description')->nullable();
+            $t->string('slug')->nullable();
             $t->boolean('is_active')->default(1);
             $t->unsignedBigInteger('sub')->unsigned()->nullable();
             $t->boolean('default')->nullable();

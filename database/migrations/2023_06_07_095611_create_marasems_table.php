@@ -16,11 +16,12 @@ return new class extends Migration
         Schema::create('marasems', function (Blueprint $table) {
             $table->id();
             $table->foreignId('charity')->constrained('charities')->cascadeOnDelete();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->string('location');
             $table->string('marhoom_name');
             $table->smallInteger('marasem_type')->nullable(); // null = tarhim, 0 = hafeth, 1 = chehelom , 2 = sal
             $table->timestamp('date');
-            $table->boolean("is_active")->default(1);
+            $table->boolean("is_active")->default(0);
         });
     }
 

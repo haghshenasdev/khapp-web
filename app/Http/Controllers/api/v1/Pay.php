@@ -16,6 +16,7 @@ use function PHPUnit\Framework\isNull;
 
 class Pay extends Controller
 {
+    public $faktoorId = null;
 
     public function pay(Request $request,$charity)
     {
@@ -27,7 +28,7 @@ class Pay extends Controller
         $user = Auth::user();
         $sabtId = '110-' . Str::random(9);
 
-        $faktoorId = Faktoor::query()->insertGetId([
+        $this->faktoorId = Faktoor::query()->insertGetId([
             'userid' => $user->id,
             'amount' => $request->input('amount'),
             'type' => $request->input('type'),
@@ -37,7 +38,7 @@ class Pay extends Controller
 
         return response()->json([
             'url' => url('/invoice/'.$sabtId),
-            'faktoorId' => $faktoorId,
+            'faktoorId' => $this->faktoorId,
         ]);
     }
 
