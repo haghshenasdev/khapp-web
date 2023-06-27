@@ -17,14 +17,25 @@ class Pay extends Controller
     {
         $faktoor = Faktoor::query()->where('sabtid',$sabtid)->firstOrFail();
 
-        $this->configPaymentBuyDatabaseData($faktoor->charity);
+        if ($faktoor->is_pardakht != 1 ) {
+            $this->configPaymentBuyDatabaseData($faktoor->charity);
 
-        $invoice = new Invoice($faktoor->amount);
-        $invoice->setPhoneNumber(\App\Models\User::query()->find($faktoor->userid,'phone')->phone);
+            $invoice = new Invoice($faktoor->amount);
+            $invoice->setPhoneNumber(\App\Models\User::query()->find($faktoor->userid,'phone')->phone);
 
-        return PaymentGateway::purchase($invoice, function (string $transactionId) use ($sabtid) {
-            Faktoor::query()->where('sabtid',$sabtid)->update(['ResNum' => $transactionId]);
-        })->view();
+            return PaymentGateway::purchase($invoice, function (string $transactionId) use ($sabtid) {
+                Faktoor::query()->where('sabtid',$sabtid)->update(['ResNum' => $transactionId]);
+            })->view();
+        }
+
+        return view('pay.verify',[
+            'message' => 'این فاکتور قبلا پرداخت شده است.',
+            'success' => true,
+            'charity' => charity::query()
+                ->find($faktoor->charity,'shortname')
+                ->shortname,
+            'data' => $faktoor,
+        ]);
     }
 
     public function verify(Request $request)
