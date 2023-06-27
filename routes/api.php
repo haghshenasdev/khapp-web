@@ -35,6 +35,10 @@ Route::group(['prefix' => 'v1/{charity}','middleware' => ['charitycheck']],funct
 
     Route::post('verify',[\App\Http\Controllers\api\v1\Pay::class,'verify']);
 
+    Route::group(['prefix' => 'blog'],function (){
+        Route::get('post',[\App\Http\Controllers\api\v1\Blog::class,'getPosts']);
+    });
+
     // auth required routs
     Route::group(['middleware' => ['auth:sanctum']],function (){
         Route::post('pay',[\App\Http\Controllers\api\v1\Pay::class,'pay']);
