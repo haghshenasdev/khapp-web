@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\charity;
 use App\Models\Faktoor;
+use App\Models\User;
 use App\queries\Queries;
 use Illuminate\Http\Request;
 use Omalizadeh\MultiPayment\Exceptions\PaymentAlreadyVerifiedException;
@@ -18,14 +19,28 @@ class Pay extends Controller
         $faktoor = Faktoor::query()->where('sabtid',$sabtid)->firstOrFail();
 
         if ($faktoor->is_pardakht != 1 ) {
-            $this->configPaymentBuyDatabaseData($faktoor->charity);
+            // for admin pay test
+            if($this->isUserFaktoorAdmin($faktoor)){
+                $faktoor->is_pardakht = 1;
+                $faktoor->save();
+                return view('pay.verify',[
+                    'message' => 'فاکتور جهت تست پرداخت شد .',
+                    'success' => true,
+                    'charity' => charity::query()
+                        ->find($faktoor->charity,'shortname')
+                        ->shortname]
+                );
+            }else{
+                $this->configPaymentBuyDatabaseData($faktoor->charity);
 
-            $invoice = new Invoice($faktoor->amount);
-            $invoice->setPhoneNumber(\App\Models\User::query()->find($faktoor->userid,'phone')->phone);
+                $invoice = new Invoice($faktoor->amount);
+                $invoice->setPhoneNumber(\App\Models\User::query()->find($faktoor->userid,'phone')->phone);
 
-            return PaymentGateway::purchase($invoice, function (string $transactionId) use ($sabtid) {
-                Faktoor::query()->where('sabtid',$sabtid)->update(['ResNum' => $transactionId]);
-            })->view();
+                return PaymentGateway::purchase($invoice, function (string $transactionId) use ($sabtid) {
+                    Faktoor::query()->where('sabtid',$sabtid)->update(['ResNum' => $transactionId]);
+                })->view();
+            }
+
         }
 
         return view('pay.verify',[
@@ -79,5 +94,10 @@ class Pay extends Controller
         $terminalID = Queries::getCharityTerminalid($charity);
 
         if (!is_null($terminalID)) config()->set('gateway_saman.main.terminal_id',$terminalID);
+    }
+
+    private function isUserFaktoorAdmin(Faktoor $faktoor)
+    {
+        return User::query()->find($faktoor->userid,'access_level')->access_level == 0;
     }
 }
