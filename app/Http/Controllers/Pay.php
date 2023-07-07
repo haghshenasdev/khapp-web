@@ -7,6 +7,7 @@ use App\Models\Faktoor;
 use App\Models\User;
 use App\queries\Queries;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Omalizadeh\MultiPayment\Exceptions\PaymentAlreadyVerifiedException;
 use Omalizadeh\MultiPayment\Exceptions\PaymentFailedException;
 use Omalizadeh\MultiPayment\Facades\PaymentGateway;
@@ -20,7 +21,7 @@ class Pay extends Controller
 
         if ($faktoor->is_pardakht != 1 ) {
             // for admin pay test
-            if($this->isUserFaktoorAdmin($faktoor)){
+            if(Gate::allows('super-admin',[$faktoor->userid])){
                 $faktoor->is_pardakht = 1;
                 $faktoor->save();
                 return view('pay.verify',[
@@ -94,10 +95,5 @@ class Pay extends Controller
         $terminalID = Queries::getCharityTerminalid($charity);
 
         if (!is_null($terminalID)) config()->set('gateway_saman.main.terminal_id',$terminalID);
-    }
-
-    private function isUserFaktoorAdmin(Faktoor $faktoor)
-    {
-        return User::query()->find($faktoor->userid,'access_level')->access_level == 0;
     }
 }
