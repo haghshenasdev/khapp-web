@@ -9,7 +9,7 @@ abstract class hiAction
 {
     public string $fName;
 
-    public array $params;
+    public array|null $params = null;
 
     public string $actionTitle;
 
