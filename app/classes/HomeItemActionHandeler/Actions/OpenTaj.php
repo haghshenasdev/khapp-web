@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class OpenTaj extends hiAction
 {
-    public string $fName = 'OpenMyUrl';
+    public string $fName = 'taj';
 
     public string $actionTitle = 'بازکردن صفحه تاج گل';
 
