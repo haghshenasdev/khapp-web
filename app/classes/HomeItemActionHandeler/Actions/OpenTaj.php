@@ -13,6 +13,7 @@ class OpenTaj extends hiAction
 
     public function __construct()
     {
+        $this->params['null'] = "null";
     }
 
     public function vlidationRoules(): array
