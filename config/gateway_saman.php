@@ -20,7 +20,7 @@ return [
      */
     'main' => [
         'terminal_id' => '21486240',
-        'callback_url' => 'https://khapp.kheiriehemamali.ir/verify',
+        'callback_url' => 'https://kh-app.ir/verify',
         'callback_method' => 'POST', // supported values: POST, GET
         'description' => 'payment using saman',
     ],
