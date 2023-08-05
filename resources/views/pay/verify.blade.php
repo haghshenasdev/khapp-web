@@ -40,7 +40,7 @@
                     @isset($message)
                         <h3>{{$message}}</h3>
                     @endisset
-                    <a class="btn btn-primary mx-auto" href="https://kheyriehemamali">بازگشت به برنام</a>
+                    <a class="btn btn-primary mx-auto" href="https://kheiriehemamali/">بازگشت به برنام</a>
                     <p class="my-4">جهت بازگشت به برنامه ، مرورگر را ببندید و برنامه خیریه را باز کنید .</p>
 
                     {{--data--}}
