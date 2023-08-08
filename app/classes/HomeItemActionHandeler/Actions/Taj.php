@@ -5,7 +5,7 @@ namespace App\classes\HomeItemActionHandeler\Actions;
 use App\classes\HomeItemActionHandeler\hiAction;
 use Illuminate\Http\Request;
 
-class OpenTaj extends hiAction
+class Taj extends hiAction
 {
     public string $fName = 'taj';
 
